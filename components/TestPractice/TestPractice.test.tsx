@@ -1,19 +1,22 @@
 import TestPractice from "./TestPractice";
 import { render, screen } from "@testing-library/react";
+import { act } from "react-dom/test-utils";
 
 describe("Renders correct number", () => {
   it("Renders correct start number", () => {
     render(<TestPractice />);
-    const display = screen.getByText(/current number:/i);
-    expect(display).toHaveTextContent(/current number: 0/i);
+    const display = screen.getByText("Current number: 0");
+    expect(display).toHaveTextContent("Current number: 0");
   });
 
   it("Increments", () => {
     render(<TestPractice />);
     const button = screen.getByText(/click/i);
-    button.click();
-    button.click();
-    const display = screen.getByText(/current number:/i);
-    expect(display).toHaveTextContent(/current number: 2/i);
+    act(() => {
+      button.click();
+      button.click();
+    });
+    const display = screen.getByText("Current number: 2");
+    expect(display).toHaveTextContent("Current number: 2");
   });
 });
