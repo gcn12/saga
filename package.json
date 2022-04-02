@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
+    "dev": "NEXT_PUBLIC_BACKEND_URL=http://localhost:3001 next dev",
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
@@ -21,9 +21,11 @@
     "@testing-library/react": "^13.0.0",
     "@tiptap/react": "^2.0.0-beta.108",
     "@tiptap/starter-kit": "^2.0.0-beta.183",
+    "@types/faker": "^6.6.9",
     "@types/styled-components": "^5.1.24",
     "babel-jest": "^27.5.1",
     "cypress": "^9.5.3",
+    "faker": "^6.6.6",
     "framer-motion": "^6.2.8",
     "jest": "^27.5.1",
     "moment": "^2.29.1",
@@ -40,7 +42,7 @@
     "@types/react-dom": "17.0.14",
     "eslint": "8.12.0",
     "eslint-config-next": "12.1.4",
-    "typescript": "4.6.3",
-    "husky": "^7.0.0"
+    "husky": "^7.0.0",
+    "typescript": "4.6.3"
   }
 }
