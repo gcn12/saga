@@ -42,12 +42,12 @@ export default function CreateUserForm({
           );
         })}
 
-        <label style={{ display: "flex", flexDirection: "column" }}>
+        <Label style={{ display: "flex", flexDirection: "column" }}>
           Career:
           <TipTap setText={setCareer} allowBulletList={false} />
-        </label>
+        </Label>
 
-        <label
+        <Label
           style={{
             display: "flex",
             flexDirection: "column",
@@ -55,7 +55,7 @@ export default function CreateUserForm({
         >
           Bio:
           <Textarea onChange={(e) => setBio(e.target.value)} />
-        </label>
+        </Label>
 
         <div></div>
         <SubmitButton type="button" onClick={createUser}>
@@ -69,6 +69,7 @@ export default function CreateUserForm({
 const Label = styled.label`
   display: flex;
   flex-direction: column;
+  margin-bottom: 20px;
 `;
 
 const Container = styled.div`

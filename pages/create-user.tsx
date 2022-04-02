@@ -117,5 +117,4 @@ export default function CreateUser() {
 const Container = styled.div`
   display: flex;
   margin-top: 50px;
-  min-height: 90vh;
 `;
