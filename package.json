@@ -6,12 +6,33 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "cypress": "cypress open",
+    "cypress:run": "cypress run",
+    "test": "jest --watch",
+    "test:no-watch": "jest",
+    "prepare": "husky install"
   },
   "dependencies": {
+    "@reach/dialog": "^0.16.2",
+    "@reach/menu-button": "^0.16.2",
+    "@testing-library/cypress": "^8.0.2",
+    "@testing-library/jest-dom": "^5.16.3",
+    "@testing-library/react": "^13.0.0",
+    "@tiptap/react": "^2.0.0-beta.108",
+    "@tiptap/starter-kit": "^2.0.0-beta.183",
+    "@types/styled-components": "^5.1.24",
+    "babel-jest": "^27.5.1",
+    "cypress": "^9.5.3",
+    "framer-motion": "^6.2.8",
+    "jest": "^27.5.1",
+    "moment": "^2.29.1",
     "next": "12.1.4",
     "react": "18.0.0",
-    "react-dom": "18.0.0"
+    "react-dom": "18.0.0",
+    "react-test-renderer": "^18.0.0",
+    "styled-components": "^5.3.5",
+    "styled-jsx": "^5.0.2"
   },
   "devDependencies": {
     "@types/node": "17.0.23",
@@ -19,6 +40,7 @@
     "@types/react-dom": "17.0.14",
     "eslint": "8.12.0",
     "eslint-config-next": "12.1.4",
-    "typescript": "4.6.3"
+    "typescript": "4.6.3",
+    "husky": "^7.0.0"
   }
 }
