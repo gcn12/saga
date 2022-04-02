@@ -51,8 +51,6 @@ export default function AddBlogModal({
       name: selectedTab.name,
     };
 
-    console.log(blogContent);
-
     const res = await fetch(
       `${process.env.NEXT_PUBLIC_BACKEND_URL}/add-tab-preview`,
       {
