@@ -223,7 +223,6 @@ const Container = styled.div`
   align-items: flex-start;
   margin: 40px 0;
   gap: 30px;
-  height: 900px;
 `;
 
 const Card = styled(motion.div)`

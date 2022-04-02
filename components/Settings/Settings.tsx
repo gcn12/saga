@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
+import Tabs from "./Tabs";
 import {
   AccentColorsType,
   accentColors,
@@ -7,7 +8,11 @@ import {
   backgroundColors,
 } from "../../colors";
 
+export const tabs = ["Colors", "Layout"] as const;
+export type TabTypes = typeof tabs[number];
+
 export default function Settings() {
+  const [selectedTab, setSelectedTab] = useState<TabTypes>("Colors");
   const [accentColor, setAccentColor] = useState<AccentColorsType>(
     accentColors[0]
   );
@@ -57,33 +62,36 @@ export default function Settings() {
   return (
     <Container>
       <Form onSubmit={(e) => saveSettings(e)}>
-        <div>
-          <p>Accent color:</p>
-          {accentColors.map((colorHex) => {
-            return (
-              <ColorButton
-                type="button"
-                key={colorHex}
-                onClick={() => changeAccentColor(colorHex)}
-                isSelected={colorHex === accentColor}
-                hex={colorHex}
-              />
-            );
-          })}
+        <Tabs selectedTab={selectedTab} setSelectedTab={setSelectedTab} />
+        {selectedTab === "Colors" && (
+          <ColorsContainer>
+            <p>Accent color:</p>
+            {accentColors.map((colorHex) => {
+              return (
+                <ColorButton
+                  type="button"
+                  key={colorHex}
+                  onClick={() => changeAccentColor(colorHex)}
+                  isSelected={colorHex === accentColor}
+                  hex={colorHex}
+                />
+              );
+            })}
 
-          <p>Background color:</p>
-          {backgroundColors.map((colorHex) => {
-            return (
-              <ColorButton
-                type="button"
-                key={colorHex}
-                onClick={() => changeBackgroundColor(colorHex)}
-                isSelected={colorHex === backgroundColor}
-                hex={colorHex}
-              />
-            );
-          })}
-        </div>
+            <p>Background color:</p>
+            {backgroundColors.map((colorHex) => {
+              return (
+                <ColorButton
+                  type="button"
+                  key={colorHex}
+                  onClick={() => changeBackgroundColor(colorHex)}
+                  isSelected={colorHex === backgroundColor}
+                  hex={colorHex}
+                />
+              );
+            })}
+          </ColorsContainer>
+        )}
         <button type="submit" className="colored-button">
           Save
         </button>
@@ -97,12 +105,15 @@ const Container = styled.div`
   border-radius: 12px;
   width: 400px;
   padding: 30px 35px;
-  height: 300px;
   position: sticky;
   top: 30px;
   box-shadow: 0 1px 1px hsl(0deg 0% 0% / 0.03), 0 2px 2px hsl(0deg 0% 0% / 0.03),
     0 4px 4px hsl(0deg 0% 0% / 0.03), 0 8px 8px hsl(0deg 0% 0% / 0.03),
     0 16px 16px hsl(0deg 0% 0% / 0.03);
+`;
+
+const ColorsContainer = styled.div`
+  margin-bottom: 24px;
 `;
 
 const Form = styled.form`

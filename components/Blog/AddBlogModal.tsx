@@ -1,13 +1,12 @@
 import { DialogContent, DialogOverlay } from "@reach/dialog";
 import { useEffect, useState } from "react";
 import styled from "styled-components";
-import { Reorder, motion } from "framer-motion";
+import { Reorder } from "framer-motion";
 import "@reach/dialog/styles.css";
 import moment from "moment";
 import { useRouter } from "next/router";
-import AddBlogPreview from "./AddBlogPreview";
 import TipTap from "../TipTap";
-import { TabContent, Tab, Blog, BlogElements } from "../../Types/types";
+import { TabContent, Tab, BlogElements } from "../../Types/types";
 
 interface AddBlogModalProps {
   setTabContent: (tabContent: TabContent[]) => void;
@@ -84,7 +83,7 @@ export default function AddBlogModal({
       }
     );
 
-    const content = await contentRes.json();
+    await contentRes.json();
 
     setShowDialog(false);
   };
@@ -125,12 +124,7 @@ export default function AddBlogModal({
           margin: "30px auto",
         }}
       >
-        <button
-          onClick={() => setShowDialog(false)}
-          style={{ padding: "0 5%" }}
-        >
-          X
-        </button>
+        <button onClick={() => setShowDialog(false)}>X</button>
         <div></div>
         <Title type="text" />
         <form onSubmit={addBlog}>
@@ -138,9 +132,10 @@ export default function AddBlogModal({
             axis="y"
             values={blogContent}
             onReorder={setBlogContent}
+            layout="position"
           >
             {blogContent.map((contentItem, index: number) => {
-              const { type, key, content } = contentItem;
+              const { type, key } = contentItem;
               return (
                 <Reorder.Item
                   style={{

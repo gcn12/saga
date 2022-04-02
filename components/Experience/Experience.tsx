@@ -6,7 +6,6 @@ import "@reach/menu-button/styles.css";
 import styled from "styled-components";
 import { AnimatePresence } from "framer-motion";
 
-import AddExperienceModal from "./AddExperienceModal";
 import DeleteExperienceModal from "../DeleteItemModal";
 import ArrowIcon from "../Icons/ArrowIcon";
 import { TabContent } from "../../Types/types";
@@ -14,11 +13,6 @@ import { TabContent } from "../../Types/types";
 interface ExperienceProps {
   setTabContent: (tabContent: TabContent[]) => void;
   tabContent: TabContent[];
-  selectedTab: {
-    name: string;
-    type: string;
-    key: number;
-  };
   content: {
     timespan: string;
     company: string;
@@ -33,11 +27,9 @@ export default function Experience({
   content: experience,
   setTabContent,
   tabContent,
-  selectedTab,
 }: ExperienceProps) {
   const [showExpandedExperience, setShowExpandedExperience] = useState(false);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
-  const [showAddModal, setShowAddModal] = useState(false);
   const router = useRouter();
   const { edit } = router.query;
 
@@ -48,14 +40,6 @@ export default function Experience({
           <DeleteExperienceModal
             id={experience.id}
             setShowDeleteModal={setShowDeleteModal}
-            setTabContent={setTabContent}
-            tabContent={tabContent}
-          />
-        )}
-        {showAddModal && (
-          <AddExperienceModal
-            selectedTab={selectedTab}
-            setShowDialog={setShowExpandedExperience}
             setTabContent={setTabContent}
             tabContent={tabContent}
           />
@@ -82,12 +66,6 @@ export default function Experience({
           <Menu>
             <StyledMenuButton>:</StyledMenuButton>
             <StyledMenuList>
-              <MenuItem
-                className="menu-highlight"
-                onSelect={() => setShowAddModal(true)}
-              >
-                Add
-              </MenuItem>
               <MenuItem
                 className="menu-highlight"
                 onSelect={() => setShowDeleteModal(true)}

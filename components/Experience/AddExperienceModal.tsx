@@ -115,6 +115,7 @@ export default function AddExperienceModal({
             <InputLabelContainer>
               <Label htmlFor="company">Company</Label>
               <Input
+                autoComplete="off"
                 id="company"
                 type="text"
                 name="company"
@@ -126,6 +127,7 @@ export default function AddExperienceModal({
             <InputLabelContainer>
               <Label htmlFor="role">Role</Label>
               <Input
+                autoComplete="off"
                 type="text"
                 id="role"
                 name="role"
@@ -254,6 +256,4 @@ const StyledDialogContent = styled(DialogContent)`
   padding: 20px 0;
   max-width: 600px;
   position: relative;
-  top: 30%;
-  transform: translateY(-30%);
 `;
