@@ -5,12 +5,11 @@ import DeleteExperienceModal from "../DeleteItemModal";
 import BlogPost from "./BlogPost";
 import { AnimatePresence } from "framer-motion";
 import { useRouter } from "next/router";
-import { TabContent, Tab } from "../../Types/types";
+import { TabContent } from "../../Types/types";
 
 interface BlogPreviewProps {
   setTabContent: (tabContent: TabContent[]) => void;
   tabContent: TabContent[];
-  selectedTab: Tab;
   content: any;
 }
 
@@ -18,7 +17,6 @@ export default function BlogPreview({
   content: blog,
   tabContent,
   setTabContent,
-  selectedTab,
 }: BlogPreviewProps) {
   const [showBlog, setShowBlog] = useState(false);
   const [showDeleteModal, setShowDeleteModal] = useState(false);

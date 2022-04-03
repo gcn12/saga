@@ -2,17 +2,8 @@ import { DialogContent, DialogOverlay } from "@reach/dialog";
 import { useState } from "react";
 import "@reach/dialog/styles.css";
 import { useRouter } from "next/router";
-import { TabContent, Tab, Blog, BlogElements } from "../../Types/types";
+import { TabContent, Tab, Blog } from "../../Types/types";
 import { ColoredButton } from "../Shared/Buttons";
-
-const VIDEOS = [
-  "https://player.vimeo.com/video/137425484?h=c0f888fae6",
-  "https://player.vimeo.com/video/243043167?h=32fea0a0a8",
-  "https://player.vimeo.com/video/603896359?h=33771d5e1d&byline=0&portrait=0",
-  "https://player.vimeo.com/video/459970741?h=d79ba43b07",
-  "https://player.vimeo.com/video/451858697?h=ad7213400f",
-  "https://player.vimeo.com/video/518827313?h=842359fffb",
-];
 
 interface AddIntroductionModalProps {
   setTabContent: (tabContent: TabContent[]) => void;
@@ -37,11 +28,6 @@ export default function AddIntroductionModal({
     hidden: { opacity: 0 },
     visible: { opacity: 1 },
     transition: { duration: 0 },
-  };
-
-  const getRandomVideo = () => {
-    const index = Math.floor(Math.random() * 6);
-    return VIDEOS[index];
   };
 
   const addBlog = async (e: React.FormEvent<HTMLFormElement>) => {

@@ -31,7 +31,9 @@ export default function DeleteAccountModal({
       );
       setShowDeleteAccountModal(false);
       router.push("/");
-    } catch (err) {}
+    } catch (err) {
+      console.log(err);
+    }
   };
   return (
     <DialogOverlay onDismiss={() => setShowDeleteAccountModal(false)}>
@@ -68,7 +70,7 @@ const MessageText = styled.p`
 
 const StyledDialogContent = styled(DialogContent)`
   border-radius: 8px;
-  padding: 24px 24px;
+  padding: 20px;
   max-width: 500px;
   position: absolute;
   transform: translate(-50%, -50%);

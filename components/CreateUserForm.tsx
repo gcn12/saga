@@ -77,13 +77,3 @@ const Container = styled.div`
 const FormContainer = styled.form`
   width: 80%;
 `;
-
-const SubmitButton = styled.button`
-  background-color: black;
-  color: white;
-  padding: 9px 16px;
-  border-radius: 8px;
-  margin-bottom: 5px;
-  font-size: 1.2rem;
-  font-weight: 600;
-`;

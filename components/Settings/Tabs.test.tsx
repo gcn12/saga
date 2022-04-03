@@ -1,9 +1,9 @@
 import Tabs from "./Tabs";
 import { render, screen } from "@testing-library/react";
-import { TabTypes, tabs } from "./Settings";
+import { tabs } from "./Settings";
 const selectedTab = tabs[0];
 
-const setSelectedTab = (tab: TabTypes) => {
+const setSelectedTab = () => {
   return null;
 };
 

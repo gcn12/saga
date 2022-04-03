@@ -1,4 +1,4 @@
-import { useState } from "react";
+import React, { useState } from "react";
 
 export default function DeleteUser() {
   const [username, setUsername] = useState("");
@@ -17,7 +17,9 @@ export default function DeleteUser() {
         }
       );
       setIsDeleted(true);
-    } catch (err) {}
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   const deleteAllUsers = async (e: React.FormEvent<HTMLButtonElement>) => {

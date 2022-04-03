@@ -201,7 +201,7 @@ export const getServerSideProps = async ({
     `${process.env.NEXT_PUBLIC_BACKEND_URL}/user/${username}/${tab}`
   );
   const { user, tabContent } = await res.json();
-  if (user === null) {
+  if (user === null || !user.tabs) {
     return { redirect: { destination: "/", permanent: false } };
   } else {
     const parsedTabs = JSON.parse(user.tabs);
@@ -220,6 +220,7 @@ const Container = styled.div`
   align-items: flex-start;
   margin: 40px 0;
   gap: 30px;
+  padding: 0 20px;
 `;
 
 const SettingsContainer = styled(motion.div)`

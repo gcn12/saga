@@ -48,7 +48,7 @@ export default function DeleteItemModal({
         body: JSON.stringify({}),
       }
     );
-    const data = await res.json();
+    await res.json();
     removeExperienceFromState();
     setShowDeleteModal(false);
   };

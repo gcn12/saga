@@ -57,7 +57,9 @@ export default function CreateUser() {
         );
         router.push(`/${username}?edit=true`);
       }
-    } catch (err) {}
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   const addTab = () => {

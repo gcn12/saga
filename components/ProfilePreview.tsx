@@ -1,4 +1,3 @@
-import { motion } from "framer-motion";
 import styled from "styled-components";
 import { Tab } from "../Types/types";
 
@@ -133,34 +132,6 @@ const Bio = styled.div`
   color: #6e6e6e;
 `;
 
-const Tabs = styled.div`
-  display: flex;
-  justify-content: center;
-`;
-
-const TabText = styled(motion.p)`
-  font-weight: 600;
-  text-transform: uppercase;
-  margin-right: 15px;
-  background-color: transparent;
-  border: none;
-  cursor: pointer;
-  font-size: 1rem;
-
-  &:hover {
-    border-bottom: 4px solid var(--accent) !important;
-  }
-`;
-
 export const Icon = styled.svg`
   transition: all 0.25s ease-in-out;
-`;
-
-const Introduction = styled.p`
-  transition: all 0.25s ease-in-out;
-
-  &:hover ${Icon} {
-    color: black;
-    fill: black;
-  }
 `;

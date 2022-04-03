@@ -95,7 +95,7 @@ export default function AddProjectModal({
       }
     );
 
-    const content = await contentRes.json();
+    await contentRes.json();
 
     setShowDialog(false);
   };
@@ -126,14 +126,14 @@ export default function AddProjectModal({
     index: number,
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
     type?: string,
-    contentType: string = ""
+    contentType?: string
   ) => {
     const currentContent = { ...projectContent[index] };
     const newContent = projectContent.map((item, i: number) => {
       if (i === index) {
         if (
-          type === "leftPhoto" ||
-          (type === "rightPhoto" && contentType !== undefined)
+          (type === "leftPhoto" || type === "rightPhoto") &&
+          contentType !== undefined
         ) {
           const content = { ...item.content };
           content[contentType] = e.target.value;

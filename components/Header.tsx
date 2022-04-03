@@ -52,6 +52,7 @@ export default function Header({ user }: HeaderProps) {
         <Link
           href={`/${username}/${tab ? tab[0] : ""}${edit ? "" : "?edit=true"}`}
           scroll={false}
+          passHref
         >
           <ColoredButton as="a" style={{ alignSelf: "flex-start" }}>
             {edit ? "Done" : "Edit"}
@@ -127,7 +128,7 @@ const ProfileImage = styled.img`
   width: 140px;
   height: 125px;
   object-fit: cover;
-  margin: 0 40px 10px 0;
+  margin: 0 32px 10px 0;
   align-self: start;
 `;
 

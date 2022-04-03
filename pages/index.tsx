@@ -8,7 +8,7 @@ export default function Home() {
         <Header>
           <Logo>Saga</Logo>
           <li>
-            <Link href="/signup">
+            <Link href="/signup" passHref>
               <Login>Get started</Login>
             </Link>
           </li>
