@@ -25,8 +25,8 @@ export default function CreateUserForm({
   setProfilePictureURL,
 }: CreateUserFormProps) {
   const formElements = [
-    { label: "Profile picture url:", onChange: setProfilePictureURL },
-    { label: "Location:", onChange: setLocation },
+    { label: "Profile picture url", onChange: setProfilePictureURL },
+    { label: "Location", onChange: setLocation },
   ];
 
   return (
@@ -45,7 +45,7 @@ export default function CreateUserForm({
         })}
 
         <Label style={{ display: "flex", flexDirection: "column" }}>
-          Career:
+          Career
           <TipTap setText={setCareer} allowBulletList={false} />
         </Label>
 
@@ -55,7 +55,7 @@ export default function CreateUserForm({
             flexDirection: "column",
           }}
         >
-          Bio:
+          Bio
           <TipTap setText={setBio} />
         </Label>
 

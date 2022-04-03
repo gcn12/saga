@@ -42,11 +42,11 @@ export default function Signup() {
       <Form onSubmit={signup}>
         <Title>Sign up</Title>
         <Label>
-          Name:
+          Name
           <Input onChange={(e) => setName(e.target.value)} type="text" />
         </Label>
         <Label>
-          Username:
+          Username
           <Input onChange={(e) => setUserame(e.target.value)} type="text" />
         </Label>
         <ColoredButton style={{ width: "100%" }} type="submit">
