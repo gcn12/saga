@@ -2,8 +2,6 @@ import { Label, Input } from "../Shared/Forms";
 import { ColoredButton } from "../Shared/Buttons";
 import styled from "styled-components";
 import { FormEvent, useContext, useState } from "react";
-import { userAtom } from "../../jotai/state";
-import { useAtom } from "jotai";
 import { AuthContext } from "../../jotai/state";
 
 export default function Profile() {

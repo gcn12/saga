@@ -2,9 +2,9 @@ import { DialogOverlay, DialogContent } from "@reach/dialog";
 import "@reach/dialog/styles.css";
 import styled from "styled-components";
 import { ColoredButton } from "../Shared/Buttons";
-import { useAtom } from "jotai";
-import { userAtom } from "../../jotai/state";
+import { AuthContext } from "../../jotai/state";
 import { useRouter } from "next/router";
+import { useContext } from "react";
 
 interface DeleteAccountModalProps {
   setShowDeleteAccountModal: (value: boolean) => void;
@@ -13,7 +13,7 @@ interface DeleteAccountModalProps {
 export default function DeleteAccountModal({
   setShowDeleteAccountModal,
 }: DeleteAccountModalProps) {
-  const [user, setUser] = useAtom(userAtom);
+  const { user } = useContext(AuthContext);
   const router = useRouter();
   const deleteUser = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();

@@ -6,8 +6,6 @@ import { useEffect, useState } from "react";
 import { AuthContext } from "../../jotai/state";
 
 import { User, TabContent } from "../../Types/types";
-import { userAtom } from "../../jotai/state";
-import { useAtom } from "jotai";
 
 import { ColoredButton } from "../../components/Shared/Buttons";
 import Header from "../../components/Header";
