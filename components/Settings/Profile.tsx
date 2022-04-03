@@ -1,21 +1,32 @@
 import { Label, Input } from "../Shared/Forms";
 import { ColoredButton } from "../Shared/Buttons";
 import styled from "styled-components";
-import { FormEvent, useState } from "react";
+import { FormEvent, useContext, useState } from "react";
+import { userAtom } from "../../jotai/state";
+import { useAtom } from "jotai";
+import { AuthContext } from "../../jotai/state";
 
 export default function Profile() {
-  const [name, setName] = useState("");
-  const [username, setUsername] = useState("");
-  const [career, setCareer] = useState("");
-  const [location, setLocation] = useState("");
-  const [videoIntroduction, setVideoIntroduction] = useState("");
+  // const [user, setUser] = useAtom(userAtom);
+  const { user, setUser } = useContext(AuthContext);
+  const [name, setName] = useState(user.name);
+  const [username, setUsername] = useState(user.username);
+  const [career, setCareer] = useState(user.career);
+  const [location, setLocation] = useState(user.location);
+  const [videoIntroduction, setVideoIntroduction] = useState(
+    user.videoIntroduction || ""
+  );
 
   const formItems = [
-    { label: "Name:", setState: setName },
-    { label: "Username:", setState: setUsername },
-    { label: "Career:", setState: setCareer },
-    { label: "Location:", setState: setLocation },
-    { label: "Introduction video:", setState: setVideoIntroduction },
+    { label: "Name:", setState: setName, value: name },
+    { label: "Username:", setState: setUsername, value: username },
+    { label: "Career:", setState: setCareer, value: career },
+    { label: "Location:", setState: setLocation, value: location },
+    {
+      label: "Introduction video:",
+      setState: setVideoIntroduction,
+      value: videoIntroduction,
+    },
   ];
 
   const saveSettings = async (e: FormEvent<HTMLFormElement>) => {
@@ -37,7 +48,12 @@ export default function Profile() {
         }),
       }
     );
-    console.log(await res.json());
+    const userData = await res.json();
+
+    const newData = { ...userData, tabs: JSON.parse(userData.tabs) };
+
+    console.log(userData);
+    setUser(newData);
   };
 
   return (
@@ -47,7 +63,10 @@ export default function Profile() {
           <LabelAndFormContainer key={formItem.label}>
             <Label>
               {formItem.label}
-              <Input onChange={(e) => formItem.setState(e.target.value)} />
+              <Input
+                defaultValue={formItem.value || ""}
+                onChange={(e) => formItem.setState(e.target.value)}
+              />
             </Label>
           </LabelAndFormContainer>
         );

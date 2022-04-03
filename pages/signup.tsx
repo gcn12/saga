@@ -33,7 +33,7 @@ export default function Signup() {
       localStorage.setItem("username", user.username);
       router.push("/create-user");
     } catch (err) {
-      console.log("sign up failed");
+      console.log("sign up failed", err);
     }
   };
 

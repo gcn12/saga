@@ -3,6 +3,7 @@ import Head from "next/head";
 import { AnimatePresence, LayoutGroup, motion } from "framer-motion";
 import styled from "styled-components";
 import { useEffect, useState } from "react";
+import { AuthContext } from "../../jotai/state";
 
 import { User, TabContent } from "../../Types/types";
 import { userAtom } from "../../jotai/state";
@@ -33,13 +34,7 @@ export default function Username(props: UserProps) {
   const { user: userProps, tabContent: tabContentProps } = props;
   const router = useRouter();
   const { username, edit, tab } = router.query;
-  const [userState, setUserState] = useAtom(userAtom);
-
-  useEffect(() => {
-    setUserState(userProps);
-  }, []);
-
-  const user = userProps || userState;
+  const [user, setUser] = useState<User>(userProps);
 
   const defaultTab = user.tabs.filter((tabItem) => {
     if (tab) {
@@ -98,101 +93,103 @@ export default function Username(props: UserProps) {
   };
 
   return (
-    <Container>
-      <LayoutGroup>
-        <Head>
-          <title>{user.name}</title>
-          <meta
-            name="viewport"
-            content="initial-scale=1.0, width=device-width"
-          />
-        </Head>
-        <Card layoutId="profile">
-          <Header user={user} />
-          <Tabs tabs={user.tabs} selectedTab={selectedTab} />
-          <div className="fade">
-            {tabContent && (
-              <AnimatePresence>
-                <Items isRow={selectedTab.type === "introduction"}>
-                  {tabContent.map((content: TabContent, index: number) => {
-                    const tabContentProps = {
-                      content: {
-                        ...JSON.parse(content.content),
-                        id: content.id,
-                      },
-                      selectedTab,
-                      setTabContent,
-                      tabContent,
-                    };
-                    return (
-                      <motion.div
-                        key={content.id}
-                        // @ts-ignore
-                        variants={itemVariants}
-                        initial="hidden"
-                        animate="visible"
-                        exit="hidden"
-                        layoutId={content.id}
-                      >
-                        {selectedTab.type === "experience" && (
-                          <Experience {...tabContentProps} />
-                        )}
-                        {selectedTab.type === "portfolio" && (
-                          <ProjectPreview {...tabContentProps} />
-                        )}
-                        {selectedTab.type === "blog" && (
-                          <BlogPreview {...tabContentProps} />
-                        )}
-                        {selectedTab.type === "introduction" && (
-                          <Introduction index={index} {...tabContentProps} />
-                        )}
-                      </motion.div>
-                    );
-                  })}
-                  {selectedTab.type === "timeline" && <Timeline />}
-                  {selectedTab.type === "education" && <Education />}
-                  {selectedTab.type === "skills" && <Skills />}
-                </Items>
-              </AnimatePresence>
+    <AuthContext.Provider value={{ user, setUser }}>
+      <Container>
+        <LayoutGroup>
+          <Head>
+            <title>{user.name}</title>
+            <meta
+              name="viewport"
+              content="initial-scale=1.0, width=device-width"
+            />
+          </Head>
+          <Card layoutId="profile">
+            <Header user={user} />
+            <Tabs tabs={user.tabs} selectedTab={selectedTab} />
+            <div className="fade">
+              {tabContent && (
+                <AnimatePresence>
+                  <Items isRow={selectedTab.type === "introduction"}>
+                    {tabContent.map((content: TabContent, index: number) => {
+                      const tabContentProps = {
+                        content: {
+                          ...JSON.parse(content.content),
+                          id: content.id,
+                        },
+                        selectedTab,
+                        setTabContent,
+                        tabContent,
+                      };
+                      return (
+                        <motion.div
+                          key={content.id}
+                          // @ts-ignore
+                          variants={itemVariants}
+                          initial="hidden"
+                          animate="visible"
+                          exit="hidden"
+                          layoutId={content.id}
+                        >
+                          {selectedTab.type === "experience" && (
+                            <Experience {...tabContentProps} />
+                          )}
+                          {selectedTab.type === "portfolio" && (
+                            <ProjectPreview {...tabContentProps} />
+                          )}
+                          {selectedTab.type === "blog" && (
+                            <BlogPreview {...tabContentProps} />
+                          )}
+                          {selectedTab.type === "introduction" && (
+                            <Introduction index={index} {...tabContentProps} />
+                          )}
+                        </motion.div>
+                      );
+                    })}
+                    {selectedTab.type === "timeline" && <Timeline />}
+                    {selectedTab.type === "education" && <Education />}
+                    {selectedTab.type === "skills" && <Skills />}
+                  </Items>
+                </AnimatePresence>
+              )}
+            </div>
+            {edit && tabContent !== null && (
+              <>
+                <ColoredButton onClick={() => setShowDialog(true)}>
+                  Add new {selectedTab.name}
+                </ColoredButton>
+                {selectedTab.type === "blog" && showDialog && (
+                  <AddBlogModal {...newProps} />
+                )}
+                {selectedTab.type === "experience" && showDialog && (
+                  <AddExperienceModal {...newProps} />
+                )}
+                {selectedTab.type === "introduction" && showDialog && (
+                  <AddIntroductionModal {...newProps} />
+                )}
+                {selectedTab.type === "portfolio" && showDialog && (
+                  <AddProjectModal {...newProps} />
+                )}
+                {selectedTab.type === "education" && showDialog && (
+                  <AddProjectModal {...newProps} />
+                )}
+              </>
             )}
-          </div>
-          {edit && tabContent !== null && (
-            <>
-              <ColoredButton onClick={() => setShowDialog(true)}>
-                Add new {selectedTab.name}
-              </ColoredButton>
-              {selectedTab.type === "blog" && showDialog && (
-                <AddBlogModal {...newProps} />
-              )}
-              {selectedTab.type === "experience" && showDialog && (
-                <AddExperienceModal {...newProps} />
-              )}
-              {selectedTab.type === "introduction" && showDialog && (
-                <AddIntroductionModal {...newProps} />
-              )}
-              {selectedTab.type === "portfolio" && showDialog && (
-                <AddProjectModal {...newProps} />
-              )}
-              {selectedTab.type === "education" && showDialog && (
-                <AddProjectModal {...newProps} />
-              )}
-            </>
-          )}
-        </Card>
-        <AnimatePresence>
-          {edit && (
-            <SettingsContainer
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              transition={{ delay: 0.4 }}
-            >
-              <Settings />
-            </SettingsContainer>
-          )}
-        </AnimatePresence>
-      </LayoutGroup>
-    </Container>
+          </Card>
+          <AnimatePresence>
+            {edit && (
+              <SettingsContainer
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                transition={{ delay: 0.4 }}
+              >
+                <Settings />
+              </SettingsContainer>
+            )}
+          </AnimatePresence>
+        </LayoutGroup>
+      </Container>
+    </AuthContext.Provider>
   );
 }
 

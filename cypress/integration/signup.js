@@ -4,7 +4,7 @@ describe("User can sign up", () => {
     cy.contains("Get started").click();
     cy.contains("label", "Name:").type("Daniel Smith");
     cy.contains("label", "Username:").type("danny");
-    cy.contains("CREATE").click();
+    cy.contains("button", "CREATE").click();
   });
 
   it("Create profile works", () => {

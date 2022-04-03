@@ -1,6 +1,6 @@
-import { kStringMaxLength } from "buffer";
 import { atom } from "jotai";
 import { User } from "../Types/types";
+import { createContext } from "react";
 
 const user: User = {
   name: "Gareth",
@@ -18,3 +18,5 @@ const user: User = {
 };
 
 export const userAtom = atom<User>(user);
+
+export const AuthContext = createContext<any>(null);
