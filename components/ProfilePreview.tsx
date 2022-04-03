@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import { Tab } from "../Types/types";
-
+import useIsMounted from "../hooks/useIsMounted";
+import { useEffect, useState } from "react";
 interface ProfilePreviewProps {
   career: string;
   profilePictureURL: string;
@@ -24,6 +25,14 @@ export default function ProfilePreview({
   location,
   bio,
 }: ProfilePreviewProps) {
+  const [name, setName] = useState("");
+  const isMounted = useIsMounted();
+  useEffect(() => {
+    const storageName = localStorage.getItem("name");
+    if (storageName) {
+      setName(storageName);
+    }
+  }, [isMounted]);
   return (
     <Container>
       <Card>
@@ -36,11 +45,7 @@ export default function ProfilePreview({
           </div>
           <HeaderTextContainer>
             <div>
-              <Name>
-                {typeof window === "undefined"
-                  ? PLACEHOLDER_DATA.name
-                  : localStorage.getItem("name")}
-              </Name>
+              <Name>{name}</Name>
               <Career>
                 {career.length > 7 ? (
                   <div

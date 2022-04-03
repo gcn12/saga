@@ -155,9 +155,11 @@ export default function Username(props: UserProps) {
                 <ColoredButton onClick={() => setShowDialog(true)}>
                   Add new {selectedTab.name}
                 </ColoredButton>
-                {selectedTab.type === "blog" && showDialog && (
-                  <AddBlogModal {...newProps} />
-                )}
+                <AnimatePresence>
+                  {selectedTab.type === "blog" && showDialog && (
+                    <AddBlogModal {...newProps} />
+                  )}
+                </AnimatePresence>
                 <AnimatePresence>
                   {selectedTab.type === "experience" && showDialog && (
                     <AddExperienceModal {...newProps} />

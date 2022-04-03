@@ -9,6 +9,7 @@ import { useRouter } from "next/router";
 import TipTap from "../TipTap";
 import { TabContent, Tab, BlogElements } from "../../Types/types";
 import { ColoredButton } from "../Shared/Buttons";
+import { motion } from "framer-motion";
 
 interface AddBlogModalProps {
   setTabContent: (tabContent: TabContent[]) => void;
@@ -107,24 +108,22 @@ export default function AddBlogModal({
   };
 
   return (
-    <DialogOverlay
+    <MotionDialogOverlay
       style={{
         backgroundColor: "rgba(0, 0, 0, .6)",
       }}
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
       aria-label="blog post"
       onDismiss={() => setShowDialog(false)}
       isOpen={true}
     >
-      <DialogContent
+      <MotionDialogContent
         aria-label={"blog post"}
-        style={{
-          borderRadius: "10px",
-          minHeight: "90vh",
-          width: "60%",
-          maxWidth: "1000px",
-          padding: "20px 40px",
-          margin: "30px auto",
-        }}
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        exit={{ opacity: 0 }}
       >
         <button onClick={() => setShowDialog(false)}>X</button>
         <div></div>
@@ -191,8 +190,8 @@ export default function AddBlogModal({
           </ButtonContainer>
           <ColoredButton type="submit">Create</ColoredButton>
         </form>
-      </DialogContent>
-    </DialogOverlay>
+      </MotionDialogContent>
+    </MotionDialogOverlay>
   );
 }
 
@@ -277,3 +276,19 @@ const LargePhoto = styled.img`
   object-fit: cover;
   border-radius: 12px;
 `;
+
+const StyledDialogOverlay = styled(DialogOverlay)`
+  background-color: rgba(0, 0, 0, 0.6);
+`;
+
+const StyledDialogContent = styled(DialogContent)`
+  border-radius: 12px;
+  max-width: 600px;
+  position: relative;
+  min-height: 90vh;
+  padding: 20px 40px;
+  margin: 30px auto;
+`;
+
+const MotionDialogContent = motion(StyledDialogContent);
+const MotionDialogOverlay = motion(StyledDialogOverlay);

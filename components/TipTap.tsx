@@ -61,9 +61,10 @@ export default function TipTap({
   const editor = useEditor({
     extensions: [StarterKit],
     content: ``,
+    onUpdate({ editor }) {
+      setText(editor.getHTML());
+    },
   });
-
-  setText(editor?.getHTML() || "");
 
   return (
     <Container>
@@ -74,8 +75,10 @@ export default function TipTap({
       />
       <StyledEditorContent
         data-testid="tip-tap"
-        onClick={(e) => e.preventDefault()}
         editor={editor}
+        onClick={(e) => e.preventDefault()}
+        type="text"
+        onChange={(e) => e.preventDefault()}
       />
     </Container>
   );

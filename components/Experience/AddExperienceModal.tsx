@@ -45,13 +45,19 @@ export default function AddExperienceModal({
   const [company, setCompany] = useState("");
   const [role, setRole] = useState("");
   const [description, setDescription] = useState("");
-  const [timespan, setTimespan] = useState("");
+  const [timespan, setTimespan] = useState("2018-2021");
   const [startMonth, setStartMonth] = useState("");
   const [startYear, setStartYear] = useState("");
   const [endMonth, setEndMonth] = useState("");
   const [endYear, setEndYear] = useState("");
   const router = useRouter();
   const { username } = router.query;
+
+  const formItems = [
+    { label: "Company", setState: setCompany, value: company },
+    { label: "Role", setState: setRole, value: role },
+    { label: "Timespan", setState: setTimespan, value: timespan },
+  ];
 
   const getDate = () => {
     const startDate = new Date();
@@ -100,109 +106,95 @@ export default function AddExperienceModal({
     setShowDialog(false);
   };
 
-  const MotionStyledDialogContent = motion(StyledDialogContent);
-
   return (
-    <StyledDialogOverlay
-      aria-label="blog post"
-      onDismiss={() => setShowDialog(false)}
-      isOpen={true}
-    >
-      <MotionStyledDialogContent
-        aria-label={"blog post"}
-        key="add-experience-overlay"
+    <div>
+      <MotionDialogOverlay
+        aria-label="blog post"
+        onDismiss={() => setShowDialog(false)}
+        isOpen={true}
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         exit={{ opacity: 0 }}
       >
-        <button
-          onClick={() => setShowDialog(false)}
-          style={{ padding: "0 5%" }}
+        <MotionDialogContent
+          aria-label={"blog post"}
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
         >
-          X
-        </button>
-        <div style={{ width: "80%", margin: "0 auto" }}>
-          <Container method="post" onSubmit={addExperience}>
-            <InputLabelContainer>
-              <Label htmlFor="company">Company</Label>
-              <Input
-                autoComplete="off"
-                id="company"
-                type="text"
-                name="company"
-                key="1"
-                onChange={(e) => setCompany(e.target.value)}
-              />
-            </InputLabelContainer>
-            <div></div>
-            <InputLabelContainer>
-              <Label htmlFor="role">Role</Label>
-              <Input
-                autoComplete="off"
-                type="text"
-                id="role"
-                name="role"
-                onChange={(e) => setRole(e.target.value)}
-              />
-            </InputLabelContainer>
-            <div></div>
-            <InputLabelContainer>
-              <Label>Description</Label>
-              {/* <TipTap setText={setDescription} /> */}
-            </InputLabelContainer>
-            <div></div>
-            <InputLabelContainer>
-              <Label htmlFor="timespan">Timespan</Label>
-              <Input
-                id="timespan"
-                type="text"
-                name="timespan"
-                defaultValue="1990-2021"
-                onChange={(e) => setTimespan(e.target.value)}
-              />
-            </InputLabelContainer>
-            <div style={{ width: "100%" }}>
-              Start
-              <SelectContainer>
-                <DateSelect onChange={(e) => setStartMonth(e.target.value)}>
-                  {months.map((month) => {
-                    return <option key={month}>{month}</option>;
-                  })}
-                </DateSelect>
-                <DateSelect onChange={(e) => setStartYear(e.target.value)}>
-                  {years.map((year) => {
-                    return <option key={year}>{year}</option>;
-                  })}
-                </DateSelect>
-              </SelectContainer>
-            </div>
-            <div style={{ width: "100%" }}>
-              End
-              <SelectContainer>
-                <DateSelect onChange={(e) => setEndMonth(e.target.value)}>
-                  {months.map((month) => {
-                    return <option key={month}>{month}</option>;
-                  })}
-                </DateSelect>
-                <DateSelect onChange={(e) => setEndYear(e.target.value)}>
-                  {["Present", ...years].map((year) => {
-                    return <option key={year}>{year}</option>;
-                  })}
-                </DateSelect>
-              </SelectContainer>
-            </div>
-            <div></div>
-            <ButtonsContainer>
-              <button onClick={() => setShowDialog(false)}>Cancel</button>
-              <ColoredButton type="submit">Add experience</ColoredButton>
-              <ColoredButton onClick={getDate} type="button">
-                Date
-              </ColoredButton>
-            </ButtonsContainer>
-          </Container>
-        </div>
-      </MotionStyledDialogContent>
-    </StyledDialogOverlay>
+          <button
+            onClick={() => setShowDialog(false)}
+            style={{ padding: "0 5%" }}
+          >
+            X
+          </button>
+          <div style={{ width: "80%", margin: "0 auto" }}>
+            <Container method="post" onSubmit={addExperience}>
+              {formItems.map((formItem) => {
+                const { label, setState, value } = formItem;
+                return (
+                  <InputLabelContainer key={label}>
+                    <Label htmlFor={label}>{label}</Label>
+                    <Input
+                      id={label}
+                      autoComplete="off"
+                      type="text"
+                      onChange={(e) => setState(e.target.value)}
+                      value={value}
+                    />
+                  </InputLabelContainer>
+                );
+              })}
+              <div></div>
+              <InputLabelContainer>
+                <Label>Description</Label>
+                <TipTap setText={setDescription} />
+              </InputLabelContainer>
+              <div style={{ width: "100%" }}>
+                Start
+                <SelectContainer>
+                  <DateSelect onChange={(e) => setStartMonth(e.target.value)}>
+                    {months.map((month) => {
+                      return <option key={month}>{month}</option>;
+                    })}
+                  </DateSelect>
+                  <DateSelect onChange={(e) => setStartYear(e.target.value)}>
+                    {years.map((year) => {
+                      return <option key={year}>{year}</option>;
+                    })}
+                  </DateSelect>
+                </SelectContainer>
+              </div>
+              <div style={{ width: "100%" }}>
+                End
+                <SelectContainer>
+                  <DateSelect onChange={(e) => setEndMonth(e.target.value)}>
+                    {months.map((month) => {
+                      return <option key={month}>{month}</option>;
+                    })}
+                  </DateSelect>
+                  <DateSelect onChange={(e) => setEndYear(e.target.value)}>
+                    {["Present", ...years].map((year) => {
+                      return <option key={year}>{year}</option>;
+                    })}
+                  </DateSelect>
+                </SelectContainer>
+              </div>
+              <div></div>
+              <ButtonsContainer>
+                <button type="button" onClick={() => setShowDialog(false)}>
+                  Cancel
+                </button>
+                <ColoredButton type="submit">Add experience</ColoredButton>
+                {/* <ColoredButton onClick={getDate} type="button">
+                  Date
+                </ColoredButton> */}
+              </ButtonsContainer>
+            </Container>
+          </div>
+        </MotionDialogContent>
+      </MotionDialogOverlay>
+    </div>
   );
 }
 
@@ -250,3 +242,6 @@ const StyledDialogContent = styled(DialogContent)`
   max-width: 600px;
   position: relative;
 `;
+
+const MotionDialogContent = motion(StyledDialogContent);
+const MotionDialogOverlay = motion(StyledDialogOverlay);

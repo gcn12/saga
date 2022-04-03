@@ -16,12 +16,12 @@ export default function Profile() {
   );
 
   const formItems = [
-    { label: "Name:", setState: setName, value: name },
-    { label: "Username:", setState: setUsername, value: username },
-    { label: "Career:", setState: setCareer, value: career },
-    { label: "Location:", setState: setLocation, value: location },
+    { label: "Name", setState: setName, value: name },
+    { label: "Username", setState: setUsername, value: username },
+    { label: "Career", setState: setCareer, value: career },
+    { label: "Location", setState: setLocation, value: location },
     {
-      label: "Introduction video:",
+      label: "Introduction video",
       setState: setVideoIntroduction,
       value: videoIntroduction,
     },
