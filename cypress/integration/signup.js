@@ -20,9 +20,9 @@ describe("User can sign up", () => {
   });
 
   it("Can delete profile", () => {
-    cy.visit("/delete-user");
-    cy.contains("label", "Username:").type("danny");
-    cy.contains("Delete user").click();
-    cy.contains("User deleted");
+    cy.contains("More").click();
+    cy.contains("button", "Delete").click();
+    cy.contains("button", "Delete account").click({ force: true });
+    cy.contains("Get started");
   });
 });

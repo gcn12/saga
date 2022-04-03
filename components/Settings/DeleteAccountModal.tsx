@@ -4,6 +4,7 @@ import styled from "styled-components";
 import { ColoredButton } from "../Shared/Buttons";
 import { useAtom } from "jotai";
 import { userAtom } from "../../jotai/state";
+import { useRouter } from "next/router";
 
 interface DeleteAccountModalProps {
   setShowDeleteAccountModal: (value: boolean) => void;
@@ -13,6 +14,7 @@ export default function DeleteAccountModal({
   setShowDeleteAccountModal,
 }: DeleteAccountModalProps) {
   const [user, setUser] = useAtom(userAtom);
+  const router = useRouter();
   const deleteUser = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (!user) return;
@@ -28,6 +30,7 @@ export default function DeleteAccountModal({
         }
       );
       setShowDeleteAccountModal(false);
+      router.push("/");
     } catch (err) {}
   };
   return (
@@ -35,6 +38,10 @@ export default function DeleteAccountModal({
       <StyledDialogContent>
         <button onClick={() => setShowDeleteAccountModal(false)}>X</button>
         <Container onSubmit={(e) => deleteUser(e)}>
+          <div>
+            <DeleteText>Delete account</DeleteText>
+            <MessageText>There's no turning back</MessageText>
+          </div>
           <ColoredButton type="submit">Delete account</ColoredButton>
         </Container>
       </StyledDialogContent>
@@ -44,6 +51,19 @@ export default function DeleteAccountModal({
 
 const Container = styled.form`
   display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 30px 40px;
+  height: 100%;
+`;
+
+const DeleteText = styled.p`
+  font-size: 1.2rem;
+  font-weight: 600;
+`;
+
+const MessageText = styled.p`
+  color: gray;
 `;
 
 const StyledDialogContent = styled(DialogContent)`
@@ -54,4 +74,5 @@ const StyledDialogContent = styled(DialogContent)`
   transform: translate(-50%, -50%);
   top: 40%;
   left: 50%;
+  height: 250px;
 `;
