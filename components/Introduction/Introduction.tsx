@@ -38,6 +38,7 @@ export default function Introduction({
   return (
     <>
       <motion.button
+        aria-label="introduction"
         whileHover={{ scale: 1.012 }}
         onClick={() => displayVideo(introduction.videoURL)}
         style={{

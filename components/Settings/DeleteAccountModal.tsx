@@ -48,7 +48,8 @@ export default function DeleteAccountModal({
       exit={{ opacity: 0 }}
     >
       <MotionStyledDialogContent
-        key="delete=account"
+        key="delete-account"
+        aria-label="delete account"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         exit={{ opacity: 0 }}
