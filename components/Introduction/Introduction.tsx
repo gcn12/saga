@@ -73,14 +73,16 @@ export default function Introduction({
           setTabContent={setTabContent}
         />
       )}
-      {showDeleteModal && (
-        <DeleteExperienceModal
-          setShowDeleteModal={setShowDeleteModal}
-          tabContent={tabContent}
-          id={introduction.id}
-          setTabContent={setTabContent}
-        />
-      )}
+      <AnimatePresence>
+        {showDeleteModal && (
+          <DeleteExperienceModal
+            setShowDeleteModal={setShowDeleteModal}
+            tabContent={tabContent}
+            id={introduction.id}
+            setTabContent={setTabContent}
+          />
+        )}
+      </AnimatePresence>
       <AnimatePresence>
         {showVideoIntro && (
           <VideoModal

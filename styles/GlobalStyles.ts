@@ -100,7 +100,7 @@ export const GlobalStyles = createGlobalStyle`
   }
 
   .fade:hover .light-text {
-    color: rgb(109, 109, 109);
+    color: rgb(130, 130, 130);
   }
 
   .dark:hover .dark-text {

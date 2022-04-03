@@ -59,17 +59,17 @@ export default function AddExperienceModal({
     { label: "Timespan", setState: setTimespan, value: timespan },
   ];
 
-  const getDate = () => {
-    const startDate = new Date();
-    startDate.setMonth(months.indexOf(startMonth));
-    startDate.setFullYear(Number(startYear));
+  // const getDate = () => {
+  //   const startDate = new Date();
+  //   startDate.setMonth(months.indexOf(startMonth));
+  //   startDate.setFullYear(Number(startYear));
 
-    const endDate = new Date();
-    endDate.setMonth(months.indexOf(endMonth));
-    endDate.setFullYear(endYear === "Present" ? 5000 : Number(endYear));
-    console.log(startDate);
-    console.log(endDate);
-  };
+  //   const endDate = new Date();
+  //   endDate.setMonth(months.indexOf(endMonth));
+  //   endDate.setFullYear(endYear === "Present" ? 5000 : Number(endYear));
+  //   console.log(startDate);
+  //   console.log(endDate);
+  // };
 
   const addExperience = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();

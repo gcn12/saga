@@ -66,14 +66,16 @@ export default function ProjectPreview({
           </Menu>
         )}
       </Container>
-      {showDeleteModal && (
-        <DeleteExperienceModal
-          id={project.id}
-          setShowDeleteModal={setShowDeleteModal}
-          setTabContent={setTabContent}
-          tabContent={tabContent}
-        />
-      )}
+      <AnimatePresence>
+        {showDeleteModal && (
+          <DeleteExperienceModal
+            id={project.id}
+            setShowDeleteModal={setShowDeleteModal}
+            setTabContent={setTabContent}
+            tabContent={tabContent}
+          />
+        )}
+      </AnimatePresence>
       {showDialog && (
         <AddProjectModal
           selectedTab={selectedTab}

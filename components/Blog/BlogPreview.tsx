@@ -46,14 +46,16 @@ export default function BlogPreview({
           <BlogPost setShowBlog={setShowBlog} blogTitle={blog.title} />
         )}
       </AnimatePresence>
-      {showDeleteModal && (
-        <DeleteExperienceModal
-          setShowDeleteModal={setShowDeleteModal}
-          tabContent={tabContent}
-          id={blog.id}
-          setTabContent={setTabContent}
-        />
-      )}
+      <AnimatePresence>
+        {showDeleteModal && (
+          <DeleteExperienceModal
+            setShowDeleteModal={setShowDeleteModal}
+            tabContent={tabContent}
+            id={blog.id}
+            setTabContent={setTabContent}
+          />
+        )}
+      </AnimatePresence>
     </>
   );
 }

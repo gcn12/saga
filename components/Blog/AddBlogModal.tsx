@@ -1,15 +1,13 @@
-import React from "react";
 import { DialogContent, DialogOverlay } from "@reach/dialog";
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
-import { Reorder } from "framer-motion";
+import { Reorder, motion } from "framer-motion";
 import "@reach/dialog/styles.css";
 import moment from "moment";
 import { useRouter } from "next/router";
 import TipTap from "../TipTap";
 import { TabContent, Tab, BlogElements } from "../../Types/types";
 import { ColoredButton } from "../Shared/Buttons";
-import { motion } from "framer-motion";
 
 interface AddBlogModalProps {
   setTabContent: (tabContent: TabContent[]) => void;

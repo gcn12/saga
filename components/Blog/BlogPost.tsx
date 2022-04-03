@@ -45,20 +45,14 @@ export default function BlogPost({ blogTitle, setShowBlog }: BlogProps) {
     <MotionDialogOverlay
       onDismiss={() => setShowBlog(false)}
       isOpen={isVisible}
-      // @ts-ignore
-      variants={variant}
-      initial="hidden"
-      animate="initial"
-      exit="hidden"
-      transition={{ duration: 0.1 }}
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
     >
       <MotionDialogContent
-        transition={{ duration: 0.5 }}
-        // @ts-ignore
-        variants={variant}
-        initial="hidden"
-        animate="initial"
-        exit="hidden"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        exit={{ opacity: 0 }}
         style={{
           borderRadius: "10px",
           minHeight: "90vh",

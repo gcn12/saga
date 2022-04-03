@@ -145,7 +145,7 @@ const Timespan = styled.p`
 const Company = styled.p`
   font-weight: 600;
   font-size: 1.05rem;
-  color: var(--color-title);
+  // color: var(--color-title);
 `;
 
 const InnerContainer = styled.div`
