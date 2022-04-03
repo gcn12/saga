@@ -52,7 +52,6 @@ export default function Profile() {
 
     const newData = { ...userData, tabs: JSON.parse(userData.tabs) };
 
-    console.log(userData);
     setUser(newData);
   };
 
