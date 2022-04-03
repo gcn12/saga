@@ -40,7 +40,7 @@ export default function DeleteAccountModal({
         <Container onSubmit={(e) => deleteUser(e)}>
           <div>
             <DeleteText>Delete account</DeleteText>
-            <MessageText>There's no turning back</MessageText>
+            <MessageText>There&apos;s no turning back</MessageText>
           </div>
           <ColoredButton type="submit">Delete account</ColoredButton>
         </Container>
