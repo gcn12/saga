@@ -158,9 +158,11 @@ export default function Username(props: UserProps) {
                 {selectedTab.type === "blog" && showDialog && (
                   <AddBlogModal {...newProps} />
                 )}
-                {selectedTab.type === "experience" && showDialog && (
-                  <AddExperienceModal {...newProps} />
-                )}
+                <AnimatePresence>
+                  {selectedTab.type === "experience" && showDialog && (
+                    <AddExperienceModal {...newProps} />
+                  )}
+                </AnimatePresence>
                 {selectedTab.type === "introduction" && showDialog && (
                   <AddIntroductionModal {...newProps} />
                 )}
@@ -201,7 +203,7 @@ export const getServerSideProps = async ({
     `${process.env.NEXT_PUBLIC_BACKEND_URL}/user/${username}/${tab}`
   );
   const { user, tabContent } = await res.json();
-  if (user === null || !user.tabs) {
+  if (!user) {
     return { redirect: { destination: "/", permanent: false } };
   } else {
     const parsedTabs = JSON.parse(user.tabs);

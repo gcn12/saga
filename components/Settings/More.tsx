@@ -1,3 +1,4 @@
+import { AnimatePresence } from "framer-motion";
 import { useState } from "react";
 import styled from "styled-components";
 import { ColoredButton } from "../Shared/Buttons";
@@ -16,11 +17,13 @@ export default function More() {
       {/* <ColoredButton style={{ width: "100%" }} type="submit">
         Save
       </ColoredButton> */}
-      {showDeleteAccountModal && (
-        <DeleteAccountModal
-          setShowDeleteAccountModal={setShowDeleteAccountModal}
-        />
-      )}
+      <AnimatePresence>
+        {showDeleteAccountModal && (
+          <DeleteAccountModal
+            setShowDeleteAccountModal={setShowDeleteAccountModal}
+          />
+        )}
+      </AnimatePresence>
     </div>
   );
 }

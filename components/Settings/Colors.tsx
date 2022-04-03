@@ -64,6 +64,7 @@ export default function Colors() {
               onClick={() => changeAccentColor(colorHex)}
               isSelected={colorHex === accentColor}
               hex={colorHex}
+              aria-label="color"
             />
           );
         })}
@@ -78,6 +79,7 @@ export default function Colors() {
               onClick={() => changeBackgroundColor(colorHex)}
               isSelected={colorHex === backgroundColor}
               hex={colorHex}
+              aria-label="color"
             />
           );
         })}

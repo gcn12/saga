@@ -1,3 +1,5 @@
+import "cypress-axe";
+
 describe("User can sign up", () => {
   it("User auth works", () => {
     cy.visit("/");

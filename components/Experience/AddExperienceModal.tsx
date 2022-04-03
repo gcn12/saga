@@ -7,6 +7,7 @@ import TipTap from "../TipTap";
 import { TabContent, Tab } from "../../Types/types";
 import { Label, Input } from "../Shared/Forms";
 import { ColoredButton } from "../Shared/Buttons";
+import { motion } from "framer-motion";
 
 interface AddExperienceModalProps {
   tabContent: TabContent[];
@@ -99,13 +100,21 @@ export default function AddExperienceModal({
     setShowDialog(false);
   };
 
+  const MotionStyledDialogContent = motion(StyledDialogContent);
+
   return (
     <StyledDialogOverlay
       aria-label="blog post"
       onDismiss={() => setShowDialog(false)}
       isOpen={true}
     >
-      <StyledDialogContent aria-label={"blog post"}>
+      <MotionStyledDialogContent
+        aria-label={"blog post"}
+        key="add-experience-overlay"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        exit={{ opacity: 0 }}
+      >
         <button
           onClick={() => setShowDialog(false)}
           style={{ padding: "0 5%" }}
@@ -139,7 +148,7 @@ export default function AddExperienceModal({
             <div></div>
             <InputLabelContainer>
               <Label>Description</Label>
-              <TipTap setText={setDescription} />
+              {/* <TipTap setText={setDescription} /> */}
             </InputLabelContainer>
             <div></div>
             <InputLabelContainer>
@@ -192,7 +201,7 @@ export default function AddExperienceModal({
             </ButtonsContainer>
           </Container>
         </div>
-      </StyledDialogContent>
+      </MotionStyledDialogContent>
     </StyledDialogOverlay>
   );
 }

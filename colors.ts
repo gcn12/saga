@@ -1,8 +1,8 @@
 export const accentColors = [
-  "#ff9b94",
-  "#9cc7ff",
-  "#4bb387",
-  "#ed6868",
+  "#D33C32",
+  "#537096",
+  "#4E7564",
+  "#936A35",
 ] as const;
 export type AccentColorsType = typeof accentColors[number];
 

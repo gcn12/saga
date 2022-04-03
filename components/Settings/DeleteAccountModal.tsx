@@ -5,6 +5,7 @@ import { ColoredButton } from "../Shared/Buttons";
 import { AuthContext } from "../../jotai/state";
 import { useRouter } from "next/router";
 import { useContext } from "react";
+import { motion } from "framer-motion";
 
 interface DeleteAccountModalProps {
   setShowDeleteAccountModal: (value: boolean) => void;
@@ -35,9 +36,23 @@ export default function DeleteAccountModal({
       console.log(err);
     }
   };
+
+  const MotionStyledDialogContent = motion(StyledDialogContent);
+  const MotionDialogOverlay = motion(DialogOverlay);
   return (
-    <DialogOverlay onDismiss={() => setShowDeleteAccountModal(false)}>
-      <StyledDialogContent>
+    <MotionDialogOverlay
+      onDismiss={() => setShowDeleteAccountModal(false)}
+      key="delete=account-overlay"
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+    >
+      <MotionStyledDialogContent
+        key="delete=account"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        exit={{ opacity: 0 }}
+      >
         <button onClick={() => setShowDeleteAccountModal(false)}>X</button>
         <Container onSubmit={(e) => deleteUser(e)}>
           <div>
@@ -46,8 +61,8 @@ export default function DeleteAccountModal({
           </div>
           <ColoredButton type="submit">Delete account</ColoredButton>
         </Container>
-      </StyledDialogContent>
-    </DialogOverlay>
+      </MotionStyledDialogContent>
+    </MotionDialogOverlay>
   );
 }
 
