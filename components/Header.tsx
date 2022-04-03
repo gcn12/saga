@@ -75,7 +75,7 @@ const Container = styled.div`
   margin-bottom: 30px;
 `;
 
-const Bio = styled.p`
+const Bio = styled.div`
   font-size: 0.9rem;
   margin-bottom: 30px;
   color: #6e6e6e;

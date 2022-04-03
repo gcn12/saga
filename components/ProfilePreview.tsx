@@ -106,7 +106,7 @@ const Name = styled.p`
   font-weight: 600;
 `;
 
-const Career = styled.p`
+const Career = styled.div`
   font-size: 1.12rem;
 `;
 
@@ -127,7 +127,7 @@ const HeaderTextContainer = styled.div`
   justify-content: space-between;
 `;
 
-const Bio = styled.p`
+const Bio = styled.div`
   font-size: 0.9rem;
   margin-bottom: 30px;
   color: #6e6e6e;

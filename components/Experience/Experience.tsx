@@ -123,7 +123,7 @@ const ExperienceExpand = styled.button`
   cursor: pointer;
 `;
 
-const Description = styled.p`
+const Description = styled.div`
   color: #6e6e6e;
   margin-bottom: 20px;
 `;
