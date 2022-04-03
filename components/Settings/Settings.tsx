@@ -1,101 +1,22 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import Tabs from "./Tabs";
-import {
-  AccentColorsType,
-  accentColors,
-  BackgroundColorsType,
-  backgroundColors,
-} from "../../colors";
+import Profile from "./Profile";
+import Colors from "./Colors";
+import More from "./More";
 
-export const tabs = ["Colors", "Layout"] as const;
+export const tabs = ["Colors", "Profile", "More"] as const;
 export type TabTypes = typeof tabs[number];
 
 export default function Settings() {
   const [selectedTab, setSelectedTab] = useState<TabTypes>("Colors");
-  const [accentColor, setAccentColor] = useState<AccentColorsType>(
-    accentColors[0]
-  );
-  const [backgroundColor, setBackgroundColor] = useState<BackgroundColorsType>(
-    backgroundColors[0]
-  );
 
-  useEffect(() => {
-    setBackgroundColor(
-      getComputedStyle(document.documentElement).getPropertyValue(
-        "--background"
-      ) as BackgroundColorsType
-    );
-
-    setAccentColor(
-      getComputedStyle(document.documentElement).getPropertyValue(
-        "--accent"
-      ) as AccentColorsType
-    );
-  }, []);
-
-  const changeBackgroundColor = (color: BackgroundColorsType) => {
-    document.documentElement.style.setProperty("--background", color);
-    setBackgroundColor(color);
-  };
-
-  const changeAccentColor = (color: AccentColorsType) => {
-    document.documentElement.style.setProperty("--accent", color);
-    setAccentColor(color);
-  };
-
-  const saveSettings = async (e: React.FormEvent<HTMLFormElement>) => {
-    if (typeof window === "undefined") return;
-    e.preventDefault();
-    await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/save-settings`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        accentColor,
-        backgroundColor,
-        userID: localStorage.getItem("userID"),
-      }),
-    });
-  };
   return (
     <Container>
-      <Form onSubmit={(e) => saveSettings(e)}>
-        <Tabs selectedTab={selectedTab} setSelectedTab={setSelectedTab} />
-        {selectedTab === "Colors" && (
-          <ColorsContainer>
-            <p>Accent color:</p>
-            {accentColors.map((colorHex) => {
-              return (
-                <ColorButton
-                  type="button"
-                  key={colorHex}
-                  onClick={() => changeAccentColor(colorHex)}
-                  isSelected={colorHex === accentColor}
-                  hex={colorHex}
-                />
-              );
-            })}
-
-            <p>Background color:</p>
-            {backgroundColors.map((colorHex) => {
-              return (
-                <ColorButton
-                  type="button"
-                  key={colorHex}
-                  onClick={() => changeBackgroundColor(colorHex)}
-                  isSelected={colorHex === backgroundColor}
-                  hex={colorHex}
-                />
-              );
-            })}
-          </ColorsContainer>
-        )}
-        <button type="submit" className="colored-button">
-          Save
-        </button>
-      </Form>
+      <Tabs selectedTab={selectedTab} setSelectedTab={setSelectedTab} />
+      {selectedTab === "Colors" && <Colors />}
+      {selectedTab === "Profile" && <Profile />}
+      {selectedTab === "More" && <More />}
     </Container>
   );
 }
@@ -110,29 +31,7 @@ const Container = styled.div`
   box-shadow: 0 1px 1px hsl(0deg 0% 0% / 0.03), 0 2px 2px hsl(0deg 0% 0% / 0.03),
     0 4px 4px hsl(0deg 0% 0% / 0.03), 0 8px 8px hsl(0deg 0% 0% / 0.03),
     0 16px 16px hsl(0deg 0% 0% / 0.03);
-`;
-
-const ColorsContainer = styled.div`
-  margin-bottom: 24px;
-`;
-
-const Form = styled.form`
-  height: 100%;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-`;
-
-type ColorButtonProps = {
-  hex: AccentColorsType | BackgroundColorsType;
-  isSelected: boolean;
-};
-
-const ColorButton = styled.button<ColorButtonProps>`
-  height: 40px;
-  width: 40px;
-  background-color: ${(props) => props.hex};
-  border-radius: 50%;
-  border: 6px solid ${(props) => (props.isSelected ? "#9e9e9e" : "#ededed")};
-  margin-right: 8px;
 `;

@@ -5,6 +5,8 @@ import "@reach/dialog/styles.css";
 import { useRouter } from "next/router";
 import TipTap from "../TipTap";
 import { TabContent, Tab } from "../../Types/types";
+import { Label, Input } from "../Shared/Forms";
+import { ColoredButton } from "../Shared/Buttons";
 
 interface AddExperienceModalProps {
   tabContent: TabContent[];
@@ -183,16 +185,10 @@ export default function AddExperienceModal({
             <div></div>
             <ButtonsContainer>
               <button onClick={() => setShowDialog(false)}>Cancel</button>
-              <button className="colored-button" type="submit">
-                Add experience
-              </button>
-              <button
-                onClick={getDate}
-                className="colored-button"
-                type="button"
-              >
+              <ColoredButton type="submit">Add experience</ColoredButton>
+              <ColoredButton onClick={getDate} type="button">
                 Date
-              </button>
+              </ColoredButton>
             </ButtonsContainer>
           </Container>
         </div>
@@ -233,18 +229,6 @@ const Container = styled.form`
   justify-content: center;
   flex-direction: column;
   align-items: center;
-`;
-
-const Input = styled.input`
-  border-radius: 8px;
-  padding: 4px 6px;
-  width: 100%;
-  background-color: var(--input);
-`;
-
-const Label = styled.label`
-  font-weight: 500;
-  color: #373737;
 `;
 
 const StyledDialogOverlay = styled(DialogOverlay)`

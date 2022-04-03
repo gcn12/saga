@@ -20,6 +20,7 @@ export default function CreateUser() {
     try {
       if (typeof window !== "undefined") {
         const username = localStorage.getItem("username");
+        // const username = "danny";
         const res = await fetch(
           `${process.env.NEXT_PUBLIC_BACKEND_URL}/create-profile`,
           {

@@ -5,7 +5,10 @@ import styled from "styled-components";
 import { useEffect, useState } from "react";
 
 import { User, TabContent } from "../../Types/types";
+import { userAtom } from "../../jotai/state";
+import { useAtom } from "jotai";
 
+import { ColoredButton } from "../../components/Shared/Buttons";
 import Header from "../../components/Header";
 import Tabs from "../../components/Tabs";
 import Experience from "../../components/Experience/Experience";
@@ -27,9 +30,16 @@ interface UserProps {
 }
 
 export default function Username(props: UserProps) {
-  const { user, tabContent: tabContentProps } = props;
+  const { user: userProps, tabContent: tabContentProps } = props;
   const router = useRouter();
   const { username, edit, tab } = router.query;
+  const [userState, setUserState] = useAtom(userAtom);
+
+  useEffect(() => {
+    setUserState(userProps);
+  }, []);
+
+  const user = userProps || userState;
 
   const defaultTab = user.tabs.filter((tabItem) => {
     if (tab) {
@@ -97,7 +107,7 @@ export default function Username(props: UserProps) {
             content="initial-scale=1.0, width=device-width"
           />
         </Head>
-        <Card layoutId="hello">
+        <Card layoutId="profile">
           <Header user={user} />
           <Tabs tabs={user.tabs} selectedTab={selectedTab} />
           <div className="fade">
@@ -148,12 +158,9 @@ export default function Username(props: UserProps) {
           </div>
           {edit && tabContent !== null && (
             <>
-              <button
-                className="colored-button"
-                onClick={() => setShowDialog(true)}
-              >
+              <ColoredButton onClick={() => setShowDialog(true)}>
                 Add new {selectedTab.name}
-              </button>
+              </ColoredButton>
               {selectedTab.type === "blog" && showDialog && (
                 <AddBlogModal {...newProps} />
               )}
@@ -212,17 +219,16 @@ export const getServerSideProps = async ({
   }
 };
 
-const SettingsContainer = styled(motion.div)`
-  height: 100%;
-`;
-
 const Container = styled.div`
   display: flex;
   justify-content: center;
-  flex-direction: row;
   align-items: flex-start;
   margin: 40px 0;
   gap: 30px;
+`;
+
+const SettingsContainer = styled(motion.div)`
+  height: 100%;
 `;
 
 const Card = styled(motion.div)`
@@ -230,7 +236,6 @@ const Card = styled(motion.div)`
   width: 800px;
   background-color: white;
   padding: 50px 55px;
-  margin-bottom: 30px;
   border-radius: 20px;
   min-height: 110vh;
   box-shadow: 0 1px 1px hsl(0deg 0% 0% / 0.03), 0 2px 2px hsl(0deg 0% 0% / 0.03),

@@ -6,6 +6,7 @@ import VideoModal from "./VideoModal";
 import VideoIcon from "./Icons/VideoIcon";
 import Link from "next/link";
 import { useRouter } from "next/router";
+import { ColoredButton } from "./Shared/Buttons";
 
 interface HeaderProps {
   user: User;
@@ -26,10 +27,12 @@ export default function Header({ user }: HeaderProps) {
         <InnerContainer>
           <div>
             <ProfileImage src={profilePictureURL} alt="Profile pic" />
-            <VideoButton onClick={() => setShowIntroVideo(true)}>
-              <VideoIcon />
-              <Introduction>Introduction</Introduction>
-            </VideoButton>
+            {videoIntroduction && (
+              <VideoButton onClick={() => setShowIntroVideo(true)}>
+                <VideoIcon />
+                <Introduction>Introduction</Introduction>
+              </VideoButton>
+            )}
           </div>
           <TextContainer>
             <div>
@@ -46,19 +49,16 @@ export default function Header({ user }: HeaderProps) {
             </LocationContainer>
           </TextContainer>
         </InnerContainer>
-        {/* <button style={{ alignSelf: "flex-start" }} className="colored-button">
-          Edit
-        </button> */}
         <Link
           href={`/${username}/${tab ? tab[0] : ""}${edit ? "" : "?edit=true"}`}
           scroll={false}
         >
-          <a style={{ alignSelf: "flex-start" }} className="colored-button">
-            {edit ? "Save" : "Edit"}
-          </a>
+          <ColoredButton as="a" style={{ alignSelf: "flex-start" }}>
+            {edit ? "Done" : "Edit"}
+          </ColoredButton>
         </Link>
       </div>
-      <Bio>{bio}</Bio>
+      <Bio dangerouslySetInnerHTML={{ __html: bio || "" }} />
       <AnimatePresence>
         {showIntroVideo && (
           <VideoModal

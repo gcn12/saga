@@ -27,6 +27,17 @@ export interface User {
   backgroundColor: string;
 }
 
+export interface Settings {}
+
+export interface Profile {
+  profilePictureURL: string;
+  career: string;
+  location: string;
+  bio: string;
+  tab: string;
+  videoIntroduction?: string;
+}
+
 export type BlogElements = "smallPhoto" | "paragraph" | "header" | "largePhoto";
 
 export interface Blog {

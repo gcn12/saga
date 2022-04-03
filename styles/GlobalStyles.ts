@@ -14,6 +14,10 @@ export const GlobalStyles = createGlobalStyle`
     /* font-family: 'Lexend Deca', sans-serif; */
   }
 
+  html, body {
+    // height: 100%;
+  }
+
   body {
     line-height: 1.5;
     -webkit-font-smoothing: antialiased;
@@ -22,7 +26,7 @@ export const GlobalStyles = createGlobalStyle`
   html {
     --color-title: #318543;
     --background: #f5f9f4;
-    --accent: #40a355;
+    --accent: #ff9b94;
     --input: #ecf6f7;
   }
 
@@ -101,20 +105,6 @@ export const GlobalStyles = createGlobalStyle`
 
   .dark:hover .dark-text {
     color: black;
-  }
-
-  .colored-button {
-    color: white;
-    background-color: var(--accent);
-    padding: 8px 16px;
-    border-radius: 8px;
-    margin: 0 5px 5px 0;
-    font-weight: 600;
-    transition: 0.3s filter ease-in-out;
-  }
-  .colored-button:hover {
-    /* background-color: rgb(105, 182, 105); */
-    filter: brightness(92%);
   }
 
  [data-reach-menu-item][data-selected] {

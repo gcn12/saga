@@ -1,6 +1,8 @@
 import TipTap from "../components/TipTap";
 import { Tab } from "../Types/types";
 import styled from "styled-components";
+import { Label, Input } from "./Shared/Forms";
+import { ColoredButton } from "./Shared/Buttons";
 
 interface CreateUserFormProps {
   createUser: () => void;
@@ -54,23 +56,17 @@ export default function CreateUserForm({
           }}
         >
           Bio:
-          <Textarea onChange={(e) => setBio(e.target.value)} />
+          <TipTap setText={setBio} />
         </Label>
 
         <div></div>
-        <SubmitButton type="button" onClick={createUser}>
+        <ColoredButton type="button" onClick={createUser}>
           Create user
-        </SubmitButton>
+        </ColoredButton>
       </FormContainer>
     </Container>
   );
 }
-
-const Label = styled.label`
-  display: flex;
-  flex-direction: column;
-  margin-bottom: 20px;
-`;
 
 const Container = styled.div`
   width: 40%;
@@ -80,16 +76,6 @@ const Container = styled.div`
 
 const FormContainer = styled.form`
   width: 80%;
-`;
-
-const Input = styled.input`
-  border-radius: 8px;
-  padding: 6px 8px;
-`;
-
-const Textarea = styled.textarea`
-  border-radius: 8px;
-  padding: 6px 8px;
 `;
 
 const SubmitButton = styled.button`

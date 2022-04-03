@@ -7,6 +7,7 @@ import moment from "moment";
 import { useRouter } from "next/router";
 import TipTap from "../TipTap";
 import { TabContent, Tab, BlogElements } from "../../Types/types";
+import { ColoredButton } from "../Shared/Buttons";
 
 interface AddBlogModalProps {
   setTabContent: (tabContent: TabContent[]) => void;
@@ -187,9 +188,7 @@ export default function AddBlogModal({
               );
             })}
           </ButtonContainer>
-          <button type="submit" className="colored-button">
-            Create
-          </button>
+          <ColoredButton type="submit">Create</ColoredButton>
         </form>
       </DialogContent>
     </DialogOverlay>

@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import { useRouter } from "next/router";
 import { User } from "../Types/types";
+import { Label, Input } from "../components/Shared/Forms";
+import { ColoredButton } from "../components/Shared/Buttons";
 
 type UserRes = Pick<User, "id" | "name" | "username">;
 
@@ -47,7 +49,9 @@ export default function Signup() {
           Username:
           <Input onChange={(e) => setUserame(e.target.value)} type="text" />
         </Label>
-        <Submit type="submit">CREATE</Submit>
+        <ColoredButton style={{ width: "100%" }} type="submit">
+          CREATE
+        </ColoredButton>
       </Form>
     </Container>
   );
@@ -60,37 +64,21 @@ const Container = styled.div`
 `;
 
 const Form = styled.form`
-  border: 1px solid black;
+  border: 1px solid rgb(218, 218, 218);
   border-radius: 8px;
   width: 350px;
   height: 400px;
-  padding: 0 2%;
+  padding: 8px 36px;
   display: grid;
   place-items: center;
-`;
-
-const Input = styled.input`
-  width: 100%;
-  border-radius: 4px;
-  background-color: var(--input);
-  padding: 4px 8px;
-`;
-
-const Label = styled.label`
-  font-weight: 400;
-  width: 100%;
+  background-color: white;
+  box-shadow: 0 1px 1px hsl(0deg 0% 0% / 0.03), 0 2px 2px hsl(0deg 0% 0% / 0.03),
+    0 4px 4px hsl(0deg 0% 0% / 0.03), 0 8px 8px hsl(0deg 0% 0% / 0.03),
+    0 16px 16px hsl(0deg 0% 0% / 0.03);
 `;
 
 const Title = styled.p`
   font-size: 1.5rem;
   font-weight: 600;
   text-align: center;
-`;
-
-const Submit = styled.button`
-  width: 100%;
-  background-color: black;
-  color: white;
-  border-radius: 4px;
-  height: 40px;
 `;

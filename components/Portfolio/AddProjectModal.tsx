@@ -6,6 +6,7 @@ import styled from "styled-components";
 import { useRouter } from "next/router";
 import AddProjectPreview from "./AddProjectPreview";
 import { TabContent, Tab, Project, ProjectElements } from "../../Types/types";
+import { ColoredButton } from "../Shared/Buttons";
 
 const PHOTOS = [
   "https://images.unsplash.com/photo-1547592180-85f173990554?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTN8fGNvb2tpbmd8ZW58MHx8MHx8&auto=format&fit=crop&w=800&q=60",
@@ -379,9 +380,7 @@ export default function AddProjectModal({
                 );
               })}
             </ButtonsContainer>
-            <button type="submit" className="colored-button">
-              Add project
-            </button>
+            <ColoredButton type="submit">Add project</ColoredButton>
           </Container>
         </BuilderContainer>
       </StyledDialogContent>

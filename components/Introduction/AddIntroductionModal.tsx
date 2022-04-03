@@ -3,6 +3,7 @@ import { useState } from "react";
 import "@reach/dialog/styles.css";
 import { useRouter } from "next/router";
 import { TabContent, Tab, Blog, BlogElements } from "../../Types/types";
+import { ColoredButton } from "../Shared/Buttons";
 
 const VIDEOS = [
   "https://player.vimeo.com/video/137425484?h=c0f888fae6",
@@ -127,9 +128,7 @@ export default function AddIntroductionModal({
             />
           </label>
           <div></div>
-          <button type="submit" className="colored-button">
-            Add Introduction
-          </button>
+          <ColoredButton type="submit">Add Introduction</ColoredButton>
         </form>
       </DialogContent>
     </DialogOverlay>

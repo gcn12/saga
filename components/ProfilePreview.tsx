@@ -1,4 +1,4 @@
-import { AnimatePresence, motion } from "framer-motion";
+import { motion } from "framer-motion";
 import styled from "styled-components";
 import { Tab } from "../Types/types";
 
@@ -14,12 +14,6 @@ const PLACEHOLDER_DATA = {
   name: "Your Name",
   career: "Your Career",
   location: "Location",
-  tabs: [
-    { name: "Tab 1", key: "1", type: "" },
-    { name: "Tab 2", key: "2", type: "" },
-    { name: "Tab 3", key: "3", type: "" },
-    { name: "Tab 4", key: "4", type: "" },
-  ],
   profilePictureURL:
     "https://images.unsplash.com/photo-1533227268428-f9ed0900fb3b?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTV8fG1hbnxlbnwwfHwwfHw%3D&auto=format&fit=crop&w=800&q=60",
   bio: "Leo urna molestie at elementum eu facilisis sed. Dictum at tempor commodo ullamcorper a lacus. Adipiscing commodo elit at imperdiet dui accumsan. Mauris pellentesque pulvinar pellentesque habitant morbi. Aliquam malesuada bibendum arcu vitae. Rhoncus aenean vel elit scelerisque mauris pellentesque pulvinar. Libero id faucibus nisl tincidunt. Eu tincidunt tortor aliquam nulla facilisi.",
@@ -30,10 +24,7 @@ export default function ProfilePreview({
   profilePictureURL,
   location,
   bio,
-  tabs,
 }: ProfilePreviewProps) {
-  const tabsToDisplay = ((tabs[0].name.length > 0 && tabs) ||
-    PLACEHOLDER_DATA.tabs) as Tab[];
   return (
     <Container>
       <Card>
@@ -69,7 +60,11 @@ export default function ProfilePreview({
             </LocationContainer>
           </HeaderTextContainer>
         </Header>
-        <Bio>{bio || PLACEHOLDER_DATA.bio}</Bio>
+        <Bio
+          dangerouslySetInnerHTML={{
+            __html: bio.length > 7 ? bio : PLACEHOLDER_DATA.bio,
+          }}
+        />
       </Card>
     </Container>
   );
