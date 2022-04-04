@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
-import { ColoredButton } from "../Shared/Buttons";
+import { SubmitButton, SubmitButtonStatus } from "../Shared/Buttons";
 import {
   AccentColorsType,
   accentColors,
@@ -9,6 +9,7 @@ import {
 } from "../../colors";
 
 export default function Colors() {
+  const [status, setStatus] = useState<SubmitButtonStatus>("idle");
   const [accentColor, setAccentColor] = useState<AccentColorsType>(
     accentColors[0]
   );
@@ -37,9 +38,10 @@ export default function Colors() {
     document.documentElement.style.setProperty("--accent", color);
     setAccentColor(color);
   };
+
   const saveSettings = async (e: React.FormEvent<HTMLFormElement>) => {
-    if (typeof window === "undefined") return;
     e.preventDefault();
+    setStatus("submitting");
     await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/save-colors`, {
       method: "POST",
       headers: {
@@ -51,9 +53,11 @@ export default function Colors() {
         userID: localStorage.getItem("userID"),
       }),
     });
+    setStatus("success");
   };
+
   return (
-    <Container onSubmit={(e) => saveSettings(e)}>
+    <form onSubmit={(e) => saveSettings(e)}>
       <ColorContainer>
         <p>Accent color:</p>
         {accentColors.map((colorHex) => {
@@ -84,14 +88,15 @@ export default function Colors() {
           );
         })}
       </ColorContainer>
-      <ColoredButton style={{ width: "100%" }} type="submit">
-        Save
-      </ColoredButton>
-    </Container>
+      <SubmitButton
+        disabled={status === "submitting" || status === "success"}
+        status={status}
+        style={{ width: "100%" }}
+        type="submit"
+      />
+    </form>
   );
 }
-
-const Container = styled.form``;
 
 const ColorContainer = styled.div`
   margin-bottom: 24px;
