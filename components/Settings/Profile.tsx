@@ -32,7 +32,7 @@ export default function Profile() {
   const saveSettings = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setStatus("submitting");
-    delay(250);
+    await delay(250);
     const res = await fetch(
       `${process.env.NEXT_PUBLIC_BACKEND_URL}/save-profile`,
       {
@@ -53,7 +53,7 @@ export default function Profile() {
     const userData = await res.json();
 
     const newData = { ...userData, tabs: JSON.parse(userData.tabs) };
-    delay(250);
+    await delay(250);
     setStatus("success");
     setUser(newData);
   };
