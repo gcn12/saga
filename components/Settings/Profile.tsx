@@ -1,11 +1,11 @@
 import { Label, Input } from "../Shared/Forms";
-import { ColoredButton } from "../Shared/Buttons";
+import { SubmitButton, SubmitButtonStatus } from "../Shared/Buttons";
 import styled from "styled-components";
 import { FormEvent, useContext, useState } from "react";
 import { AuthContext } from "../../jotai/state";
 
 export default function Profile() {
-  // const [user, setUser] = useAtom(userAtom);
+  const [status, setStatus] = useState<SubmitButtonStatus>("idle");
   const { user, setUser } = useContext(AuthContext);
   const [name, setName] = useState(user.name);
   const [username, setUsername] = useState(user.username);
@@ -27,8 +27,12 @@ export default function Profile() {
     },
   ];
 
+  const delay = (ms: number) => new Promise((res) => setTimeout(res, ms));
+
   const saveSettings = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    setStatus("submitting");
+    delay(250);
     const res = await fetch(
       `${process.env.NEXT_PUBLIC_BACKEND_URL}/save-profile`,
       {
@@ -49,7 +53,8 @@ export default function Profile() {
     const userData = await res.json();
 
     const newData = { ...userData, tabs: JSON.parse(userData.tabs) };
-
+    delay(250);
+    setStatus("success");
     setUser(newData);
   };
 
@@ -68,9 +73,7 @@ export default function Profile() {
           </LabelAndFormContainer>
         );
       })}
-      <ColoredButton style={{ width: "100%" }} type="submit">
-        Save
-      </ColoredButton>
+      <SubmitButton status={status} style={{ width: "100%" }} type="submit" />
     </form>
   );
 }

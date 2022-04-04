@@ -7,12 +7,27 @@ export const ColoredButton = styled.button`
   border-radius: 6px;
   margin: 0 5px 5px 0;
   font-weight: 600;
-  transition: 0.3s filter ease-in-out;
+  transition: 0.3s filter ease-in-out, 0.2s background-color ease-in-out;
   cursor: pointer;
 
   &:hover {
-    filter: brightness(92%);
+    &:active {
+      filter: brightness(92%);
+    }
   }
+`;
+
+export type SubmitButtonStatus = "idle" | "success" | "submitting";
+
+type ColoredButtonProps = {
+  submitting: boolean;
+};
+
+export const ColoredSubmitButton = styled(ColoredButton)<ColoredButtonProps>`
+  border: ${(props) => (props.submitting ? "1px solid var(--accent)" : "none")};
+  color: ${(props) => (props.submitting ? "var(--accent)" : "white")};
+  background-color: ${(props) =>
+    props.submitting ? "white" : "var(--accent)"};
 `;
 
 type SubmitButtonText = {
@@ -20,8 +35,6 @@ type SubmitButtonText = {
   submittingText: string;
   successText: string;
 };
-
-export type SubmitButtonStatus = "idle" | "success" | "submitting";
 
 type SubmitButtonTypes = SubmitButtonText & {
   status: SubmitButtonStatus;
@@ -36,11 +49,11 @@ export function ButtonWithStates({
   ...props
 }: SubmitButtonTypes) {
   return (
-    <ColoredButton {...props}>
+    <ColoredSubmitButton submitting={status === "submitting"} {...props}>
       {status === "idle" && idleText}
       {status === "success" && successText}
       {status === "submitting" && submittingText}
-    </ColoredButton>
+    </ColoredSubmitButton>
   );
 }
 

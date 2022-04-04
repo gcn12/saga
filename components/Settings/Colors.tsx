@@ -39,9 +39,12 @@ export default function Colors() {
     setAccentColor(color);
   };
 
+  const delay = (ms: number) => new Promise((res) => setTimeout(res, ms));
+
   const saveSettings = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setStatus("submitting");
+    await delay(250);
     await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/save-colors`, {
       method: "POST",
       headers: {
@@ -53,6 +56,7 @@ export default function Colors() {
         userID: localStorage.getItem("userID"),
       }),
     });
+    await delay(250);
     setStatus("success");
   };
 
