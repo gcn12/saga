@@ -3,7 +3,7 @@ import Head from "next/head";
 import { AnimatePresence, LayoutGroup, motion } from "framer-motion";
 import styled from "styled-components";
 import { useEffect, useState } from "react";
-import { AuthContext } from "../../jotai/state";
+import { AuthContext } from "../../state/context";
 
 import { User, TabContent } from "../../Types/types";
 

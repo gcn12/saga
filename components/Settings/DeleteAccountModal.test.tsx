@@ -1,7 +1,7 @@
 import DeleteAccountModal from "./DeleteAccountModal";
 import { render } from "@testing-library/react";
 import { axe } from "jest-axe";
-import { AuthContext } from "../../jotai/state";
+import { AuthContext } from "../../state/context";
 
 const setShowDeleteAccountModal = jest.fn();
 

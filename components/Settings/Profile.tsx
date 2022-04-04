@@ -2,7 +2,7 @@ import { Label, Input } from "../Shared/Forms";
 import { SubmitButton, SubmitButtonStatus } from "../Shared/Buttons";
 import styled from "styled-components";
 import { FormEvent, useContext, useState } from "react";
-import { AuthContext } from "../../jotai/state";
+import { AuthContext } from "../../state/context";
 
 export default function Profile() {
   const [status, setStatus] = useState<SubmitButtonStatus>("idle");

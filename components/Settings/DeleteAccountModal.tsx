@@ -2,7 +2,7 @@ import { DialogOverlay, DialogContent } from "@reach/dialog";
 import "@reach/dialog/styles.css";
 import styled from "styled-components";
 import { ColoredButton } from "../Shared/Buttons";
-import { AuthContext } from "../../jotai/state";
+import { AuthContext } from "../../state/context";
 import { useRouter } from "next/router";
 import { useContext } from "react";
 import { motion } from "framer-motion";
