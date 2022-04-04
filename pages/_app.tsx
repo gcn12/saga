@@ -6,7 +6,7 @@ function MyApp({ Component, pageProps }: AppProps) {
   return (
     <>
       <main>
-        <style global jsx>{`
+        {/* <style global jsx>{`
           html,
           body,
           body > div:first-child,
@@ -14,7 +14,7 @@ function MyApp({ Component, pageProps }: AppProps) {
           div#__next > div {
             height: 100%;
           }
-        `}</style>
+        `}</style> */}
         <GlobalStyles />
         <Component {...pageProps} />
       </main>
