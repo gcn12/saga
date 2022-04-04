@@ -60,7 +60,7 @@ export default function Profile() {
       setStatus("success");
       setUser(newData);
     } catch (err) {
-      toastError(err as string);
+      toastError((err as any).toString());
     }
   };
 
