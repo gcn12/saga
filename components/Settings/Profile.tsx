@@ -3,6 +3,8 @@ import { SubmitButton, SubmitButtonStatus } from "../Shared/Buttons";
 import styled from "styled-components";
 import { FormEvent, useContext, useState } from "react";
 import { AuthContext } from "../../state/context";
+import { toast } from "react-hot-toast";
+import toastError from "../Shared/Toast";
 
 export default function Profile() {
   const [status, setStatus] = useState<SubmitButtonStatus>("idle");
@@ -33,29 +35,33 @@ export default function Profile() {
     e.preventDefault();
     setStatus("submitting");
     await delay(250);
-    const res = await fetch(
-      `${process.env.NEXT_PUBLIC_BACKEND_URL}/save-profile`,
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          name,
-          username,
-          career,
-          location,
-          videoIntroduction,
-          userID: localStorage.getItem("userID"),
-        }),
-      }
-    );
-    const userData = await res.json();
+    try {
+      const res = await fetch(
+        `${process.env.NEXT_PUBLIC_BACKEND_URL}/save-profile`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            name,
+            username,
+            career,
+            location,
+            videoIntroduction,
+            userID: localStorage.getItem("userID"),
+          }),
+        }
+      );
+      const userData = await res.json();
 
-    const newData = { ...userData, tabs: JSON.parse(userData.tabs) };
-    await delay(250);
-    setStatus("success");
-    setUser(newData);
+      const newData = { ...userData, tabs: JSON.parse(userData.tabs) };
+      await delay(250);
+      setStatus("success");
+      setUser(newData);
+    } catch (err) {
+      toastError(err as string);
+    }
   };
 
   return (
