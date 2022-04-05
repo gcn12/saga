@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import { tabs, TabTypes } from "./Settings";
 import Spacer from "../Shared/Spacer";
+import { Fragment } from "react";
 
 interface TabsProps {
   selectedTab: TabTypes;
@@ -12,16 +13,15 @@ export default function Tabs({ selectedTab, setSelectedTab }: TabsProps) {
     <Container>
       {tabs.map((tab) => {
         return (
-          <>
+          <Fragment key={tab}>
             <TabText
-              key={tab}
               onClick={() => setSelectedTab(tab)}
               isSelected={selectedTab === tab}
             >
               {tab}
             </TabText>
-            <Spacer size={20} axis="x" />
-          </>
+            <Spacer size={16} axis="x" />
+          </Fragment>
         );
       })}
     </Container>

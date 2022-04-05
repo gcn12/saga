@@ -24,7 +24,7 @@ interface SpacerStyleProps {
 const SpacerStyle = styled.span<SpacerStyleProps>`
   display: block;
   min-width: ${(props) => props.width}px;
-  width: ${(props) => props.width}px;
   min-height: ${(props) => props.height}px;
   height: ${(props) => props.height}px;
+  width: ${(props) => props.width}px;
 `;
