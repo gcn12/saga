@@ -1,7 +1,7 @@
 import { render } from "@testing-library/react";
 import Introduction from "./Introduction";
 import { axe } from "jest-axe";
-import { TabContent, Tab } from "../../Types/types";
+import { TabContent, Tab } from "../../types/types";
 const tabContent: TabContent[] = [
   { username: "Gareth", type: "blog", content: "", id: "", name: "Name" },
 ];

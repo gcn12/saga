@@ -1,6 +1,6 @@
 import { AnimatePresence } from "framer-motion";
 import { useState } from "react";
-import { User } from "../Types/types";
+import { User } from "../types/types";
 import styled from "styled-components";
 import VideoModal from "./VideoModal";
 import VideoIcon from "./Icons/VideoIcon";

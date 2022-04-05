@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { useState } from "react";
 import { useRouter } from "next/router";
 import TipTap from "../TipTap";
-import { TabContent, Tab } from "../../Types/types";
+import { TabContent, Tab } from "../../types/types";
 import { Label, Input } from "../Shared/Forms";
 import { ColoredButton } from "../Shared/Buttons";
 import { motion } from "framer-motion";

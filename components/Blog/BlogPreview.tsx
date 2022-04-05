@@ -5,7 +5,7 @@ import DeleteExperienceModal from "../DeleteItemModal";
 import BlogPost from "./BlogPost";
 import { AnimatePresence } from "framer-motion";
 import { useRouter } from "next/router";
-import { TabContent } from "../../Types/types";
+import { TabContent } from "../../types/types";
 
 interface BlogPreviewProps {
   setTabContent: (tabContent: TabContent[]) => void;

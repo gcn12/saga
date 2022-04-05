@@ -1,6 +1,6 @@
 import { DialogContent, DialogOverlay } from "@reach/dialog";
 import { motion } from "framer-motion";
-import { TabContent } from "../Types/types";
+import { TabContent } from "../types/types";
 import React from "react";
 import styled from "styled-components";
 import toastError from "./Shared/Toast";

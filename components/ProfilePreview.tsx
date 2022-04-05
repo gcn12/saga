@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { Tab } from "../Types/types";
+import { Tab } from "../types/types";
 import useIsMounted from "../hooks/useIsMounted";
 import { useEffect, useState } from "react";
 interface ProfilePreviewProps {

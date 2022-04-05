@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { DialogContent, DialogOverlay } from "@reach/dialog";
 import { motion } from "framer-motion";
 import styled from "styled-components";
-import { Project as ProjectType } from "../../Types/types";
+import { Project as ProjectType } from "../../types/types";
 import toastError from "../Shared/Toast";
 
 interface ProjectProps {

@@ -7,7 +7,7 @@ import { AnimatePresence } from "framer-motion";
 
 import DeleteExperienceModal from "../DeleteItemModal";
 import ArrowIcon from "../Icons/ArrowIcon";
-import { TabContent } from "../../Types/types";
+import { TabContent } from "../../types/types";
 
 interface ExperienceProps {
   setTabContent: (tabContent: TabContent[]) => void;

@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import { DialogOverlay, DialogContent } from "@reach/dialog";
 import TimelineItem from "./TimelineItemFullScreen";
-import { TimelineItem as TimelineItemType } from "../../Types/types";
+import { TimelineItem as TimelineItemType } from "../../types/types";
 import { motion } from "framer-motion";
 
 interface TimelineFullScreenProps {

@@ -2,7 +2,7 @@ import { useRouter } from "next/router";
 import { useState } from "react";
 import CreateUserForm from "../components/CreateUserForm";
 import ProfilePreview from "../components/ProfilePreview";
-import { Tab, User } from "../Types/types";
+import { Tab, User } from "../types/types";
 import styled from "styled-components";
 import { backgroundColors, accentColors } from "../colors";
 import toastError from "../components/Shared/Toast";

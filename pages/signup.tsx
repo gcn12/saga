@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import { useRouter } from "next/router";
-import { User } from "../Types/types";
+import { User } from "../types/types";
 import { Label, Input } from "../components/Shared/Forms";
 import { ColoredButton } from "../components/Shared/Buttons";
 import toastError from "../components/Shared/Toast";

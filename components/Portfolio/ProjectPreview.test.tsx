@@ -1,7 +1,7 @@
 import { render } from "@testing-library/react";
 import ProjectPreview from "./ProjectPreview";
 import { axe } from "jest-axe";
-import { TabContent, Tab } from "../../Types/types";
+import { TabContent, Tab } from "../../types/types";
 
 jest.mock("next/router", () => ({
   useRouter() {

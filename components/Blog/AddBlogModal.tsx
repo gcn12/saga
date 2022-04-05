@@ -5,7 +5,7 @@ import { Reorder, motion } from "framer-motion";
 import moment from "moment";
 import { useRouter } from "next/router";
 import TipTap from "../TipTap";
-import { TabContent, Tab, BlogElements } from "../../Types/types";
+import { TabContent, Tab, BlogElements } from "../../types/types";
 import { ColoredButton } from "../Shared/Buttons";
 
 interface AddBlogModalProps {

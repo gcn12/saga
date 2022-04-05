@@ -7,7 +7,7 @@ import DeleteExperienceModal from "../DeleteItemModal";
 import Project from "./Project";
 import { AnimatePresence } from "framer-motion";
 import { useRouter } from "next/router";
-import { Tab, TabContent } from "../../Types/types";
+import { Tab, TabContent } from "../../types/types";
 
 interface ProjectPreviewProps {
   content: {

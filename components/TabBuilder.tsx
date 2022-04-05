@@ -1,6 +1,6 @@
 import DragIcon from "./Icons/DragIcon";
 import { Reorder, useDragControls } from "framer-motion";
-import { Tab } from "../Types/types";
+import { Tab } from "../types/types";
 import styled from "styled-components";
 
 interface TabBuilderProps {

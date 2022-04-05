@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { Tab } from "../Types/types";
+import { Tab } from "../types/types";
 import Link from "next/link";
 import { useRouter } from "next/router";
 

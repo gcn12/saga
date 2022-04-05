@@ -1,7 +1,7 @@
 import { render } from "@testing-library/react";
 import AddProjectPreview from "./AddProjectPreview";
 import { axe } from "jest-axe";
-import { Project } from "../../Types/types";
+import { Project } from "../../types/types";
 
 const project: Project[] = [{ content: "Content", key: 1, type: "header" }];
 

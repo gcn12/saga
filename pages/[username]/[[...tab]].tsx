@@ -5,7 +5,7 @@ import styled from "styled-components";
 import { useEffect, useState } from "react";
 import { AuthContext } from "../../state/context";
 
-import { User, TabContent } from "../../Types/types";
+import { User, TabContent } from "../../types/types";
 
 import { ColoredButton } from "../../components/Shared/Buttons";
 import Header from "../../components/Header";

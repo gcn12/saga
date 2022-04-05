@@ -6,7 +6,7 @@ import { useRouter } from "next/router";
 import { AnimatePresence, motion } from "framer-motion";
 import VideoModal from "../VideoModal";
 import styled from "styled-components";
-import { TabContent, Tab } from "../../Types/types";
+import { TabContent, Tab } from "../../types/types";
 
 interface IntroductionProps {
   setTabContent: (tabContent: TabContent[]) => void;

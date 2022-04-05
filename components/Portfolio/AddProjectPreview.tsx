@@ -1,5 +1,5 @@
 import { AnimatePresence, motion } from "framer-motion";
-import { Project } from "../../Types/types";
+import { Project } from "../../types/types";
 
 interface AddProjectPreviewProps {
   project: Project[];

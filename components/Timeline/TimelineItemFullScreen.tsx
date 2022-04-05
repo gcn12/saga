@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { TimelineItem as TimelineItemType } from "../../Types/types";
+import { TimelineItem as TimelineItemType } from "../../types/types";
 
 interface TimelineItemProps {
   item: TimelineItemType;

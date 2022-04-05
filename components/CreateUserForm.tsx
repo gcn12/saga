@@ -1,5 +1,5 @@
 import TipTap from "../components/TipTap";
-import { Tab } from "../Types/types";
+import { Tab } from "../types/types";
 import styled from "styled-components";
 import { Label, Input } from "./Shared/Forms";
 import { ColoredButton } from "./Shared/Buttons";
