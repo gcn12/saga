@@ -7,6 +7,7 @@ import { useRouter } from "next/router";
 import AddProjectPreview from "./AddProjectPreview";
 import { TabContent, Tab, Project, ProjectElements } from "../../Types/types";
 import { ColoredButton } from "../Shared/Buttons";
+import toastError from "../Shared/Toast";
 
 const PHOTOS = [
   "https://images.unsplash.com/photo-1547592180-85f173990554?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTN8fGNvb2tpbmd8ZW58MHx8MHx8&auto=format&fit=crop&w=800&q=60",
@@ -62,42 +63,46 @@ export default function AddProjectModal({
       name: selectedTab.name,
     };
 
-    const res = await fetch(
-      `${process.env.NEXT_PUBLIC_BACKEND_URL}/add-tab-preview`,
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(experience),
-      }
-    );
+    try {
+      const res = await fetch(
+        `${process.env.NEXT_PUBLIC_BACKEND_URL}/add-tab-preview`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(experience),
+        }
+      );
 
-    const data = await res.json();
-    const sortedContent = [...tabContent, data];
-    sortedContent.sort((a, b) => {
-      return b.id.localeCompare(a.id);
-    });
-    setTabContent(sortedContent);
+      const data = await res.json();
+      const sortedContent = [...tabContent, data];
+      sortedContent.sort((a, b) => {
+        return b.id.localeCompare(a.id);
+      });
+      setTabContent(sortedContent);
 
-    const contentRes = await fetch(
-      `${process.env.NEXT_PUBLIC_BACKEND_URL}/add-content`,
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          title,
-          content: projectContent,
-          username,
-        }),
-      }
-    );
+      const contentRes = await fetch(
+        `${process.env.NEXT_PUBLIC_BACKEND_URL}/add-content`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            title,
+            content: projectContent,
+            username,
+          }),
+        }
+      );
 
-    await contentRes.json();
+      await contentRes.json();
 
-    setShowDialog(false);
+      setShowDialog(false);
+    } catch (err) {
+      toastError((err as any).toString());
+    }
   };
 
   const addElement = (type: ProjectElements) => {

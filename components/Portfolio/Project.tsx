@@ -3,6 +3,7 @@ import { DialogContent, DialogOverlay } from "@reach/dialog";
 import { motion } from "framer-motion";
 import styled from "styled-components";
 import { Project as ProjectType } from "../../Types/types";
+import toastError from "../Shared/Toast";
 
 interface ProjectProps {
   title: string;
@@ -15,13 +16,17 @@ export default function Project({ title, setShowProject }: ProjectProps) {
 
   useEffect(() => {
     const getContent = async () => {
-      const res = await fetch(
-        `${process.env.NEXT_PUBLIC_BACKEND_URL}/content/${title}`
-      );
-      const project = await res.json();
-      const content = JSON.parse(project.content);
-      setProject(content);
-      setIsVisible(true);
+      try {
+        const res = await fetch(
+          `${process.env.NEXT_PUBLIC_BACKEND_URL}/content/${title}`
+        );
+        const project = await res.json();
+        const content = JSON.parse(project.content);
+        setProject(content);
+        setIsVisible(true);
+      } catch (err) {
+        toastError((err as any).toString());
+      }
     };
     getContent();
   }, [title]);

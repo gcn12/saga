@@ -4,6 +4,7 @@ import { useRouter } from "next/router";
 import { User } from "../Types/types";
 import { Label, Input } from "../components/Shared/Forms";
 import { ColoredButton } from "../components/Shared/Buttons";
+import toastError from "../components/Shared/Toast";
 
 type UserRes = Pick<User, "id" | "name" | "username">;
 
@@ -15,7 +16,6 @@ export default function Signup() {
 
   const signup = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    if (typeof window === "undefined") return;
     try {
       const res = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/signup`, {
         method: "POST",
@@ -33,7 +33,7 @@ export default function Signup() {
       localStorage.setItem("username", user.username);
       router.push("/create-user");
     } catch (err) {
-      console.log("sign up failed", err);
+      toastError((err as any).toString());
     }
   };
 

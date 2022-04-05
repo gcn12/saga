@@ -4,6 +4,7 @@ import "@reach/dialog/styles.css";
 import { useRouter } from "next/router";
 import { TabContent, Tab } from "../../Types/types";
 import { ColoredButton } from "../Shared/Buttons";
+import toastError from "../Shared/Toast";
 
 interface AddIntroductionModalProps {
   setTabContent: (tabContent: TabContent[]) => void;
@@ -42,24 +43,28 @@ export default function AddIntroductionModal({
       name: selectedTab.name,
     };
 
-    const res = await fetch(
-      `${process.env.NEXT_PUBLIC_BACKEND_URL}/add-tab-preview`,
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(experience),
-      }
-    );
+    try {
+      const res = await fetch(
+        `${process.env.NEXT_PUBLIC_BACKEND_URL}/add-tab-preview`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(experience),
+        }
+      );
 
-    const data = await res.json();
-    const sortedContent = [...tabContent, data];
-    sortedContent.sort((a, b) => {
-      return b.id.localeCompare(a.id);
-    });
-    setTabContent(sortedContent);
-    setShowDialog(false);
+      const data = await res.json();
+      const sortedContent = [...tabContent, data];
+      sortedContent.sort((a, b) => {
+        return b.id.localeCompare(a.id);
+      });
+      setTabContent(sortedContent);
+      setShowDialog(false);
+    } catch (err) {
+      toastError((err as any).toString());
+    }
   };
 
   return (

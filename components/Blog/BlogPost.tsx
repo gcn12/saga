@@ -2,6 +2,7 @@ import { DialogContent, DialogOverlay } from "@reach/dialog";
 import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
 import styled from "styled-components";
+import toastError from "../Shared/Toast";
 
 interface BlogElement {
   type: string;
@@ -20,14 +21,18 @@ export default function BlogPost({ blogTitle, setShowBlog }: BlogProps) {
 
   useEffect(() => {
     const getContent = async () => {
-      const res = await fetch(
-        `${process.env.NEXT_PUBLIC_BACKEND_URL}/content/${blogTitle}`
-      );
-      const blog = await res.json();
-      const content = JSON.parse(blog.content);
-      setBlog(content);
-      setTitle(blog.title);
-      setIsVisible(true);
+      try {
+        const res = await fetch(
+          `${process.env.NEXT_PUBLIC_BACKEND_URL}/content/${blogTitle}`
+        );
+        const blog = await res.json();
+        const content = JSON.parse(blog.content);
+        setBlog(content);
+        setTitle(blog.title);
+        setIsVisible(true);
+      } catch (err) {
+        toastError((err as any).toString());
+      }
     };
     getContent();
   }, [blogTitle]);

@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import toastError from "../components/Shared/Toast";
 
 export default function DeleteUser() {
   const [username, setUsername] = useState("");
@@ -24,13 +25,17 @@ export default function DeleteUser() {
 
   const deleteAllUsers = async (e: React.FormEvent<HTMLButtonElement>) => {
     e.preventDefault();
-    await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/delete-all-users`, {
-      method: "DELETE",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({}),
-    });
+    try {
+      await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/delete-all-users`, {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({}),
+      });
+    } catch (err) {
+      toastError((err as any).toString());
+    }
   };
 
   return (

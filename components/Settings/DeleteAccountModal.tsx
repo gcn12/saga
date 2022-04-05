@@ -48,12 +48,13 @@ export default function DeleteAccountModal({
       <MotionStyledDialogContent
         key="delete-account"
         aria-label="delete account"
-        initial={{ opacity: 0 }}
+        initial={{ opacity: 0, scale: 0.9 }}
         animate={{
           opacity: 1,
-          transition: { delay: 0.2 },
+          transition: { delay: 0.3 },
+          scale: 1,
         }}
-        exit={{ opacity: 0, transition: { duration: 0.2 } }}
+        exit={{ opacity: 0, scale: 0.9, transition: { duration: 0.2 } }}
       >
         <button onClick={() => setShowDeleteAccountModal(false)}>X</button>
         <Container onSubmit={(e) => deleteUser(e)}>
@@ -89,11 +90,11 @@ const StyledDialogContent = styled(DialogContent)`
   border-radius: 8px;
   padding: 20px;
   max-width: 500px;
-  position: absolute;
-  transform: translate(-50%, -50%);
-  top: 40%;
-  left: 50%;
   height: 250px;
+  // position: absolute;
+  // transform: translate(-50%, -50%);
+  // left: 50%;
+  // top: 50%;
 `;
 
 const MotionStyledDialogContent = motion(StyledDialogContent);
