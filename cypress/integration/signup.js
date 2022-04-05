@@ -20,7 +20,7 @@ describe("User can sign up", () => {
   });
 
   it("Can delete profile", () => {
-    cy.contains("button", "More").click();
+    cy.contains("button", "Account").click();
     cy.contains("button", "Delete").click();
     cy.contains("button", "Delete account").click({ force: true });
     cy.contains("Get started");

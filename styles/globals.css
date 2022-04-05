@@ -17,6 +17,6 @@ body {
   place-items: center;
 }
 
-/* [data-reach-dialog-content] {
-  margin-top: 20vh !important;
-} */
+[data-reach-dialog-content] {
+  margin: 7.5vh !important;
+}
