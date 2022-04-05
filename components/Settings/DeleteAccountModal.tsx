@@ -1,5 +1,4 @@
 import { DialogOverlay, DialogContent } from "@reach/dialog";
-import "@reach/dialog/styles.css";
 import styled from "styled-components";
 import { ColoredButton } from "../Shared/Buttons";
 import { AuthContext } from "../../state/context";
@@ -42,16 +41,16 @@ export default function DeleteAccountModal({
       onDismiss={() => setShowDeleteAccountModal(false)}
       key="delete=account-overlay"
       initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
+      animate={{ opacity: 1, transition: { duration: 0.35 } }}
       exit={{ opacity: 0, transition: { delay: 0.2, duration: 0.2 } }}
     >
       <MotionStyledDialogContent
         key="delete-account"
         aria-label="delete account"
-        initial={{ opacity: 0, scale: 0.9 }}
+        initial={{ opacity: 0, scale: 0.8 }}
         animate={{
           opacity: 1,
-          transition: { delay: 0.3 },
+          transition: { delay: 0.25 },
           scale: 1,
         }}
         exit={{ opacity: 0, scale: 0.9, transition: { duration: 0.2 } }}
@@ -91,10 +90,6 @@ const StyledDialogContent = styled(DialogContent)`
   padding: 20px;
   max-width: 500px;
   height: 250px;
-  // position: absolute;
-  // transform: translate(-50%, -50%);
-  // left: 50%;
-  // top: 50%;
 `;
 
 const MotionStyledDialogContent = motion(StyledDialogContent);

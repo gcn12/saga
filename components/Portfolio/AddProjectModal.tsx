@@ -1,7 +1,6 @@
 import { DialogContent, DialogOverlay } from "@reach/dialog";
 import { useState } from "react";
 import { Reorder } from "framer-motion";
-import "@reach/dialog/styles.css";
 import styled from "styled-components";
 import { useRouter } from "next/router";
 import AddProjectPreview from "./AddProjectPreview";

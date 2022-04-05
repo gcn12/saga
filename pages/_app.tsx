@@ -2,6 +2,7 @@ import "../styles/globals.css";
 import type { AppProps } from "next/app";
 import { GlobalStyles } from "../styles/GlobalStyles";
 import { Toaster } from "react-hot-toast";
+import "@reach/dialog/styles.css";
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (

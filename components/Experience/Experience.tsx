@@ -1,5 +1,4 @@
 import { useState } from "react";
-import "@reach/dialog/styles.css";
 import { useRouter } from "next/router";
 import { Menu, MenuList, MenuButton, MenuItem } from "@reach/menu-button";
 import "@reach/menu-button/styles.css";

@@ -1,7 +1,6 @@
 import { DialogContent, DialogOverlay } from "@reach/dialog";
 import styled from "styled-components";
 import { useState } from "react";
-import "@reach/dialog/styles.css";
 import { useRouter } from "next/router";
 import TipTap from "../TipTap";
 import { TabContent, Tab } from "../../Types/types";
@@ -119,13 +118,13 @@ export default function AddExperienceModal({
         isOpen={true}
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
-        exit={{ opacity: 0 }}
+        exit={{ opacity: 0, transition: { delay: 0.2 } }}
       >
         <MotionDialogContent
-          aria-label={"blog post"}
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          exit={{ opacity: 0 }}
+          aria-label="blog post"
+          initial={{ opacity: 0, scale: 0.95 }}
+          animate={{ opacity: 1, scale: 1, transition: { delay: 0.3 } }}
+          exit={{ opacity: 0, scale: 0.95, transition: { duration: 0.25 } }}
         >
           <button
             onClick={() => setShowDialog(false)}

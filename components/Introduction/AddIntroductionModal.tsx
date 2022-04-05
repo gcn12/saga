@@ -1,6 +1,5 @@
 import { DialogContent, DialogOverlay } from "@reach/dialog";
 import { useState } from "react";
-import "@reach/dialog/styles.css";
 import { useRouter } from "next/router";
 import { TabContent, Tab } from "../../Types/types";
 import { ColoredButton } from "../Shared/Buttons";

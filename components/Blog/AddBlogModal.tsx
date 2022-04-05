@@ -2,7 +2,6 @@ import { DialogContent, DialogOverlay } from "@reach/dialog";
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { Reorder, motion } from "framer-motion";
-import "@reach/dialog/styles.css";
 import moment from "moment";
 import { useRouter } from "next/router";
 import TipTap from "../TipTap";
