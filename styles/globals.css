@@ -10,7 +10,13 @@ body {
 }
 
 [data-reach-dialog-overlay] {
-  display: flex;
+  /* display: flex;
   justify-content: center;
-  align-items: center;
+  align-items: center; */
+  display: grid;
+  place-items: center;
 }
+
+/* [data-reach-dialog-content] {
+  margin-top: 20vh !important;
+} */

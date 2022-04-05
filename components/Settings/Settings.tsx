@@ -3,9 +3,9 @@ import styled from "styled-components";
 import Tabs from "./Tabs";
 import Profile from "./Profile";
 import Colors from "./Colors";
-import More from "./More";
+import Account from "./Account";
 
-export const tabs = ["Colors", "Profile", "More"] as const;
+export const tabs = ["Colors", "Profile", "Account"] as const;
 export type TabTypes = typeof tabs[number];
 
 export default function Settings() {
@@ -16,7 +16,7 @@ export default function Settings() {
       <Tabs selectedTab={selectedTab} setSelectedTab={setSelectedTab} />
       {selectedTab === "Colors" && <Colors />}
       {selectedTab === "Profile" && <Profile />}
-      {selectedTab === "More" && <More />}
+      {selectedTab === "Account" && <Account />}
     </Container>
   );
 }

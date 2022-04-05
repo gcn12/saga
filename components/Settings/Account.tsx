@@ -4,7 +4,7 @@ import styled from "styled-components";
 import { ColoredButton } from "../Shared/Buttons";
 import DeleteAccountModal from "./DeleteAccountModal";
 
-export default function More() {
+export default function Account() {
   const [showDeleteAccountModal, setShowDeleteAccountModal] = useState(false);
   return (
     <div>

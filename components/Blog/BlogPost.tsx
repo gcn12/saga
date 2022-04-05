@@ -54,11 +54,11 @@ export default function BlogPost({ blogTitle, setShowBlog }: BlogProps) {
         exit={{ opacity: 0 }}
         style={{
           borderRadius: "10px",
-          minHeight: "90vh",
+          // minHeight: "90vh",
           width: "60%",
           maxWidth: "1000px",
           padding: "20px 0",
-          margin: "30px auto",
+          // margin: "30px auto",
         }}
         aria-label="blog post"
       >
