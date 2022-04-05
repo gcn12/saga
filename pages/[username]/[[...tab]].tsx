@@ -22,7 +22,7 @@ import Education from "../../components/Education/Education";
 import Skills from "../../components/Skills";
 import Timeline from "../../components/Timeline/Timeline";
 import Settings from "../../components/Settings/Settings";
-
+import toastError from "../../components/Shared/Toast";
 interface UserProps {
   user: User;
   tabContent: TabContent[];
@@ -62,13 +62,17 @@ export default function Username(props: UserProps) {
           })[0] || user.tabs[0];
         setSelectedTab(newTab);
         setTabContent([]);
-        const res = await fetch(
-          `${process.env.NEXT_PUBLIC_BACKEND_URL}/tab/${newTab.name}/${username}`
-        );
-        const content = await res.json();
-        setTabContent(content);
-        if (tab) {
-          setPreviousTab(tab[0]);
+        try {
+          const res = await fetch(
+            `${process.env.NEXT_PUBLIC_BACKEND_URL}/tab/${newTab.name}/${username}`
+          );
+          const content = await res.json();
+          setTabContent(content);
+          if (tab) {
+            setPreviousTab(tab[0]);
+          }
+        } catch (err) {
+          toastError((err as any).toString());
         }
       }
     };

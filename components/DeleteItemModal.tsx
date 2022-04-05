@@ -4,7 +4,7 @@ import { TabContent } from "../Types/types";
 import "@reach/dialog/styles.css";
 import React from "react";
 import styled from "styled-components";
-
+import toastError from "./Shared/Toast";
 interface DeleteItemModalProps {
   setShowDeleteModal: (value: boolean) => void;
   id: string;
@@ -12,15 +12,15 @@ interface DeleteItemModalProps {
   tabContent: TabContent[];
 }
 
+const MotionDialogOverlay = motion(DialogOverlay);
+const MotionDialogContent = motion(DialogContent);
+
 export default function DeleteItemModal({
   setShowDeleteModal,
   setTabContent,
   id,
   tabContent,
 }: DeleteItemModalProps) {
-  const MotionDialogOverlay = motion(DialogOverlay);
-  const MotionDialogContent = motion(DialogContent);
-
   const variant = {
     hidden: { opacity: 0 },
     visible: { opacity: 1 },
@@ -38,19 +38,23 @@ export default function DeleteItemModal({
 
   const deleteExperience = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    const res = await fetch(
-      `${process.env.NEXT_PUBLIC_BACKEND_URL}/delete-experience/${id}`,
-      {
-        method: "DELETE",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({}),
-      }
-    );
-    await res.json();
-    removeExperienceFromState();
-    setShowDeleteModal(false);
+    try {
+      const res = await fetch(
+        `${process.env.NEXT_PUBLIC_BACKEND_URL}/delete-experience/${id}`,
+        {
+          method: "DELETE",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({}),
+        }
+      );
+      await res.json();
+      removeExperienceFromState();
+      setShowDeleteModal(false);
+    } catch (err) {
+      toastError((err as any).toString());
+    }
   };
 
   return (

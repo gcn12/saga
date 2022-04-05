@@ -6,7 +6,7 @@ import { AuthContext } from "../../state/context";
 import { useRouter } from "next/router";
 import { useContext } from "react";
 import { motion } from "framer-motion";
-
+import toastError from "../Shared/Toast";
 interface DeleteAccountModalProps {
   setShowDeleteAccountModal: (value: boolean) => void;
 }
@@ -33,26 +33,27 @@ export default function DeleteAccountModal({
       setShowDeleteAccountModal(false);
       router.push("/");
     } catch (err) {
-      console.log(err);
+      toastError((err as any).toString());
     }
   };
 
-  const MotionStyledDialogContent = motion(StyledDialogContent);
-  const MotionDialogOverlay = motion(DialogOverlay);
   return (
     <MotionDialogOverlay
       onDismiss={() => setShowDeleteAccountModal(false)}
       key="delete=account-overlay"
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
-      exit={{ opacity: 0 }}
+      exit={{ opacity: 0, transition: { delay: 0.2, duration: 0.2 } }}
     >
       <MotionStyledDialogContent
         key="delete-account"
         aria-label="delete account"
         initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        exit={{ opacity: 0 }}
+        animate={{
+          opacity: 1,
+          transition: { delay: 0.2 },
+        }}
+        exit={{ opacity: 0, transition: { duration: 0.2 } }}
       >
         <button onClick={() => setShowDeleteAccountModal(false)}>X</button>
         <Container onSubmit={(e) => deleteUser(e)}>
@@ -94,3 +95,6 @@ const StyledDialogContent = styled(DialogContent)`
   left: 50%;
   height: 250px;
 `;
+
+const MotionStyledDialogContent = motion(StyledDialogContent);
+const MotionDialogOverlay = motion(DialogOverlay);

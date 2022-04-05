@@ -3,7 +3,6 @@ import { SubmitButton, SubmitButtonStatus } from "../Shared/Buttons";
 import styled from "styled-components";
 import { FormEvent, useContext, useState } from "react";
 import { AuthContext } from "../../state/context";
-import { toast } from "react-hot-toast";
 import toastError from "../Shared/Toast";
 
 export default function Profile() {
@@ -61,6 +60,7 @@ export default function Profile() {
       setUser(newData);
     } catch (err) {
       toastError((err as any).toString());
+      setStatus("idle");
     }
   };
 

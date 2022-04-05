@@ -32,12 +32,6 @@ export default function BlogPost({ blogTitle, setShowBlog }: BlogProps) {
     getContent();
   }, [blogTitle]);
 
-  const variant = {
-    hidden: { opacity: 0 },
-    initial: { opacity: 1 },
-    transition: { duration: 0 },
-  };
-
   const MotionDialogOverlay = motion(DialogOverlay);
   const MotionDialogContent = motion(DialogContent);
 

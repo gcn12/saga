@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { SubmitButton, SubmitButtonStatus } from "../Shared/Buttons";
+import toastError from "../Shared/Toast";
 import {
   AccentColorsType,
   accentColors,
@@ -45,17 +46,21 @@ export default function Colors() {
     e.preventDefault();
     setStatus("submitting");
     await delay(250);
-    await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/save-colors`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        accentColor,
-        backgroundColor,
-        userID: localStorage.getItem("userID"),
-      }),
-    });
+    try {
+      await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/save-colors`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          accentColor,
+          backgroundColor,
+          userID: localStorage.getItem("userID"),
+        }),
+      });
+    } catch (err) {
+      toastError((err as any).toString());
+    }
     await delay(250);
     setStatus("success");
   };
