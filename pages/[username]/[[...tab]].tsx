@@ -23,6 +23,7 @@ import Skills from "../../components/Skills";
 import Timeline from "../../components/Timeline/Timeline";
 import Settings from "../../components/Settings/Settings";
 import toastError from "../../components/Shared/Toast";
+import Spacer from "../../components/Shared/Spacer";
 interface UserProps {
   user: User;
   tabContent: TabContent[];
@@ -181,6 +182,7 @@ export default function Username(props: UserProps) {
               </>
             )}
           </Card>
+          <Spacer size={28} axis="x" />
           <AnimatePresence>
             {edit && (
               <SettingsContainer
@@ -226,7 +228,6 @@ const Container = styled.div`
   justify-content: center;
   align-items: flex-start;
   margin: 40px 0;
-  gap: 30px;
   padding: 0 20px;
 `;
 

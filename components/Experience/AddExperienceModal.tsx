@@ -8,6 +8,7 @@ import { Label, Input } from "../Shared/Forms";
 import { ColoredButton } from "../Shared/Buttons";
 import { motion } from "framer-motion";
 import toastError from "../Shared/Toast";
+import Spacer from "../Shared/Spacer";
 
 interface AddExperienceModalProps {
   tabContent: TabContent[];
@@ -123,7 +124,11 @@ export default function AddExperienceModal({
         <MotionDialogContent
           aria-label="blog post"
           initial={{ opacity: 0, scale: 0.95 }}
-          animate={{ opacity: 1, scale: 1, transition: { delay: 0.3 } }}
+          animate={{
+            opacity: 1,
+            scale: 1,
+            transition: { delay: 0.1, duration: 0.5 },
+          }}
           exit={{ opacity: 0, scale: 0.95, transition: { duration: 0.25 } }}
         >
           <button
@@ -189,6 +194,7 @@ export default function AddExperienceModal({
                 <button type="button" onClick={() => setShowDialog(false)}>
                   Cancel
                 </button>
+                <Spacer size={20} axis="x" />
                 <ColoredButton type="submit">Add experience</ColoredButton>
                 {/* <ColoredButton onClick={getDate} type="button">
                   Date
@@ -218,7 +224,6 @@ const DateSelect = styled.select`
 
 const ButtonsContainer = styled.div`
   display: flex;
-  gap: 20px;
   align-self: flex-end;
 `;
 

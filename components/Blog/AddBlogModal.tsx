@@ -22,7 +22,7 @@ type ButtonsType = {
 
 const buttons: ButtonsType[] = [
   { name: "Add header", type: "header" },
-  { name: "Add paragaph", type: "paragraph" },
+  { name: "Add paragraph", type: "paragraph" },
   { name: "Add small image", type: "smallPhoto" },
   { name: "Add large image", type: "largePhoto" },
 ];

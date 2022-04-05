@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import { tabs, TabTypes } from "./Settings";
+import Spacer from "../Shared/Spacer";
 
 interface TabsProps {
   selectedTab: TabTypes;
@@ -11,13 +12,16 @@ export default function Tabs({ selectedTab, setSelectedTab }: TabsProps) {
     <Container>
       {tabs.map((tab) => {
         return (
-          <TabText
-            key={tab}
-            onClick={() => setSelectedTab(tab)}
-            isSelected={selectedTab === tab}
-          >
-            {tab}
-          </TabText>
+          <>
+            <TabText
+              key={tab}
+              onClick={() => setSelectedTab(tab)}
+              isSelected={selectedTab === tab}
+            >
+              {tab}
+            </TabText>
+            <Spacer size={20} axis="x" />
+          </>
         );
       })}
     </Container>
@@ -26,7 +30,6 @@ export default function Tabs({ selectedTab, setSelectedTab }: TabsProps) {
 
 const Container = styled.div`
   display: flex;
-  gap: 20px;
   margin-bottom: 24px;
 `;
 
