@@ -12,31 +12,27 @@ export interface Tab {
   key: number;
 }
 
-export interface User {
+export interface Account {
   id: string;
   name: string;
-  profilePictureURL: string;
-  career: string;
-  location: string;
-  bio: string;
-  tabs: Tab[];
   username: string;
-  tabContent: TabContent[];
-  videoIntroduction: string;
+}
+
+export interface Settings {
   accentColor: string;
   backgroundColor: string;
 }
-
-export interface Settings {}
 
 export interface Profile {
   profilePictureURL: string;
   career: string;
   location: string;
   bio: string;
-  tab: string;
+  tabs: Tab[];
   videoIntroduction?: string;
 }
+
+export type User = Profile & Settings & Account;
 
 export type BlogElements = "smallPhoto" | "paragraph" | "header" | "largePhoto";
 
