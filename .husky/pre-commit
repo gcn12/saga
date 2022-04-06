@@ -4,3 +4,4 @@
 yarn run lint
 yarn run test:no-watch
 yarn run cypress:run
+yarn run type-check

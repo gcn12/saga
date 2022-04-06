@@ -12,7 +12,8 @@
     "test": "jest --watch",
     "test:coverage": "jest --coverage",
     "test:no-watch": "jest",
-    "prepare": "husky install"
+    "prepare": "husky install",
+    "type-check": "tsc --noEmit"
   },
   "dependencies": {
     "@reach/dialog": "^0.16.2",
