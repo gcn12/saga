@@ -56,27 +56,25 @@ export default function Username(props: UserProps) {
 
   useEffect(() => {
     const getData = async () => {
-      if (tab && previousTab !== tab[0]) {
-        const newTab =
-          user.tabs.filter((tabItem) => {
-            if (tab) {
-              return tabItem.name === tab[0];
-            }
-          })[0] || user.tabs[0];
-        setSelectedTab(newTab);
-        setTabContent([]);
-        try {
-          const res = await fetch(
-            `${process.env.NEXT_PUBLIC_BACKEND_URL}/tab/${newTab.name}/${username}`
-          );
-          const content = await res.json();
-          setTabContent(content);
+      const newTab =
+        user.tabs.filter((tabItem) => {
           if (tab) {
-            setPreviousTab(tab[0]);
+            return tabItem.name === tab[0];
           }
-        } catch (err) {
-          toastError((err as any).toString());
+        })[0] || user.tabs[0];
+      setSelectedTab(newTab);
+      setTabContent([]);
+      try {
+        const res = await fetch(
+          `${process.env.NEXT_PUBLIC_BACKEND_URL}/tab/${newTab.name}/${username}`
+        );
+        const content = await res.json();
+        setTabContent(content);
+        if (tab) {
+          setPreviousTab(tab[0]);
         }
+      } catch (err) {
+        toastError((err as any).toString());
       }
     };
     getData();
@@ -159,25 +157,32 @@ export default function Username(props: UserProps) {
                 </AnimatePresence>
               )}
             </div>
-            {edit && tabContent !== null && (
-              <>
-                <motion.div layout>
-                  <ColoredButton onClick={() => setShowDialog(true)}>
-                    Add new {selectedTab.name}
-                  </ColoredButton>
-                </motion.div>
-                {modals.map((modal) => {
-                  const Modal = modal.modal;
-                  return (
-                    <AnimatePresence key={modal.type}>
-                      {selectedTab.type === modal.type && showDialog && (
-                        <Modal {...newProps} />
-                      )}
-                    </AnimatePresence>
-                  );
-                })}
-              </>
-            )}
+            <AnimatePresence>
+              {edit && tabContent !== null && (
+                <>
+                  <motion.div
+                    layout
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1, transition: { delay: 0.3 } }}
+                    exit={{ opacity: 0 }}
+                  >
+                    <ColoredButton onClick={() => setShowDialog(true)}>
+                      Add new {selectedTab.name}
+                    </ColoredButton>
+                  </motion.div>
+                  {modals.map((modal) => {
+                    const Modal = modal.modal;
+                    return (
+                      <AnimatePresence key={modal.type}>
+                        {selectedTab.type === modal.type && showDialog && (
+                          <Modal {...newProps} />
+                        )}
+                      </AnimatePresence>
+                    );
+                  })}
+                </>
+              )}
+            </AnimatePresence>
           </Card>
           <Spacer size={28} axis="x" />
           <AnimatePresence>
@@ -239,6 +244,7 @@ const Card = styled(motion.div)`
   padding: 50px 55px;
   border-radius: 20px;
   min-height: 110vh;
+  margin-bottom: 50px;
   box-shadow: 0 1px 1px hsl(0deg 0% 0% / 0.03), 0 2px 2px hsl(0deg 0% 0% / 0.03),
     0 4px 4px hsl(0deg 0% 0% / 0.03), 0 8px 8px hsl(0deg 0% 0% / 0.03),
     0 16px 16px hsl(0deg 0% 0% / 0.03);
