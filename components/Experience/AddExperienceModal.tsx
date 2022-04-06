@@ -51,6 +51,7 @@ export default function AddExperienceModal({
   const [startYear, setStartYear] = useState("");
   const [endMonth, setEndMonth] = useState("");
   const [endYear, setEndYear] = useState("");
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const router = useRouter();
   const { username } = router.query;
 
@@ -74,6 +75,7 @@ export default function AddExperienceModal({
 
   const addExperience = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    setIsSubmitting(true);
     const experience = {
       content: {
         company,
@@ -129,7 +131,11 @@ export default function AddExperienceModal({
             scale: 1,
             transition: { delay: 0.1, duration: 0.5 },
           }}
-          exit={{ opacity: 0, scale: 0.95, transition: { duration: 0.25 } }}
+          exit={{
+            opacity: 0,
+            scale: isSubmitting ? 1.1 : 0.95,
+            transition: { duration: 0.25 },
+          }}
         >
           <button
             onClick={() => setShowDialog(false)}
