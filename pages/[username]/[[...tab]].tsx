@@ -56,25 +56,28 @@ export default function Username(props: UserProps) {
 
   useEffect(() => {
     const getData = async () => {
-      const newTab =
-        user.tabs.filter((tabItem) => {
+      if (tab && previousTab !== tab[0]) {
+        const newTab =
+          user.tabs.filter((tabItem) => {
+            if (tab) {
+              return tabItem.name === tab[0];
+            }
+          })[0] || user.tabs[0];
+        console.log(newTab);
+        setSelectedTab(newTab);
+        setTabContent([]);
+        try {
+          const res = await fetch(
+            `${process.env.NEXT_PUBLIC_BACKEND_URL}/tab/${newTab.name}/${username}`
+          );
+          const content = await res.json();
+          setTabContent(content);
           if (tab) {
-            return tabItem.name === tab[0];
+            setPreviousTab(tab[0]);
           }
-        })[0] || user.tabs[0];
-      setSelectedTab(newTab);
-      setTabContent([]);
-      try {
-        const res = await fetch(
-          `${process.env.NEXT_PUBLIC_BACKEND_URL}/tab/${newTab.name}/${username}`
-        );
-        const content = await res.json();
-        setTabContent(content);
-        if (tab) {
-          setPreviousTab(tab[0]);
+        } catch (err) {
+          toastError((err as any).toString());
         }
-      } catch (err) {
-        toastError((err as any).toString());
       }
     };
     getData();
