@@ -24,6 +24,14 @@ import Timeline from "../../components/Timeline/Timeline";
 import Settings from "../../components/Settings/Settings";
 import toastError from "../../components/Shared/Toast";
 import Spacer from "../../components/Shared/Spacer";
+
+const modals = [
+  { modal: AddBlogModal, type: "blog" },
+  { modal: AddExperienceModal, type: "experience" },
+  { modal: AddIntroductionModal, type: "introduction" },
+  { modal: AddProjectModal, type: "portfolio" },
+  { modal: AddProjectModal, type: "education" },
+];
 interface UserProps {
   user: User;
   tabContent: TabContent[];
@@ -45,12 +53,6 @@ export default function Username(props: UserProps) {
   const [selectedTab, setSelectedTab] = useState(defaultTab || user.tabs[0]);
   const [showDialog, setShowDialog] = useState(false);
   const [previousTab, setPreviousTab] = useState("");
-
-  const itemVariants = {
-    hidden: { opacity: 0 },
-    visible: { opacity: 1 },
-    transition: { duration: 0 },
-  };
 
   useEffect(() => {
     const getData = async () => {
@@ -126,11 +128,12 @@ export default function Username(props: UserProps) {
                       return (
                         <motion.div
                           key={content.id}
-                          // @ts-ignore
-                          variants={itemVariants}
-                          initial="hidden"
-                          animate="visible"
-                          exit="hidden"
+                          initial={{ opacity: 0 }}
+                          animate={{
+                            opacity: 1,
+                            transition: { duration: 0.4 },
+                          }}
+                          exit={{ opacity: 0 }}
                           layoutId={content.id}
                         >
                           {selectedTab.type === "experience" && (
@@ -160,25 +163,16 @@ export default function Username(props: UserProps) {
                 <ColoredButton onClick={() => setShowDialog(true)}>
                   Add new {selectedTab.name}
                 </ColoredButton>
-                <AnimatePresence>
-                  {selectedTab.type === "blog" && showDialog && (
-                    <AddBlogModal {...newProps} />
-                  )}
-                </AnimatePresence>
-                <AnimatePresence>
-                  {selectedTab.type === "experience" && showDialog && (
-                    <AddExperienceModal {...newProps} />
-                  )}
-                </AnimatePresence>
-                {selectedTab.type === "introduction" && showDialog && (
-                  <AddIntroductionModal {...newProps} />
-                )}
-                {selectedTab.type === "portfolio" && showDialog && (
-                  <AddProjectModal {...newProps} />
-                )}
-                {selectedTab.type === "education" && showDialog && (
-                  <AddProjectModal {...newProps} />
-                )}
+                {modals.map((modal) => {
+                  const Modal = modal.modal;
+                  return (
+                    <AnimatePresence>
+                      {selectedTab.type === modal.type && showDialog && (
+                        <Modal {...newProps} />
+                      )}
+                    </AnimatePresence>
+                  );
+                })}
               </>
             )}
           </Card>

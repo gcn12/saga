@@ -34,15 +34,15 @@ export default function AddBlogModal({
   selectedTab,
 }: AddBlogModalProps) {
   const [blogContent, setBlogContent] = useState<any[]>([]);
+  const [title, setTitle] = useState("This is a title");
   const router = useRouter();
   const { username } = router.query;
 
   const addBlog = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const newTitle = "This is a title";
-    const experience = {
+    const tabPreview = {
       content: {
-        title: newTitle,
+        title,
         date: moment().format("MMM D YYYY"),
       },
       type: "blog",
@@ -57,7 +57,7 @@ export default function AddBlogModal({
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify(experience),
+        body: JSON.stringify(tabPreview),
       }
     );
 
@@ -68,22 +68,17 @@ export default function AddBlogModal({
     });
     setTabContent(sortedContent);
 
-    const contentRes = await fetch(
-      `${process.env.NEXT_PUBLIC_BACKEND_URL}/add-content`,
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          title: newTitle,
-          content: blogContent,
-          username,
-        }),
-      }
-    );
-
-    await contentRes.json();
+    await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/add-content`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        title,
+        content: blogContent,
+        username,
+      }),
+    });
 
     setShowDialog(false);
   };
@@ -124,7 +119,7 @@ export default function AddBlogModal({
       >
         <button onClick={() => setShowDialog(false)}>X</button>
         <div></div>
-        <Title type="text" />
+        <Title type="text" onChange={(e) => setTitle(e.target.value)} />
         <form onSubmit={addBlog}>
           <Reorder.Group
             axis="y"

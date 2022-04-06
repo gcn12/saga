@@ -26,7 +26,7 @@ export const GlobalStyles = createGlobalStyle`
   html {
     --color-title: #318543;
     --background: #f5f9f4;
-    --accent: #ff9b94;
+    --accent: #D33C32;
     --input: #ecf6f7;
   }
 

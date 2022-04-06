@@ -43,12 +43,10 @@ export default function CreateUserForm({
             </Label>
           );
         })}
-
         <Label style={{ display: "flex", flexDirection: "column" }}>
           Career
           <TipTap setText={setCareer} allowBulletList={false} />
         </Label>
-
         <Label
           style={{
             display: "flex",

@@ -46,16 +46,19 @@ export default function CreateUser() {
             }),
           }
         );
+
         const user = (await res.json()) as User;
 
         document.documentElement.style.setProperty(
           "--background",
           user.backgroundColor
         );
+
         document.documentElement.style.setProperty(
           "--accent",
           user.accentColor
         );
+
         router.push(`/${username}?edit=true`);
       }
     } catch (err) {

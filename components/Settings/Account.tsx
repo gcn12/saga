@@ -14,9 +14,6 @@ export default function Account() {
           Delete
         </ColoredButton>
       </DeleteContainer>
-      {/* <ColoredButton style={{ width: "100%" }} type="submit">
-        Save
-      </ColoredButton> */}
       <AnimatePresence>
         {showDeleteAccountModal && (
           <DeleteAccountModal
