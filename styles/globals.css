@@ -14,7 +14,8 @@ body {
   justify-content: center;
   align-items: center; */
   display: grid;
-  place-items: center;
+  justify-content: center;
+  align-self: center;
 }
 
 [data-reach-dialog-content] {

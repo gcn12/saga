@@ -4,7 +4,7 @@ import { GlobalStyles } from "../styles/GlobalStyles";
 import { Toaster } from "react-hot-toast";
 import "@reach/dialog/styles.css";
 
-function MyApp({ Component, pageProps }: AppProps) {
+export default function App({ Component, pageProps }: AppProps) {
   const toastOptions = {
     backgroundColor: "red",
     color: "white",
@@ -24,10 +24,9 @@ function MyApp({ Component, pageProps }: AppProps) {
             style: toastOptions,
           }}
         />
+
         <Component {...pageProps} />
       </main>
     </>
   );
 }
-
-export default MyApp;
