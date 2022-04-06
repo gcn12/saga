@@ -41,7 +41,7 @@ export default function AddBlogModal({
   const addBlog = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const tabPreview = {
-      content: {
+      contentPreview: {
         title,
         date: moment().format("MMM D YYYY"),
       },
@@ -51,34 +51,37 @@ export default function AddBlogModal({
     };
 
     const res = await fetch(
-      `${process.env.NEXT_PUBLIC_BACKEND_URL}/add-tab-preview`,
+      `${process.env.NEXT_PUBLIC_BACKEND_URL}/add-content`,
       {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify(tabPreview),
+        body: JSON.stringify({
+          ...tabPreview,
+          title,
+          content: blogContent,
+          username,
+        }),
       }
     );
 
     const data = await res.json();
-    const sortedContent = [...tabContent, data] as TabContent[];
+
+    const { contentPreview, type, name, id } = data;
+
+    const tabContentData = {
+      contentPreview,
+      username,
+      type,
+      name,
+      id,
+    };
+    const sortedContent = [...tabContent, tabContentData] as TabContent[];
     sortedContent.sort((a, b) => {
       return b.id.localeCompare(a.id);
     });
     setTabContent(sortedContent);
-
-    await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/add-content`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        title,
-        content: blogContent,
-        username,
-      }),
-    });
 
     setShowDialog(false);
   };

@@ -23,7 +23,13 @@ const content = {
 };
 
 const tabContent: TabContent[] = [
-  { username: "Gareth", type: "blog", content: "", id: "", name: "Name" },
+  {
+    username: "Gareth",
+    type: "blog",
+    contentPreview: "",
+    id: "",
+    name: "Name",
+  },
 ];
 
 const setTabContent = jest.fn();

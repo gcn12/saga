@@ -63,7 +63,6 @@ export default function Username(props: UserProps) {
               return tabItem.name === tab[0];
             }
           })[0] || user.tabs[0];
-        console.log(newTab);
         setSelectedTab(newTab);
         setTabContent([]);
         try {
@@ -112,7 +111,6 @@ export default function Username(props: UserProps) {
           <Card layoutId="profile">
             <Header user={user} />
             <Tabs tabs={user.tabs} selectedTab={selectedTab} />
-
             <div className="fade">
               {tabContent && (
                 <AnimatePresence>
@@ -120,7 +118,7 @@ export default function Username(props: UserProps) {
                     {tabContent.map((content: TabContent, index: number) => {
                       const tabContentProps = {
                         content: {
-                          ...JSON.parse(content.content),
+                          ...JSON.parse(content.contentPreview),
                           id: content.id,
                         },
                         selectedTab,

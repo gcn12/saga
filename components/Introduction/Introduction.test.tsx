@@ -3,7 +3,13 @@ import Introduction from "./Introduction";
 import { axe } from "jest-axe";
 import { TabContent, Tab } from "../../types/types";
 const tabContent: TabContent[] = [
-  { username: "Gareth", type: "blog", content: "", id: "", name: "Name" },
+  {
+    username: "Gareth",
+    type: "blog",
+    contentPreview: "",
+    id: "",
+    name: "Name",
+  },
 ];
 
 const setTabContent = jest.fn();

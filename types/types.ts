@@ -1,5 +1,5 @@
 export interface TabContent {
-  content: string;
+  contentPreview: string;
   username: string;
   type: string;
   name: string;
