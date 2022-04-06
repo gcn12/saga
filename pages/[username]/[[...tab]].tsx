@@ -166,7 +166,7 @@ export default function Username(props: UserProps) {
                 {modals.map((modal) => {
                   const Modal = modal.modal;
                   return (
-                    <AnimatePresence>
+                    <AnimatePresence key={modal.type}>
                       {selectedTab.type === modal.type && showDialog && (
                         <Modal {...newProps} />
                       )}
