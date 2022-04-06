@@ -61,7 +61,7 @@ export default function Header({ user }: HeaderProps) {
       </div>
       <Bio dangerouslySetInnerHTML={{ __html: bio || "" }} />
       <AnimatePresence>
-        {showIntroVideo && (
+        {showIntroVideo && videoIntroduction && (
           <VideoModal
             setShowIntroVideo={setShowIntroVideo}
             videoLink={videoIntroduction}
