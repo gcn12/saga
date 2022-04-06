@@ -111,6 +111,7 @@ export default function Username(props: UserProps) {
           <Card layoutId="profile">
             <Header user={user} />
             <Tabs tabs={user.tabs} selectedTab={selectedTab} />
+
             <div className="fade">
               {tabContent && (
                 <AnimatePresence>
@@ -160,9 +161,11 @@ export default function Username(props: UserProps) {
             </div>
             {edit && tabContent !== null && (
               <>
-                <ColoredButton onClick={() => setShowDialog(true)}>
-                  Add new {selectedTab.name}
-                </ColoredButton>
+                <motion.div layout>
+                  <ColoredButton onClick={() => setShowDialog(true)}>
+                    Add new {selectedTab.name}
+                  </ColoredButton>
+                </motion.div>
                 {modals.map((modal) => {
                   const Modal = modal.modal;
                   return (
