@@ -10,7 +10,7 @@ const user = {
 describe("Checks accessibility", () => {
   it("is accessible", async () => {
     const { container } = render(
-      <AuthContext.Provider value={user}>
+      <AuthContext.Provider value={{ user }}>
         <Account />
       </AuthContext.Provider>
     );
