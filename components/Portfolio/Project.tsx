@@ -4,6 +4,7 @@ import { motion } from "framer-motion";
 import styled from "styled-components";
 import { Project as ProjectType } from "../../types/types";
 import toastError from "../Shared/Toast";
+import { getErrorMessage } from "../../utils/utils";
 
 interface ProjectProps {
   title: string;
@@ -25,7 +26,7 @@ export default function Project({ title, setShowProject }: ProjectProps) {
         setProject(content);
         setIsVisible(true);
       } catch (err) {
-        toastError((err as any).toString());
+        toastError(getErrorMessage(err));
       }
     };
     getContent();

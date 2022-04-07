@@ -4,6 +4,7 @@ import { FormEvent, useContext, useState, Fragment } from "react";
 import { AuthContext } from "../../state/context";
 import toastError from "../Shared/Toast";
 import Spacer from "../Shared/Spacer";
+import { getErrorMessage } from "../../utils/utils";
 
 export default function Profile() {
   const [status, setStatus] = useState<SubmitButtonStatus>("idle");
@@ -53,7 +54,7 @@ export default function Profile() {
       setStatus("success");
       setUser(newData);
     } catch (err) {
-      toastError((err as any).toString());
+      toastError(getErrorMessage(err));
       setStatus("idle");
     }
   };

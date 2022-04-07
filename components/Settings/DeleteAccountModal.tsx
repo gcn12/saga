@@ -6,6 +6,8 @@ import { useRouter } from "next/router";
 import { useContext } from "react";
 import { motion } from "framer-motion";
 import toastError from "../Shared/Toast";
+import { getErrorMessage } from "../../utils/utils";
+
 interface DeleteAccountModalProps {
   setShowDeleteAccountModal: (value: boolean) => void;
 }
@@ -32,7 +34,7 @@ export default function DeleteAccountModal({
       setShowDeleteAccountModal(false);
       router.push("/");
     } catch (err) {
-      toastError((err as any).toString());
+      toastError(getErrorMessage(err));
     }
   };
 

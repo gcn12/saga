@@ -3,6 +3,7 @@ import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
 import styled from "styled-components";
 import toastError from "../Shared/Toast";
+import { getErrorMessage } from "../../utils/utils";
 
 interface BlogElement {
   type: string;
@@ -31,7 +32,7 @@ export default function BlogPost({ blogTitle, setShowBlog }: BlogProps) {
         setTitle(blog.title);
         setIsVisible(true);
       } catch (err) {
-        toastError((err as any).toString());
+        toastError(getErrorMessage(err));
       }
     };
     getContent();

@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import toastError from "../components/Shared/Toast";
+import { getErrorMessage } from "../utils/utils";
 
 export default function DeleteUser() {
   const [username, setUsername] = useState("");
@@ -34,7 +35,7 @@ export default function DeleteUser() {
         body: JSON.stringify({}),
       });
     } catch (err) {
-      toastError((err as any).toString());
+      toastError(getErrorMessage(err));
     }
   };
 

@@ -8,6 +8,7 @@ import {
   BackgroundColorsType,
   backgroundColors,
 } from "../../colors";
+import { getErrorMessage } from "../../utils/utils";
 
 export default function Colors() {
   const [status, setStatus] = useState<SubmitButtonStatus>("idle");
@@ -59,7 +60,7 @@ export default function Colors() {
         }),
       });
     } catch (err) {
-      toastError((err as any).toString());
+      toastError(getErrorMessage(err));
     }
     await delay(250);
     setStatus("success");

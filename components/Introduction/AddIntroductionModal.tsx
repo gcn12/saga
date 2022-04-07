@@ -4,6 +4,7 @@ import { useRouter } from "next/router";
 import { TabContent, Tab } from "../../types/types";
 import { ColoredButton } from "../Shared/Buttons";
 import toastError from "../Shared/Toast";
+import { getErrorMessage } from "../../utils/utils";
 
 interface AddIntroductionModalProps {
   setTabContent: (tabContent: TabContent[]) => void;
@@ -18,7 +19,6 @@ export default function AddIntroductionModal({
   tabContent,
   selectedTab,
 }: AddIntroductionModalProps) {
-  const [showModal, setShowModal] = useState(true);
   const [question, setQuestion] = useState("");
   const [videoURL, setVideoURL] = useState("");
   const router = useRouter();
@@ -62,7 +62,7 @@ export default function AddIntroductionModal({
       setTabContent(sortedContent);
       setShowDialog(false);
     } catch (err) {
-      toastError((err as any).toString());
+      toastError(getErrorMessage(err));
     }
   };
 
@@ -73,7 +73,7 @@ export default function AddIntroductionModal({
       }}
       aria-label="blog post"
       onDismiss={() => setShowDialog(false)}
-      isOpen={showModal}
+      isOpen={true}
       // @ts-ignore
       variants={variant}
       initial="hidden"

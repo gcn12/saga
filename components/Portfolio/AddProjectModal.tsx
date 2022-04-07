@@ -7,6 +7,7 @@ import AddProjectPreview from "./AddProjectPreview";
 import { TabContent, Tab, Project, ProjectElements } from "../../types/types";
 import { ColoredButton } from "../Shared/Buttons";
 import toastError from "../Shared/Toast";
+import { getErrorMessage } from "../../utils/utils";
 
 const PHOTOS = [
   "https://images.unsplash.com/photo-1547592180-85f173990554?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTN8fGNvb2tpbmd8ZW58MHx8MHx8&auto=format&fit=crop&w=800&q=60",
@@ -98,64 +99,9 @@ export default function AddProjectModal({
 
       setShowDialog(false);
     } catch (err) {
-      toastError((err as any).toString());
+      toastError(getErrorMessage(err));
     }
   };
-  // const addExperience = async (e: React.FormEvent<HTMLFormElement>) => {
-  //   e.preventDefault();
-  //   const experience = {
-  //     content: {
-  //       title,
-  //       link: link.length > 0 ? link : "https://google.com",
-  //       imageURL: imageURL.length === 0 ? "" : 1 ? imageURL : getRandomImage(),
-  //       description,
-  //     },
-  //     type: "portfolio",
-  //     username,
-  //     name: selectedTab.name,
-  //   };
-
-  //   try {
-  //     const res = await fetch(
-  //       `${process.env.NEXT_PUBLIC_BACKEND_URL}/add-tab-preview`,
-  //       {
-  //         method: "POST",
-  //         headers: {
-  //           "Content-Type": "application/json",
-  //         },
-  //         body: JSON.stringify(experience),
-  //       }
-  //     );
-
-  //     const data = await res.json();
-  //     const sortedContent = [...tabContent, data];
-  //     sortedContent.sort((a, b) => {
-  //       return b.id.localeCompare(a.id);
-  //     });
-  //     setTabContent(sortedContent);
-
-  //     const contentRes = await fetch(
-  //       `${process.env.NEXT_PUBLIC_BACKEND_URL}/add-content`,
-  //       {
-  //         method: "POST",
-  //         headers: {
-  //           "Content-Type": "application/json",
-  //         },
-  //         body: JSON.stringify({
-  //           title,
-  //           content: projectContent,
-  //           username,
-  //         }),
-  //       }
-  //     );
-
-  //     await contentRes.json();
-
-  //     setShowDialog(false);
-  //   } catch (err) {
-  //     toastError((err as any).toString());
-  //   }
-  // };
 
   const addElement = (type: ProjectElements) => {
     if (type === "leftPhoto" || type === "rightPhoto") {

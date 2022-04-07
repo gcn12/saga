@@ -1,14 +1,18 @@
 import { AnimatePresence } from "framer-motion";
 import React, { useState, useContext, FormEvent, Fragment } from "react";
 import styled from "styled-components";
-import { ColoredButton } from "../Shared/Buttons";
 import DeleteAccountModal from "./DeleteAccountModal";
 import { AuthContext } from "../../state/context";
-import { SubmitButton, SubmitButtonStatus } from "../Shared/Buttons";
+import {
+  SubmitButton,
+  SubmitButtonStatus,
+  ColoredButton,
+} from "../Shared/Buttons";
 import toastError from "../Shared/Toast";
 import { Label, Input } from "../Shared/Forms";
 import Spacer from "../Shared/Spacer";
 import { Account as AccountType } from "../../types/types";
+import { getErrorMessage } from "../../utils/utils";
 
 export default function Account() {
   const [status, setStatus] = useState<SubmitButtonStatus>("idle");
@@ -55,7 +59,7 @@ export default function Account() {
       console.log(newData);
       setUser(newData);
     } catch (err) {
-      toastError((err as any).toString());
+      toastError(getErrorMessage(err));
       setStatus("idle");
     }
   };

@@ -5,6 +5,7 @@ import { User } from "../types/types";
 import { Label, Input } from "../components/Shared/Forms";
 import { ColoredButton } from "../components/Shared/Buttons";
 import toastError from "../components/Shared/Toast";
+import { getErrorMessage } from "../utils/utils";
 
 type UserRes = Pick<User, "id" | "name" | "username">;
 
@@ -33,7 +34,7 @@ export default function Signup() {
       localStorage.setItem("username", user.username);
       router.push("/create-user");
     } catch (err) {
-      toastError((err as any).toString());
+      toastError(getErrorMessage(err));
     }
   };
 

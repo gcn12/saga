@@ -4,6 +4,8 @@ import { TabContent } from "../types/types";
 import React from "react";
 import styled from "styled-components";
 import toastError from "./Shared/Toast";
+import { getErrorMessage } from "../utils/utils";
+
 interface DeleteItemModalProps {
   setShowDeleteModal: (value: boolean) => void;
   id: string;
@@ -52,7 +54,7 @@ export default function DeleteItemModal({
       removeExperienceFromState();
       setShowDeleteModal(false);
     } catch (err) {
-      toastError((err as any).toString());
+      toastError(getErrorMessage(err));
     }
   };
 

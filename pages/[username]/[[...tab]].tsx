@@ -24,6 +24,7 @@ import Timeline from "../../components/Timeline/Timeline";
 import Settings from "../../components/Settings/Settings";
 import toastError from "../../components/Shared/Toast";
 import Spacer from "../../components/Shared/Spacer";
+import { getErrorMessage } from "../../utils/utils";
 
 const modals = [
   { modal: AddBlogModal, type: "blog" },
@@ -75,7 +76,7 @@ export default function Username(props: UserProps) {
             setPreviousTab(tab[0]);
           }
         } catch (err) {
-          toastError((err as any).toString());
+          toastError(getErrorMessage(err));
         }
       }
     };

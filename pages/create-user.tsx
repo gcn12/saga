@@ -6,6 +6,7 @@ import { Tab, User } from "../types/types";
 import styled from "styled-components";
 import { backgroundColors, accentColors } from "../colors";
 import toastError from "../components/Shared/Toast";
+import { getErrorMessage } from "../utils/utils";
 
 export default function CreateUser() {
   const [profilePictureURL, setProfilePictureURL] = useState(
@@ -63,7 +64,7 @@ export default function CreateUser() {
         router.push(`/${username}?edit=true`);
       }
     } catch (err) {
-      toastError((err as any).toString());
+      toastError(getErrorMessage(err));
     }
   };
 
