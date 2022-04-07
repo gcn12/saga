@@ -84,6 +84,14 @@ const Container = styled.div`
   width: 40%;
   display: flex;
   justify-content: center;
+
+  background-color: white;
+  padding: 50px 0;
+  border-radius: 20px;
+  margin-bottom: 50px;
+  box-shadow: 0 1px 1px hsl(0deg 0% 0% / 0.03), 0 2px 2px hsl(0deg 0% 0% / 0.03),
+    0 4px 4px hsl(0deg 0% 0% / 0.03), 0 8px 8px hsl(0deg 0% 0% / 0.03),
+    0 16px 16px hsl(0deg 0% 0% / 0.03);
 `;
 
 const FormContainer = styled.form`

@@ -62,6 +62,7 @@ const Container = styled.div`
   width: 100%;
   display: grid;
   place-items: center;
+  height: 100vh;
 `;
 
 const Form = styled.form`
