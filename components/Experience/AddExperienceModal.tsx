@@ -73,6 +73,46 @@ export default function AddExperienceModal({
   //   console.log(endDate);
   // };
 
+  // const addExperience = async (e: React.FormEvent<HTMLFormElement>) => {
+  //   e.preventDefault();
+  //   setIsSubmitting(true);
+  //   const experience = {
+  //     content: {
+  //       company,
+  //       role,
+  //       description,
+  //       timespan,
+  //     },
+  //     type: "experience",
+  //     username,
+  //     name: selectedTab.name,
+  //   };
+
+  //   try {
+  //     const res = await fetch(
+  //       `${process.env.NEXT_PUBLIC_BACKEND_URL}/add-tab-preview`,
+  //       {
+  //         method: "POST",
+  //         headers: {
+  //           "Content-Type": "application/json",
+  //         },
+  //         body: JSON.stringify(experience),
+  //       }
+  //     );
+
+  //     const data = await res.json();
+
+  //     const sortedContent = [...tabContent, data] as TabContent[];
+  //     sortedContent.sort((a, b) => {
+  //       return b.id.localeCompare(a.id);
+  //     });
+  //     setTabContent(sortedContent);
+  //     setShowDialog(false);
+  //   } catch (err) {
+  //     toastError((err as any).toString());
+  //   }
+  // };
+
   const addExperience = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setIsSubmitting(true);
@@ -90,13 +130,16 @@ export default function AddExperienceModal({
 
     try {
       const res = await fetch(
-        `${process.env.NEXT_PUBLIC_BACKEND_URL}/add-tab-preview`,
+        `${process.env.NEXT_PUBLIC_BACKEND_URL}/add-experience`,
         {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
           },
-          body: JSON.stringify(experience),
+          body: JSON.stringify({
+            ...experience,
+            username,
+          }),
         }
       );
 

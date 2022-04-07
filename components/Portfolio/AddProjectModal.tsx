@@ -48,9 +48,9 @@ export default function AddProjectModal({
     return PHOTOS[index];
   };
 
-  const addExperience = async (e: React.FormEvent<HTMLFormElement>) => {
+  const addProject = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const experience = {
+    const project = {
       content: {
         title,
         link: link.length > 0 ? link : "https://google.com",
@@ -64,24 +64,6 @@ export default function AddProjectModal({
 
     try {
       const res = await fetch(
-        `${process.env.NEXT_PUBLIC_BACKEND_URL}/add-tab-preview`,
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(experience),
-        }
-      );
-
-      const data = await res.json();
-      const sortedContent = [...tabContent, data];
-      sortedContent.sort((a, b) => {
-        return b.id.localeCompare(a.id);
-      });
-      setTabContent(sortedContent);
-
-      const contentRes = await fetch(
         `${process.env.NEXT_PUBLIC_BACKEND_URL}/add-content`,
         {
           method: "POST",
@@ -89,20 +71,91 @@ export default function AddProjectModal({
             "Content-Type": "application/json",
           },
           body: JSON.stringify({
+            ...project,
             title,
-            content: projectContent,
+            contentPreview: projectContent,
             username,
           }),
         }
       );
 
-      await contentRes.json();
+      const data = await res.json();
+
+      const { contentPreview, type, name, id } = data;
+
+      const tabContentData = {
+        contentPreview,
+        username,
+        type,
+        name,
+        id,
+      };
+      const sortedContent = [...tabContent, tabContentData] as TabContent[];
+      sortedContent.sort((a, b) => {
+        return b.id.localeCompare(a.id);
+      });
+      setTabContent(sortedContent);
 
       setShowDialog(false);
     } catch (err) {
       toastError((err as any).toString());
     }
   };
+  // const addExperience = async (e: React.FormEvent<HTMLFormElement>) => {
+  //   e.preventDefault();
+  //   const experience = {
+  //     content: {
+  //       title,
+  //       link: link.length > 0 ? link : "https://google.com",
+  //       imageURL: imageURL.length === 0 ? "" : 1 ? imageURL : getRandomImage(),
+  //       description,
+  //     },
+  //     type: "portfolio",
+  //     username,
+  //     name: selectedTab.name,
+  //   };
+
+  //   try {
+  //     const res = await fetch(
+  //       `${process.env.NEXT_PUBLIC_BACKEND_URL}/add-tab-preview`,
+  //       {
+  //         method: "POST",
+  //         headers: {
+  //           "Content-Type": "application/json",
+  //         },
+  //         body: JSON.stringify(experience),
+  //       }
+  //     );
+
+  //     const data = await res.json();
+  //     const sortedContent = [...tabContent, data];
+  //     sortedContent.sort((a, b) => {
+  //       return b.id.localeCompare(a.id);
+  //     });
+  //     setTabContent(sortedContent);
+
+  //     const contentRes = await fetch(
+  //       `${process.env.NEXT_PUBLIC_BACKEND_URL}/add-content`,
+  //       {
+  //         method: "POST",
+  //         headers: {
+  //           "Content-Type": "application/json",
+  //         },
+  //         body: JSON.stringify({
+  //           title,
+  //           content: projectContent,
+  //           username,
+  //         }),
+  //       }
+  //     );
+
+  //     await contentRes.json();
+
+  //     setShowDialog(false);
+  //   } catch (err) {
+  //     toastError((err as any).toString());
+  //   }
+  // };
 
   const addElement = (type: ProjectElements) => {
     if (type === "leftPhoto" || type === "rightPhoto") {
@@ -199,7 +252,7 @@ export default function AddProjectModal({
           <div style={{ width: "50%", paddingRight: "20px" }}>
             <AddProjectPreview project={projectContent} title={title} />
           </div>
-          <Container method="post" onSubmit={addExperience}>
+          <Container method="post" onSubmit={addProject}>
             <Label>
               Title
               <Input

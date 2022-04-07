@@ -1,8 +1,10 @@
+import { Fragment } from "react";
 import TipTap from "../components/TipTap";
 import { Tab } from "../types/types";
 import styled from "styled-components";
 import { Label, Input } from "./Shared/Forms";
 import { ColoredButton } from "./Shared/Buttons";
+import Spacer from "./Shared/Spacer";
 
 interface CreateUserFormProps {
   createUser: () => void;
@@ -15,18 +17,26 @@ interface CreateUserFormProps {
   updateTabName: (name: string, index: number) => void;
   updateTabType: (type: string, index: number) => void;
   setTabs: (tabs: Tab[]) => void;
+  profilePictureURL: string;
+  location: string;
 }
 
 export default function CreateUserForm({
   createUser,
+  profilePictureURL,
   setBio,
   setCareer,
   setLocation,
   setProfilePictureURL,
+  location,
 }: CreateUserFormProps) {
   const formElements = [
-    { label: "Profile picture url", onChange: setProfilePictureURL },
-    { label: "Location", onChange: setLocation },
+    {
+      label: "Profile picture url",
+      onChange: setProfilePictureURL,
+      value: profilePictureURL,
+    },
+    { label: "Location", onChange: setLocation, value: location },
   ];
 
   return (
@@ -34,19 +44,24 @@ export default function CreateUserForm({
       <FormContainer>
         {formElements.map((formElement) => {
           return (
-            <Label key={formElement.label}>
-              {formElement.label}
-              <Input
-                onChange={(e) => formElement.onChange(e.target.value)}
-                type="text"
-              />
-            </Label>
+            <Fragment key={formElement.label}>
+              <Label>
+                {formElement.label}
+                <Input
+                  onChange={(e) => formElement.onChange(e.target.value)}
+                  type="text"
+                  value={formElement.value}
+                />
+              </Label>
+              <Spacer size={16} axis="y" />
+            </Fragment>
           );
         })}
         <Label style={{ display: "flex", flexDirection: "column" }}>
           Career
           <TipTap setText={setCareer} allowBulletList={false} />
         </Label>
+        <Spacer size={16} axis="y" />
         <Label
           style={{
             display: "flex",
@@ -56,8 +71,7 @@ export default function CreateUserForm({
           Bio
           <TipTap setText={setBio} />
         </Label>
-
-        <div></div>
+        <Spacer size={16} axis="y" />
         <ColoredButton type="button" onClick={createUser}>
           Create user
         </ColoredButton>

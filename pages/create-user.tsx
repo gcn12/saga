@@ -8,7 +8,9 @@ import { backgroundColors, accentColors } from "../colors";
 import toastError from "../components/Shared/Toast";
 
 export default function CreateUser() {
-  const [profilePictureURL, setProfilePictureURL] = useState("");
+  const [profilePictureURL, setProfilePictureURL] = useState(
+    "https://images.unsplash.com/photo-1611689342806-0863700ce1e4?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxzZWFyY2h8MTl8fGFuaW1hbHxlbnwwfHwwfHw%3D&auto=format&fit=crop&w=800&q=60"
+  );
   const [career, setCareer] = useState("");
   const [location, setLocation] = useState("");
   const [bio, setBio] = useState("");
@@ -21,7 +23,6 @@ export default function CreateUser() {
     try {
       if (typeof window !== "undefined") {
         const username = localStorage.getItem("username");
-        // const username = "danny";
         const res = await fetch(
           `${process.env.NEXT_PUBLIC_BACKEND_URL}/create-profile`,
           {
@@ -116,6 +117,8 @@ export default function CreateUser() {
         updateTabName={updateTabName}
         updateTabType={updateTabType}
         setTabs={setTabs}
+        profilePictureURL={profilePictureURL}
+        location={location}
       />
     </Container>
   );
