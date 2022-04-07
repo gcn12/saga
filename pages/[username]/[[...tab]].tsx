@@ -100,106 +100,111 @@ export default function Username(props: UserProps) {
 
   return (
     <AuthContext.Provider value={{ user, setUser }}>
-      <Container>
-        <LayoutGroup>
-          <Head>
-            <title>{user.name}</title>
-            <meta
-              name="viewport"
-              content="initial-scale=1.0, width=device-width"
-            />
-          </Head>
-          <Card layoutId="profile">
-            <Header user={user} />
-            <Tabs tabs={user.tabs} selectedTab={selectedTab} />
-            <div className="fade">
-              {tabContent && (
-                <AnimatePresence>
-                  <Items isRow={selectedTab.type === "introduction"}>
-                    {tabContent.map((content: TabContent, index: number) => {
-                      const tabContentProps = {
-                        content: {
-                          ...JSON.parse(content.contentPreview),
-                          id: content.id,
-                        },
-                        selectedTab,
-                        setTabContent,
-                        tabContent,
-                      };
+      <CenterItems>
+        <Container>
+          <LayoutGroup>
+            <Head>
+              <title>{user.name}</title>
+              <meta
+                name="viewport"
+                content="initial-scale=1.0, width=device-width"
+              />
+            </Head>
+            <Card layoutId="profile">
+              <Header user={user} />
+              <Tabs tabs={user.tabs} selectedTab={selectedTab} />
+              <div className="fade">
+                {tabContent && (
+                  <AnimatePresence>
+                    <Items isRow={selectedTab.type === "introduction"}>
+                      {tabContent.map((content: TabContent, index: number) => {
+                        const tabContentProps = {
+                          content: {
+                            ...JSON.parse(content.contentPreview),
+                            id: content.id,
+                          },
+                          selectedTab,
+                          setTabContent,
+                          tabContent,
+                        };
+                        return (
+                          <motion.div
+                            key={content.id}
+                            initial={{ opacity: 0 }}
+                            animate={{
+                              opacity: 1,
+                              transition: { duration: 0.4 },
+                            }}
+                            exit={{ opacity: 0 }}
+                            layoutId={content.id}
+                          >
+                            {selectedTab.type === "experience" && (
+                              <Experience {...tabContentProps} />
+                            )}
+                            {selectedTab.type === "portfolio" && (
+                              <ProjectPreview {...tabContentProps} />
+                            )}
+                            {selectedTab.type === "blog" && (
+                              <BlogPreview {...tabContentProps} />
+                            )}
+                            {selectedTab.type === "introduction" && (
+                              <Introduction
+                                index={index}
+                                {...tabContentProps}
+                              />
+                            )}
+                          </motion.div>
+                        );
+                      })}
+                      {selectedTab.type === "timeline" && <Timeline />}
+                      {selectedTab.type === "education" && <Education />}
+                      {selectedTab.type === "skills" && <Skills />}
+                    </Items>
+                  </AnimatePresence>
+                )}
+              </div>
+              <AnimatePresence>
+                {edit && tabContent !== null && (
+                  <>
+                    <motion.div
+                      layout
+                      initial={{ opacity: 0 }}
+                      animate={{ opacity: 1, transition: { delay: 0.3 } }}
+                      exit={{ opacity: 0 }}
+                    >
+                      <ColoredButton onClick={() => setShowDialog(true)}>
+                        Add new {selectedTab.name}
+                      </ColoredButton>
+                    </motion.div>
+                    {modals.map((modal) => {
+                      const Modal = modal.modal;
                       return (
-                        <motion.div
-                          key={content.id}
-                          initial={{ opacity: 0 }}
-                          animate={{
-                            opacity: 1,
-                            transition: { duration: 0.4 },
-                          }}
-                          exit={{ opacity: 0 }}
-                          layoutId={content.id}
-                        >
-                          {selectedTab.type === "experience" && (
-                            <Experience {...tabContentProps} />
+                        <AnimatePresence key={modal.type}>
+                          {selectedTab.type === modal.type && showDialog && (
+                            <Modal {...newProps} />
                           )}
-                          {selectedTab.type === "portfolio" && (
-                            <ProjectPreview {...tabContentProps} />
-                          )}
-                          {selectedTab.type === "blog" && (
-                            <BlogPreview {...tabContentProps} />
-                          )}
-                          {selectedTab.type === "introduction" && (
-                            <Introduction index={index} {...tabContentProps} />
-                          )}
-                        </motion.div>
+                        </AnimatePresence>
                       );
                     })}
-                    {selectedTab.type === "timeline" && <Timeline />}
-                    {selectedTab.type === "education" && <Education />}
-                    {selectedTab.type === "skills" && <Skills />}
-                  </Items>
-                </AnimatePresence>
-              )}
-            </div>
+                  </>
+                )}
+              </AnimatePresence>
+            </Card>
+            <Spacer size={28} axis="x" />
             <AnimatePresence>
-              {edit && tabContent !== null && (
-                <>
-                  <motion.div
-                    layout
-                    initial={{ opacity: 0 }}
-                    animate={{ opacity: 1, transition: { delay: 0.3 } }}
-                    exit={{ opacity: 0 }}
-                  >
-                    <ColoredButton onClick={() => setShowDialog(true)}>
-                      Add new {selectedTab.name}
-                    </ColoredButton>
-                  </motion.div>
-                  {modals.map((modal) => {
-                    const Modal = modal.modal;
-                    return (
-                      <AnimatePresence key={modal.type}>
-                        {selectedTab.type === modal.type && showDialog && (
-                          <Modal {...newProps} />
-                        )}
-                      </AnimatePresence>
-                    );
-                  })}
-                </>
+              {edit && (
+                <SettingsContainer
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1, transition: { delay: 0.3 } }}
+                  exit={{ opacity: 0, transition: { duration: 0.15 } }}
+                >
+                  <Settings />
+                </SettingsContainer>
               )}
             </AnimatePresence>
-          </Card>
-          <Spacer size={28} axis="x" />
-          <AnimatePresence>
-            {edit && (
-              <SettingsContainer
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1, transition: { delay: 0.3 } }}
-                exit={{ opacity: 0, transition: { duration: 0.15 } }}
-              >
-                <Settings />
-              </SettingsContainer>
-            )}
-          </AnimatePresence>
-        </LayoutGroup>
-      </Container>
+          </LayoutGroup>
+        </Container>
+      </CenterItems>
     </AuthContext.Provider>
   );
 }
@@ -231,12 +236,18 @@ const Container = styled.div`
   display: flex;
   justify-content: center;
   align-items: flex-start;
-  margin: 40px 0;
+  margin-top: 40px;
   padding: 0 20px;
 `;
 
+const CenterItems = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
+
 const SettingsContainer = styled(motion.div)`
-  height: 100%;
+  min-height: 90vh;
 `;
 
 const Card = styled(motion.div)`

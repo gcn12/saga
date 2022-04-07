@@ -27,7 +27,7 @@ const Container = styled.div`
   width: 400px;
   padding: 30px 35px;
   position: sticky;
-  top: 30px;
+  top: 40px;
   box-shadow: 0 1px 1px hsl(0deg 0% 0% / 0.03), 0 2px 2px hsl(0deg 0% 0% / 0.03),
     0 4px 4px hsl(0deg 0% 0% / 0.03), 0 8px 8px hsl(0deg 0% 0% / 0.03),
     0 16px 16px hsl(0deg 0% 0% / 0.03);
