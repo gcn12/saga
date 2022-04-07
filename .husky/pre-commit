@@ -2,6 +2,6 @@
 . "$(dirname "$0")/_/husky.sh"
 
 yarn run lint
+yarn run type-check
 yarn run test:no-watch
 yarn run cypress:run
-yarn run type-check

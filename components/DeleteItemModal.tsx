@@ -73,15 +73,11 @@ export default function DeleteItemModal({
       <MotionDialogContent
         aria-label={"blog post"}
         style={{
-          borderRadius: "25px",
+          borderRadius: "16px",
           width: "500px",
           height: "300px",
           padding: "20px 0",
           margin: "30px auto",
-          position: "absolute",
-          transform: "translate(-50%, -50%)",
-          top: "40%",
-          left: "50%",
           display: "flex",
           flexDirection: "column",
           justifyContent: "space-between",
@@ -127,5 +123,5 @@ const DeleteButton = styled.button`
   background-color: #d6564d;
   color: white;
   padding: 10px 20px;
-  border-radius: 10px;
+  border-radius: 6px;
 `;
