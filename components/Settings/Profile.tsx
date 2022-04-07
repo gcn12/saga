@@ -1,15 +1,13 @@
 import { Label, Input } from "../Shared/Forms";
 import { SubmitButton, SubmitButtonStatus } from "../Shared/Buttons";
-import styled from "styled-components";
-import { FormEvent, useContext, useState } from "react";
+import { FormEvent, useContext, useState, Fragment } from "react";
 import { AuthContext } from "../../state/context";
 import toastError from "../Shared/Toast";
+import Spacer from "../Shared/Spacer";
 
 export default function Profile() {
   const [status, setStatus] = useState<SubmitButtonStatus>("idle");
   const { user, setUser } = useContext(AuthContext);
-  const [name, setName] = useState(user.name);
-  const [username, setUsername] = useState(user.username);
   const [career, setCareer] = useState(user.career);
   const [location, setLocation] = useState(user.location);
   const [videoIntroduction, setVideoIntroduction] = useState(
@@ -17,8 +15,6 @@ export default function Profile() {
   );
 
   const formItems = [
-    { label: "Name", setState: setName, value: name },
-    { label: "Username", setState: setUsername, value: username },
     { label: "Career", setState: setCareer, value: career },
     { label: "Location", setState: setLocation, value: location },
     {
@@ -43,8 +39,6 @@ export default function Profile() {
             "Content-Type": "application/json",
           },
           body: JSON.stringify({
-            name,
-            username,
             career,
             location,
             videoIntroduction,
@@ -54,7 +48,7 @@ export default function Profile() {
       );
       const userData = await res.json();
 
-      const newData = { ...userData, tabs: JSON.parse(userData.tabs) };
+      const newData = { ...user, ...userData, tabs: JSON.parse(userData.tabs) };
       await delay(250);
       setStatus("success");
       setUser(newData);
@@ -68,7 +62,7 @@ export default function Profile() {
     <form onSubmit={(e) => saveSettings(e)}>
       {formItems.map((formItem) => {
         return (
-          <LabelAndFormContainer key={formItem.label}>
+          <Fragment key={formItem.label}>
             <Label>
               {formItem.label}
               <Input
@@ -76,14 +70,11 @@ export default function Profile() {
                 onChange={(e) => formItem.setState(e.target.value)}
               />
             </Label>
-          </LabelAndFormContainer>
+            <Spacer size={16} axis="y" />
+          </Fragment>
         );
       })}
       <SubmitButton status={status} style={{ width: "100%" }} type="submit" />
     </form>
   );
 }
-
-const LabelAndFormContainer = styled.div`
-  margin-bottom: 20px;
-`;
