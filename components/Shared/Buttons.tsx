@@ -74,7 +74,7 @@ export function SubmitButton({ status, ...props }: SubmitButtonProps) {
   );
 }
 
-export const SecondaryButton = styled.div`
+export const SecondaryButton = styled.button`
   color: var(--accent);
   background-color: transparent;
   padding: 8px 16px;
