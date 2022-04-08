@@ -254,7 +254,7 @@ const SettingsContainer = styled(motion.div)`
 
 const Card = styled(motion.div)`
   width: 50%;
-  width: 800px;
+  width: 750px;
   background-color: white;
   padding: 50px 55px;
   border-radius: 20px;

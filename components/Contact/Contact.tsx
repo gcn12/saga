@@ -78,7 +78,7 @@ const Text = styled.p`
 
 const LinkContainer = styled.a`
   width: 100%;
-  background-color: #ededed;
+  background-color: #edf2f2;
   padding: 16px;
   display: flex;
   justify-content: center;
