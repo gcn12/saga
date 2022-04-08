@@ -26,7 +26,13 @@ export default function Contact() {
     <Container>
       {contacts.map((contact) => {
         const Component = logosMap[contact.type];
-        return <LinkComponent contact={contact} Component={Component} />;
+        return (
+          <LinkComponent
+            key={contact.value}
+            contact={contact}
+            Component={Component}
+          />
+        );
       })}
     </Container>
   );
