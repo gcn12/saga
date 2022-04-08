@@ -33,8 +33,7 @@ const months = [
   "December",
 ];
 
-const yearsArr = new Array(20).fill("");
-const years = yearsArr.map((_year, index) => {
+const years = new Array(20).fill("").map((_year, index) => {
   return new Date().getFullYear() - index;
 });
 
@@ -185,16 +184,6 @@ export default function AddExperienceModal({
                   </DateSelect>
                 </SelectContainer>
               </div>
-              <CheckboxContainer>
-                <input
-                  id="current-company"
-                  type="checkbox"
-                  checked={isCurrentCompany}
-                  onChange={() => setIsCurrentCompany(!isCurrentCompany)}
-                />
-                <Spacer size={8} axis="x" />
-                <label htmlFor="current-company">I currently work here</label>
-              </CheckboxContainer>
               {!isCurrentCompany && (
                 <div style={{ width: "100%" }}>
                   End
@@ -205,13 +194,23 @@ export default function AddExperienceModal({
                       })}
                     </DateSelect>
                     <DateSelect onChange={(e) => setEndYear(e.target.value)}>
-                      {["Present", ...years].map((year) => {
+                      {years.map((year) => {
                         return <option key={year}>{year}</option>;
                       })}
                     </DateSelect>
                   </SelectContainer>
                 </div>
               )}
+              <CheckboxContainer>
+                <input
+                  id="current-company"
+                  type="checkbox"
+                  checked={isCurrentCompany}
+                  onChange={() => setIsCurrentCompany(!isCurrentCompany)}
+                />
+                <Spacer size={8} axis="x" />
+                <label htmlFor="current-company">I currently work here</label>
+              </CheckboxContainer>
               <div></div>
               <ButtonsContainer>
                 <button type="button" onClick={() => setShowDialog(false)}>
