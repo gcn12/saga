@@ -53,6 +53,7 @@ export default function AddExperienceModal({
   const [endMonth, setEndMonth] = useState("");
   const [endYear, setEndYear] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isCurrentCompany, setIsCurrentCompany] = useState(true);
   const router = useRouter();
   const { username } = router.query;
 
@@ -184,21 +185,33 @@ export default function AddExperienceModal({
                   </DateSelect>
                 </SelectContainer>
               </div>
-              <div style={{ width: "100%" }}>
-                End
-                <SelectContainer>
-                  <DateSelect onChange={(e) => setEndMonth(e.target.value)}>
-                    {months.map((month) => {
-                      return <option key={month}>{month}</option>;
-                    })}
-                  </DateSelect>
-                  <DateSelect onChange={(e) => setEndYear(e.target.value)}>
-                    {["Present", ...years].map((year) => {
-                      return <option key={year}>{year}</option>;
-                    })}
-                  </DateSelect>
-                </SelectContainer>
-              </div>
+              <CheckboxContainer>
+                <input
+                  id="current-company"
+                  type="checkbox"
+                  checked={isCurrentCompany}
+                  onChange={() => setIsCurrentCompany(!isCurrentCompany)}
+                />
+                <Spacer size={8} axis="x" />
+                <label htmlFor="current-company">I currently work here</label>
+              </CheckboxContainer>
+              {!isCurrentCompany && (
+                <div style={{ width: "100%" }}>
+                  End
+                  <SelectContainer>
+                    <DateSelect onChange={(e) => setEndMonth(e.target.value)}>
+                      {months.map((month) => {
+                        return <option key={month}>{month}</option>;
+                      })}
+                    </DateSelect>
+                    <DateSelect onChange={(e) => setEndYear(e.target.value)}>
+                      {["Present", ...years].map((year) => {
+                        return <option key={year}>{year}</option>;
+                      })}
+                    </DateSelect>
+                  </SelectContainer>
+                </div>
+              )}
               <div></div>
               <ButtonsContainer>
                 <button type="button" onClick={() => setShowDialog(false)}>
@@ -249,6 +262,13 @@ const Container = styled.form`
   justify-content: center;
   flex-direction: column;
   align-items: center;
+`;
+
+const CheckboxContainer = styled.div`
+  display: flex;
+  align-items: center;
+  align-self: flex-start;
+  margin-bottom: 16px;
 `;
 
 const StyledDialogOverlay = styled(DialogOverlay)`
