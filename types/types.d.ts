@@ -61,3 +61,10 @@ export interface TimelineItem {
   date: string;
   link?: string;
 }
+
+export type ContactTypes = "instagram" | "email" | "twitter" | "facebook";
+
+export interface Contacts {
+  type: ContactTypes;
+  value: string;
+}

@@ -22,6 +22,7 @@ import Education from "../../components/Education/Education";
 import Skills from "../../components/Skills";
 import Timeline from "../../components/Timeline/Timeline";
 import Settings from "../../components/Settings/Settings";
+import Contact from "../../components/Contact/Contact";
 import toastError from "../../components/Shared/Toast";
 import Spacer from "../../components/Shared/Spacer";
 import { getErrorMessage } from "../../utils/utils";
@@ -156,6 +157,7 @@ export default function Username(props: UserProps) {
                           </motion.div>
                         );
                       })}
+                      {selectedTab.type === "contact" && <Contact />}
                       {selectedTab.type === "timeline" && <Timeline />}
                       {selectedTab.type === "education" && <Education />}
                       {selectedTab.type === "skills" && <Skills />}

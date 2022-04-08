@@ -41,6 +41,7 @@ export default function CreateUser() {
                 { type: "experience", name: "experience", key: "a" },
                 { type: "blog", name: "blog", key: "b" },
                 { type: "portfolio", name: "work", key: "c" },
+                { type: "contact", name: "contact", key: "d" },
               ],
               userID: localStorage.getItem("userID"),
               accentColor: accentColors[0],
