@@ -7,6 +7,7 @@ import {
   SubmitButton,
   SubmitButtonStatus,
   ColoredButton,
+  SecondaryButton,
 } from "../Shared/Buttons";
 import toastError from "../Shared/Toast";
 import { Label, Input } from "../Shared/Forms";
@@ -88,9 +89,9 @@ export default function Account() {
       <Spacer size={32} axis="y" />
       <DeleteContainer>
         <DeleteAccountText>Delete account</DeleteAccountText>
-        <ColoredButton onClick={() => setShowDeleteAccountModal(true)}>
+        <SecondaryButton onClick={() => setShowDeleteAccountModal(true)}>
           Delete
-        </ColoredButton>
+        </SecondaryButton>
       </DeleteContainer>
       <AnimatePresence>
         {showDeleteAccountModal && (

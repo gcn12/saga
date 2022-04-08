@@ -6,7 +6,7 @@ import VideoModal from "./VideoModal";
 import VideoIcon from "./Icons/VideoIcon";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import { ColoredButton } from "./Shared/Buttons";
+import { ColoredButton, SecondaryButton } from "./Shared/Buttons";
 
 interface HeaderProps {
   user: User;
@@ -54,9 +54,15 @@ export default function Header({ user }: HeaderProps) {
           scroll={false}
           passHref
         >
-          <ColoredButton as="a" style={{ alignSelf: "flex-start" }}>
-            {edit ? "Done" : "Edit"}
-          </ColoredButton>
+          {edit ? (
+            <SecondaryButton as="a" style={{ alignSelf: "flex-start" }}>
+              Done
+            </SecondaryButton>
+          ) : (
+            <ColoredButton as="a" style={{ alignSelf: "flex-start" }}>
+              Edit
+            </ColoredButton>
+          )}
         </Link>
       </div>
       <Bio dangerouslySetInnerHTML={{ __html: bio || "" }} />
