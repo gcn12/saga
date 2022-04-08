@@ -73,3 +73,21 @@ export function SubmitButton({ status, ...props }: SubmitButtonProps) {
     />
   );
 }
+
+export const SecondaryButton = styled.button`
+  color: var(--accent);
+  background-color: transparent;
+  padding: 8px 16px;
+  border-radius: 6px;
+  margin: 0 5px 5px 0;
+  font-weight: 600;
+  transition: 0.35s background-color ease-in-out, 0.35s color ease-in-out;
+  border: 1px solid var(--accent);
+  cursor: pointer;
+
+  &:hover {
+    border: 1px solid transparent;
+    background-color: var(--accent);
+    color: white;
+  }
+`;
