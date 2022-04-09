@@ -23,6 +23,7 @@ interface ExperienceProps {
   };
   startDate: Date;
   endDate: Date;
+  isCurrent: boolean;
 }
 
 export default function Experience({
@@ -31,6 +32,7 @@ export default function Experience({
   tabContent,
   endDate,
   startDate,
+  isCurrent,
 }: ExperienceProps) {
   const [showExpandedExperience, setShowExpandedExperience] = useState(false);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
@@ -63,11 +65,9 @@ export default function Experience({
                 <p>{experience.role}</p>
               </InnerContainer>
             </Header>
-            {/* <Timespan>{experience.timespan}</Timespan> */}
-            {console.log(experience)}
             <Timespan>
               {moment(startDate).format("MMM YYYY")} -{" "}
-              {moment(endDate).format("MMM YYYY")}
+              {isCurrent ? "Present" : moment(endDate).format("MMM YYYY")}
             </Timespan>
           </SecondContainer>
         </ExperienceExpand>

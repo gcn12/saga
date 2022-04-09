@@ -73,7 +73,6 @@ export default function Username(props: UserProps) {
           );
           const content = await res.json();
           setTabContent(content);
-          console.log(content);
           if (tab) {
             setPreviousTab(tab[0]);
           }
@@ -121,7 +120,6 @@ export default function Username(props: UserProps) {
                     <Items isRow={selectedTab.type === "introduction"}>
                       {/* {tabContent.map((content: TabContent, index: number) => { */}
                       {tabContent.map((content: any, index: number) => {
-                        console.log(content);
                         const tabContentProps: any = {
                           content: {
                             ...JSON.parse(
@@ -140,6 +138,7 @@ export default function Username(props: UserProps) {
                         if (content.experience) {
                           tabContentProps["startDate"] = content.startDate;
                           tabContentProps["endDate"] = content.endDate;
+                          tabContentProps["isCurrent"] = content.isCurrent;
                         }
                         return (
                           <motion.div

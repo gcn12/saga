@@ -1,11 +1,12 @@
 import { DialogContent, DialogOverlay } from "@reach/dialog";
+import { motion } from "framer-motion";
 import styled from "styled-components";
 import { useState } from "react";
+
 import TipTap from "../TipTap";
-import { TabContent, Tab } from "../../types/types";
+import { TabContent } from "../../types/types";
 import { Label, Input } from "../Shared/Forms";
 import { ColoredButton } from "../Shared/Buttons";
-import { motion } from "framer-motion";
 import toastError from "../Shared/Toast";
 import Spacer from "../Shared/Spacer";
 import { getErrorMessage } from "../../utils/utils";
@@ -43,10 +44,10 @@ export default function AddExperienceModal({
   const [company, setCompany] = useState("");
   const [role, setRole] = useState("");
   const [description, setDescription] = useState("");
-  const [startMonth, setStartMonth] = useState("");
-  const [startYear, setStartYear] = useState("");
-  const [endMonth, setEndMonth] = useState("");
-  const [endYear, setEndYear] = useState("");
+  const [startMonth, setStartMonth] = useState(months[0]);
+  const [startYear, setStartYear] = useState(years[0]);
+  const [endMonth, setEndMonth] = useState(months[0]);
+  const [endYear, setEndYear] = useState(years[0]);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isCurrentCompany, setIsCurrentCompany] = useState(true);
 
@@ -55,7 +56,7 @@ export default function AddExperienceModal({
     { label: "Role", setState: setRole, value: role },
   ];
 
-  const formatDate = (month: string, year: string) => {
+  const formatDate = (month: string, year: number) => {
     const date = new Date();
     date.setMonth(months.indexOf(month));
     date.setFullYear(Number(year));
@@ -96,15 +97,31 @@ export default function AddExperienceModal({
 
       const data = await res.json();
 
-      const sortedContent = [...tabContent, data] as TabContent[];
-      sortedContent.sort((a, b) => {
-        return b.id.localeCompare(a.id);
-      });
-      setTabContent(sortedContent);
+      const sorted = sortExperiences([...tabContent, data]);
+      setTabContent(sorted);
       setShowDialog(false);
     } catch (err) {
       toastError(getErrorMessage(err));
     }
+  };
+
+  const sortExperiences = (experiences: any[]) => {
+    const currentExperiences = experiences.filter((experience) => {
+      return experience.isCurrent;
+    });
+
+    const pastExperiences = experiences.filter((experience) => {
+      return !experience.isCurrent;
+    });
+
+    currentExperiences.sort((a, b) => {
+      return new Date(b.startDate).getTime() - new Date(a.startDate).getTime();
+    });
+
+    pastExperiences.sort((a, b) => {
+      return new Date(b.endDate).getTime() - new Date(a.endDate).getTime();
+    });
+    return [...currentExperiences, ...pastExperiences];
   };
 
   return (
@@ -167,7 +184,9 @@ export default function AddExperienceModal({
                       return <option key={month}>{month}</option>;
                     })}
                   </DateSelect>
-                  <DateSelect onChange={(e) => setStartYear(e.target.value)}>
+                  <DateSelect
+                    onChange={(e) => setStartYear(Number(e.target.value))}
+                  >
                     {years.map((year) => {
                       return <option key={year}>{year}</option>;
                     })}
@@ -183,7 +202,9 @@ export default function AddExperienceModal({
                         return <option key={month}>{month}</option>;
                       })}
                     </DateSelect>
-                    <DateSelect onChange={(e) => setEndYear(e.target.value)}>
+                    <DateSelect
+                      onChange={(e) => setEndYear(Number(e.target.value))}
+                    >
                       {years.map((year) => {
                         return <option key={year}>{year}</option>;
                       })}
@@ -208,9 +229,6 @@ export default function AddExperienceModal({
                 </button>
                 <Spacer size={20} axis="x" />
                 <ColoredButton type="submit">Add experience</ColoredButton>
-                {/* <ColoredButton onClick={getDate} type="button">
-                  Date
-                </ColoredButton> */}
               </ButtonsContainer>
             </Container>
           </div>
