@@ -21,7 +21,7 @@ import Contact from "../../components/Contact/Contact";
 import toastError from "../../components/Shared/Toast";
 import Spacer from "../../components/Shared/Spacer";
 import { getErrorMessage } from "../../utils/utils";
-import Experiences from "../../components/Experience/Experiences";
+import Experiences from "../../components/Experiences/Experiences";
 import BlogPosts from "../../components/Blog/BlogPreviews";
 
 const modals = [

@@ -1,10 +1,11 @@
 import { useEffect, useState, useContext } from "react";
+import { AnimatePresence, motion } from "framer-motion";
+
 import { AuthContext } from "../../state/context";
 import BlogPreview from "./BlogPreview";
 import { Blog } from "../../types/types";
 import { ColoredButton } from "../Shared/Buttons";
 import AddBlogModal from "./AddBlogModal";
-import { AnimatePresence, motion } from "framer-motion";
 
 export default function BlogPosts() {
   const [blogPreviews, setBlogPreviews] = useState<Blog[]>([]);

@@ -2,7 +2,7 @@ import { useEffect, useState, useContext } from "react";
 import Experience from "./Experience";
 import { AuthContext } from "../../state/context";
 import { Experience as ExperienceType } from "../../types/types";
-import AddExperienceModal from "../../components/Experience/AddExperienceModal";
+import AddExperienceModal from "./AddExperienceModal";
 import { ColoredButton } from "../Shared/Buttons";
 import { AnimatePresence, motion } from "framer-motion";
 

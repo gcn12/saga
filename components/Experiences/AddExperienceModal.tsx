@@ -4,7 +4,6 @@ import styled from "styled-components";
 import { useState } from "react";
 
 import TipTap from "../TipTap";
-import { TabContent } from "../../types/types";
 import { Label, Input } from "../Shared/Forms";
 import { ColoredButton } from "../Shared/Buttons";
 import toastError from "../Shared/Toast";
