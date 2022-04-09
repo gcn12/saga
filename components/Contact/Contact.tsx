@@ -67,6 +67,7 @@ const LinkComponent = ({ Component, contact }: LinkComponentProps) => {
 const Container = styled.div`
   display: grid;
   grid-template-columns: 1fr 1fr;
+  align-content: start;
   gap: 12px;
 `;
 
