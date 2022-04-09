@@ -7,6 +7,14 @@ export interface TabContent {
   id: string;
 }
 
+export interface Experience {
+  id: string;
+  experience: string;
+  isCurrent: boolean;
+  startDate: Date;
+  endDate: Date;
+}
+
 export interface Tab {
   type: string;
   name: string;

@@ -26,6 +26,7 @@ import Contact from "../../components/Contact/Contact";
 import toastError from "../../components/Shared/Toast";
 import Spacer from "../../components/Shared/Spacer";
 import { getErrorMessage } from "../../utils/utils";
+import Experiences from "../../components/Experience/Experiences";
 
 const modals = [
   { modal: AddBlogModal, type: "blog" },
@@ -118,6 +119,7 @@ export default function Username(props: UserProps) {
                 {tabContent && (
                   <AnimatePresence>
                     <Items isRow={selectedTab.type === "introduction"}>
+                      <Experiences />
                       {/* {tabContent.map((content: TabContent, index: number) => { */}
                       {tabContent.map((content: any, index: number) => {
                         const tabContentProps: any = {
@@ -151,9 +153,6 @@ export default function Username(props: UserProps) {
                             exit={{ opacity: 0 }}
                             layoutId={content.id}
                           >
-                            {selectedTab.type === "experience" && (
-                              <Experience {...tabContentProps} />
-                            )}
                             {selectedTab.type === "portfolio" && (
                               <ProjectPreview {...tabContentProps} />
                             )}

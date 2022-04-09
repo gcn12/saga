@@ -1,56 +1,47 @@
-import { useState } from "react";
+import { useEffect, useState, useContext } from "react";
 import { useRouter } from "next/router";
 import { Menu, MenuList, MenuButton, MenuItem } from "@reach/menu-button";
 import "@reach/menu-button/styles.css";
 import styled from "styled-components";
 import { AnimatePresence } from "framer-motion";
 import moment from "moment";
-
 import DeleteExperienceModal from "../DeleteItemModal";
 import ArrowIcon from "../Icons/ArrowIcon";
 import { TabContent } from "../../types/types";
+import { Experience as ExperienceType } from "../../types/types";
 
 interface ExperienceProps {
-  setTabContent: (tabContent: TabContent[]) => void;
-  tabContent: TabContent[];
-  content: {
-    timespan: string;
-    company: string;
-    role: string;
-    description: string;
-    logo: string;
-    id: string;
-  };
-  startDate: Date;
-  endDate: Date;
-  isCurrent: boolean;
+  setExperiences: (experience: ExperienceType[]) => void;
+  experiences: ExperienceType[];
+  experience: ExperienceType;
 }
 
 export default function Experience({
-  content: experience,
-  setTabContent,
-  tabContent,
-  endDate,
-  startDate,
-  isCurrent,
+  experience,
+  setExperiences,
+  experiences,
 }: ExperienceProps) {
   const [showExpandedExperience, setShowExpandedExperience] = useState(false);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
+  const content = JSON.parse(experience.experience);
+
   const router = useRouter();
   const { edit } = router.query;
 
+  console.log(experience);
+
   return (
     <Container className="dark">
-      <AnimatePresence>
+      {/* <AnimatePresence>
         {showDeleteModal && (
           <DeleteExperienceModal
             id={experience.id}
             setShowDeleteModal={setShowDeleteModal}
-            setTabContent={setTabContent}
-            tabContent={tabContent}
+            setTabContent={setExperiences}
+            tabContent={experiences}
           />
         )}
-      </AnimatePresence>
+      </AnimatePresence> */}
       <ContentContainer>
         <ExperienceExpand
           onClick={() => setShowExpandedExperience(!showExpandedExperience)}
@@ -61,13 +52,15 @@ export default function Experience({
                 <ArrowIcon isOpen={showExpandedExperience} />
               </Arrow>
               <InnerContainer>
-                <Company>{experience.company}</Company>
-                <p>{experience.role}</p>
+                <Company>{content.company}</Company>
+                <p>{content.role}</p>
               </InnerContainer>
             </Header>
             <Timespan>
-              {moment(startDate).format("MMM YYYY")} -{" "}
-              {isCurrent ? "Present" : moment(endDate).format("MMM YYYY")}
+              {moment(experience.startDate).format("MMM YYYY")} -{" "}
+              {experience.isCurrent
+                ? "Present"
+                : moment(experience.endDate).format("MMM YYYY")}
             </Timespan>
           </SecondContainer>
         </ExperienceExpand>
@@ -89,7 +82,7 @@ export default function Experience({
         <Description
           className="light-text"
           dangerouslySetInnerHTML={{
-            __html: experience.description || "",
+            __html: content.description || "",
           }}
         />
       </DescriptionContainer>
