@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import styled from "styled-components";
 import { useRouter } from "next/router";
 import { User } from "../types/types";
@@ -6,17 +6,27 @@ import { Label, Input } from "../components/Shared/Forms";
 import { ColoredButton } from "../components/Shared/Buttons";
 import toastError from "../components/Shared/Toast";
 import { getErrorMessage } from "../utils/utils";
+import { useForm, SubmitHandler } from "react-hook-form";
 
 type UserRes = Pick<User, "id" | "name" | "username">;
 
+type FormValues = {
+  name: string;
+  username: string;
+};
+
 export default function Signup() {
-  const [name, setName] = useState("");
-  const [username, setUserame] = useState("");
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<FormValues>();
 
   const router = useRouter();
 
-  const signup = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
+  const signup: SubmitHandler<FormValues> = async (data, e) => {
+    e?.preventDefault();
+    const { name, username } = data;
     try {
       const res = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/signup`, {
         method: "POST",
@@ -40,16 +50,25 @@ export default function Signup() {
 
   return (
     <Container>
-      <Form onSubmit={signup}>
+      <Form onSubmit={handleSubmit(signup)}>
         <Title>Sign up</Title>
         <Label>
           Name
-          <Input onChange={(e) => setName(e.target.value)} type="text" />
+          <Input
+            {...register("name", { required: true, minLength: 3 })}
+            type="text"
+            autoComplete="off"
+          />
         </Label>
         <Label>
           Username
-          <Input onChange={(e) => setUserame(e.target.value)} type="text" />
+          <Input
+            {...register("username", { required: true, minLength: 3 })}
+            type="text"
+            autoComplete="off"
+          />
         </Label>
+        {errors.name && <p>Error</p>}
         <ColoredButton style={{ width: "100%" }} type="submit">
           CREATE
         </ColoredButton>

@@ -47,6 +47,7 @@ export default function Account() {
           }),
         }
       );
+
       const userData = (await res.json()) as AccountType;
 
       const newData = {
@@ -56,7 +57,6 @@ export default function Account() {
       };
       await delay(250);
       setStatus("success");
-      console.log(newData);
       setUser(newData);
     } catch (err) {
       toastError(getErrorMessage(err));
