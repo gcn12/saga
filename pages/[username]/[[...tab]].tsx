@@ -42,7 +42,7 @@ interface UserProps {
 export default function Username(props: UserProps) {
   const { user: userProps, tabContent: tabContentProps } = props;
   const router = useRouter();
-  const { username, edit, tab } = router.query;
+  const { edit, tab } = router.query;
   const [user, setUser] = useState<User>(userProps);
 
   const defaultTab = user.tabs.filter((tabItem) => {
@@ -58,7 +58,7 @@ export default function Username(props: UserProps) {
 
   useEffect(() => {
     const getData = async () => {
-      if (tab && previousTab !== tab[0]) {
+      if (previousTab !== (tab !== undefined ? tab[0] : tab)) {
         const newTab =
           user.tabs.filter((tabItem) => {
             if (tab) {
@@ -69,10 +69,11 @@ export default function Username(props: UserProps) {
         setTabContent([]);
         try {
           const res = await fetch(
-            `${process.env.NEXT_PUBLIC_BACKEND_URL}/tab/${newTab.name}/${username}`
+            `${process.env.NEXT_PUBLIC_BACKEND_URL}/tab/${newTab.type}/${user.id}`
           );
           const content = await res.json();
           setTabContent(content);
+          console.log(content);
           if (tab) {
             setPreviousTab(tab[0]);
           }
@@ -118,16 +119,28 @@ export default function Username(props: UserProps) {
                 {tabContent && (
                   <AnimatePresence>
                     <Items isRow={selectedTab.type === "introduction"}>
-                      {tabContent.map((content: TabContent, index: number) => {
-                        const tabContentProps = {
+                      {/* {tabContent.map((content: TabContent, index: number) => { */}
+                      {tabContent.map((content: any, index: number) => {
+                        console.log(content);
+                        const tabContentProps: any = {
                           content: {
-                            ...JSON.parse(content.contentPreview),
+                            ...JSON.parse(
+                              content.experience
+                                ? content.experience
+                                : content.contentPreview
+                                ? content.contentPreview
+                                : ""
+                            ),
                             id: content.id,
                           },
                           selectedTab,
                           setTabContent,
                           tabContent,
                         };
+                        if (content.experience) {
+                          tabContentProps["startDate"] = content.startDate;
+                          tabContentProps["endDate"] = content.endDate;
+                        }
                         return (
                           <motion.div
                             key={content.id}

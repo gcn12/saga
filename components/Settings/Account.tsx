@@ -6,7 +6,6 @@ import { AuthContext } from "../../state/context";
 import {
   SubmitButton,
   SubmitButtonStatus,
-  ColoredButton,
   SecondaryButton,
 } from "../Shared/Buttons";
 import toastError from "../Shared/Toast";

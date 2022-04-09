@@ -1,7 +1,6 @@
 import { DialogContent, DialogOverlay } from "@reach/dialog";
 import styled from "styled-components";
 import { useState } from "react";
-import { useRouter } from "next/router";
 import TipTap from "../TipTap";
 import { TabContent, Tab } from "../../types/types";
 import { Label, Input } from "../Shared/Forms";
@@ -13,7 +12,6 @@ import { getErrorMessage } from "../../utils/utils";
 
 interface AddExperienceModalProps {
   tabContent: TabContent[];
-  selectedTab: Tab;
   setShowDialog: (value: boolean) => void;
   setTabContent: (value: TabContent[]) => void;
 }
@@ -39,54 +37,43 @@ const years = new Array(20).fill("").map((_year, index) => {
 
 export default function AddExperienceModal({
   tabContent,
-  selectedTab,
   setShowDialog,
   setTabContent,
 }: AddExperienceModalProps) {
   const [company, setCompany] = useState("");
   const [role, setRole] = useState("");
   const [description, setDescription] = useState("");
-  const [timespan, setTimespan] = useState("2018-2021");
   const [startMonth, setStartMonth] = useState("");
   const [startYear, setStartYear] = useState("");
   const [endMonth, setEndMonth] = useState("");
   const [endYear, setEndYear] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isCurrentCompany, setIsCurrentCompany] = useState(true);
-  const router = useRouter();
-  const { username } = router.query;
 
   const formItems = [
     { label: "Company", setState: setCompany, value: company },
     { label: "Role", setState: setRole, value: role },
-    { label: "Timespan", setState: setTimespan, value: timespan },
   ];
 
-  // const getDate = () => {
-  //   const startDate = new Date();
-  //   startDate.setMonth(months.indexOf(startMonth));
-  //   startDate.setFullYear(Number(startYear));
-
-  //   const endDate = new Date();
-  //   endDate.setMonth(months.indexOf(endMonth));
-  //   endDate.setFullYear(endYear === "Present" ? 5000 : Number(endYear));
-  //   console.log(startDate);
-  //   console.log(endDate);
-  // };
+  const formatDate = (month: string, year: string) => {
+    const date = new Date();
+    date.setMonth(months.indexOf(month));
+    date.setFullYear(Number(year));
+    date.setDate(1);
+    date.setHours(0);
+    date.setMinutes(0);
+    date.setSeconds(0);
+    date.setMilliseconds(0);
+    return date;
+  };
 
   const addExperience = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setIsSubmitting(true);
     const experience = {
-      content: {
-        company,
-        role,
-        description,
-        timespan,
-      },
-      type: "experience",
-      username,
-      name: selectedTab.name,
+      company,
+      role,
+      description,
     };
 
     try {
@@ -98,8 +85,11 @@ export default function AddExperienceModal({
             "Content-Type": "application/json",
           },
           body: JSON.stringify({
-            ...experience,
-            username,
+            experience,
+            userID: localStorage.getItem("userID"),
+            startDate: formatDate(startMonth, startYear),
+            endDate: formatDate(endMonth, endYear),
+            isCurrent: isCurrentCompany,
           }),
         }
       );
@@ -170,7 +160,7 @@ export default function AddExperienceModal({
                 <TipTap setText={setDescription} />
               </InputLabelContainer>
               <div style={{ width: "100%" }}>
-                Start
+                Start date
                 <SelectContainer>
                   <DateSelect onChange={(e) => setStartMonth(e.target.value)}>
                     {months.map((month) => {
@@ -186,7 +176,7 @@ export default function AddExperienceModal({
               </div>
               {!isCurrentCompany && (
                 <div style={{ width: "100%" }}>
-                  End
+                  End date
                   <SelectContainer>
                     <DateSelect onChange={(e) => setEndMonth(e.target.value)}>
                       {months.map((month) => {

@@ -47,19 +47,18 @@ export default function BlogPost({ blogTitle, setShowBlog }: BlogProps) {
       isOpen={isVisible}
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
-      exit={{ opacity: 0 }}
+      exit={{ opacity: 0, transition: { delay: 0.1 } }}
+      style={{ backgroundColor: "rgba(0, 0, 0, .82)" }}
     >
       <MotionDialogContent
         initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
+        animate={{ opacity: 1, transition: { delay: 0.2 } }}
         exit={{ opacity: 0 }}
         style={{
           borderRadius: "10px",
-          // minHeight: "90vh",
           width: "60%",
           maxWidth: "1000px",
           padding: "20px 0",
-          // margin: "30px auto",
         }}
         aria-label="blog post"
       >

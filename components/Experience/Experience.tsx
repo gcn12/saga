@@ -4,6 +4,7 @@ import { Menu, MenuList, MenuButton, MenuItem } from "@reach/menu-button";
 import "@reach/menu-button/styles.css";
 import styled from "styled-components";
 import { AnimatePresence } from "framer-motion";
+import moment from "moment";
 
 import DeleteExperienceModal from "../DeleteItemModal";
 import ArrowIcon from "../Icons/ArrowIcon";
@@ -20,12 +21,16 @@ interface ExperienceProps {
     logo: string;
     id: string;
   };
+  startDate: Date;
+  endDate: Date;
 }
 
 export default function Experience({
   content: experience,
   setTabContent,
   tabContent,
+  endDate,
+  startDate,
 }: ExperienceProps) {
   const [showExpandedExperience, setShowExpandedExperience] = useState(false);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
@@ -58,7 +63,12 @@ export default function Experience({
                 <p>{experience.role}</p>
               </InnerContainer>
             </Header>
-            <Timespan>{experience.timespan}</Timespan>
+            {/* <Timespan>{experience.timespan}</Timespan> */}
+            {console.log(experience)}
+            <Timespan>
+              {moment(startDate).format("MMM YYYY")} -{" "}
+              {moment(endDate).format("MMM YYYY")}
+            </Timespan>
           </SecondContainer>
         </ExperienceExpand>
         {edit && (
