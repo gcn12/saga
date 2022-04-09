@@ -12,9 +12,9 @@ import Spacer from "../Shared/Spacer";
 import { getErrorMessage } from "../../utils/utils";
 
 interface AddExperienceModalProps {
-  tabContent: TabContent[];
-  setShowDialog: (value: boolean) => void;
-  setTabContent: (value: TabContent[]) => void;
+  experiences: any[];
+  setShowAddExperience: (value: boolean) => void;
+  setExperiences: (value: any[]) => void;
 }
 
 const months = [
@@ -37,9 +37,9 @@ const years = new Array(20).fill("").map((_year, index) => {
 });
 
 export default function AddExperienceModal({
-  tabContent,
-  setShowDialog,
-  setTabContent,
+  experiences,
+  setExperiences,
+  setShowAddExperience,
 }: AddExperienceModalProps) {
   const [company, setCompany] = useState("");
   const [role, setRole] = useState("");
@@ -97,9 +97,9 @@ export default function AddExperienceModal({
 
       const data = await res.json();
 
-      const sorted = sortExperiences([...tabContent, data]);
-      setTabContent(sorted);
-      setShowDialog(false);
+      const sorted = sortExperiences([...experiences, data]);
+      setExperiences(sorted);
+      setShowAddExperience(false);
     } catch (err) {
       toastError(getErrorMessage(err));
     }
@@ -128,7 +128,7 @@ export default function AddExperienceModal({
     <div>
       <MotionDialogOverlay
         aria-label="blog post"
-        onDismiss={() => setShowDialog(false)}
+        onDismiss={() => setShowAddExperience(false)}
         isOpen={true}
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
@@ -149,7 +149,7 @@ export default function AddExperienceModal({
           }}
         >
           <button
-            onClick={() => setShowDialog(false)}
+            onClick={() => setShowAddExperience(false)}
             style={{ padding: "0 5%" }}
           >
             X
@@ -224,7 +224,10 @@ export default function AddExperienceModal({
               </CheckboxContainer>
               <div></div>
               <ButtonsContainer>
-                <button type="button" onClick={() => setShowDialog(false)}>
+                <button
+                  type="button"
+                  onClick={() => setShowAddExperience(false)}
+                >
                   Cancel
                 </button>
                 <Spacer size={20} axis="x" />

@@ -1,29 +1,27 @@
 import { render } from "@testing-library/react";
 import AddBlogModal from "./AddBlogModal";
 import { axe } from "jest-axe";
-import { TabContent, Tab } from "../../types/types";
-const tabContent: TabContent[] = [
+import { Blog } from "../../types/types";
+const blogPreviews: Blog[] = [
   {
-    username: "Gareth",
-    type: "blog",
-    contentPreview: "",
-    id: "",
-    name: "Name",
+    title: "e",
+    id: "e",
+    content: "e",
+    key: 3,
+    type: "header",
   },
 ];
 
-const setTabContent = jest.fn();
+const setBlogPreviews = jest.fn();
 
 const setShowDialog = jest.fn();
 
-const selectedTab: Tab = { name: "My tab", type: "largePhoto", key: 9 };
 describe("Checks accessibility", () => {
   it("is accessible", async () => {
     const { container } = render(
       <AddBlogModal
-        tabContent={tabContent}
-        setTabContent={setTabContent}
-        selectedTab={selectedTab}
+        blogPreviews={blogPreviews}
+        setBlogPreviews={setBlogPreviews}
         setShowDialog={setShowDialog}
       />
     );

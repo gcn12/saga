@@ -7,6 +7,12 @@ export interface TabContent {
   id: string;
 }
 
+export interface Blog {
+  title: string;
+  content: string;
+  id: string;
+}
+
 export interface Experience {
   id: string;
   experience: string;

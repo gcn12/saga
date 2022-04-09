@@ -80,6 +80,7 @@ export default function Introduction({
             tabContent={tabContent}
             id={introduction.id}
             setTabContent={setTabContent}
+            endpoint="delete-introduction"
           />
         )}
       </AnimatePresence>

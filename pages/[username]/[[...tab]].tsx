@@ -3,21 +3,16 @@ import Head from "next/head";
 import { AnimatePresence, LayoutGroup, motion } from "framer-motion";
 import styled from "styled-components";
 import { useEffect, useState } from "react";
+
 import { AuthContext } from "../../state/context";
-
 import { User, TabContent } from "../../types/types";
-
-import { ColoredButton } from "../../components/Shared/Buttons";
 import Header from "../../components/Header";
 import Tabs from "../../components/Tabs";
-import Experience from "../../components/Experience/Experience";
 import ProjectPreview from "../../components/Portfolio/ProjectPreview";
-import BlogPreview from "../../components/Blog/BlogPreview";
 import Introduction from "../../components/Introduction/Introduction";
 import AddProjectModal from "../../components/Portfolio/AddProjectModal";
 import AddIntroductionModal from "../../components/Introduction/AddIntroductionModal";
-import AddExperienceModal from "../../components/Experience/AddExperienceModal";
-import AddBlogModal from "../../components/Blog/AddBlogModal";
+
 import Education from "../../components/Education/Education";
 import Skills from "../../components/Skills";
 import Timeline from "../../components/Timeline/Timeline";
@@ -27,10 +22,9 @@ import toastError from "../../components/Shared/Toast";
 import Spacer from "../../components/Shared/Spacer";
 import { getErrorMessage } from "../../utils/utils";
 import Experiences from "../../components/Experience/Experiences";
+import BlogPosts from "../../components/Blog/BlogPreviews";
 
 const modals = [
-  { modal: AddBlogModal, type: "blog" },
-  { modal: AddExperienceModal, type: "experience" },
   { modal: AddIntroductionModal, type: "introduction" },
   { modal: AddProjectModal, type: "portfolio" },
   { modal: AddProjectModal, type: "education" },
@@ -119,8 +113,6 @@ export default function Username(props: UserProps) {
                 {tabContent && (
                   <AnimatePresence>
                     <Items isRow={selectedTab.type === "introduction"}>
-                      <Experiences />
-                      {/* {tabContent.map((content: TabContent, index: number) => { */}
                       {tabContent.map((content: any, index: number) => {
                         const tabContentProps: any = {
                           content: {
@@ -156,9 +148,6 @@ export default function Username(props: UserProps) {
                             {selectedTab.type === "portfolio" && (
                               <ProjectPreview {...tabContentProps} />
                             )}
-                            {selectedTab.type === "blog" && (
-                              <BlogPreview {...tabContentProps} />
-                            )}
                             {selectedTab.type === "introduction" && (
                               <Introduction
                                 index={index}
@@ -172,6 +161,8 @@ export default function Username(props: UserProps) {
                       {selectedTab.type === "timeline" && <Timeline />}
                       {selectedTab.type === "education" && <Education />}
                       {selectedTab.type === "skills" && <Skills />}
+                      {selectedTab.type === "experience" && <Experiences />}
+                      {selectedTab.type === "blog" && <BlogPosts />}
                     </Items>
                   </AnimatePresence>
                 )}
@@ -185,9 +176,9 @@ export default function Username(props: UserProps) {
                       animate={{ opacity: 1, transition: { delay: 0.3 } }}
                       exit={{ opacity: 0 }}
                     >
-                      <ColoredButton onClick={() => setShowDialog(true)}>
+                      {/* <ColoredButton onClick={() => setShowDialog(true)}>
                         Add new {selectedTab.name}
-                      </ColoredButton>
+                      </ColoredButton> */}
                     </motion.div>
                     {modals.map((modal) => {
                       const Modal = modal.modal;

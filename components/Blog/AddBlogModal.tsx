@@ -5,14 +5,13 @@ import { Reorder, motion } from "framer-motion";
 import moment from "moment";
 import { useRouter } from "next/router";
 import TipTap from "../TipTap";
-import { TabContent, Tab, BlogElements } from "../../types/types";
+import { BlogElements, Blog } from "../../types/types";
 import { ColoredButton } from "../Shared/Buttons";
 
 interface AddBlogModalProps {
-  setTabContent: (tabContent: TabContent[]) => void;
-  tabContent: TabContent[];
+  setBlogPreviews: (tabContent: Blog[]) => void;
+  blogPreviews: Blog[];
   setShowDialog: (value: boolean) => void;
-  selectedTab: Tab;
 }
 
 type ButtonsType = {
@@ -28,15 +27,14 @@ const buttons: ButtonsType[] = [
 ];
 
 export default function AddBlogModal({
-  setTabContent,
-  tabContent,
+  setBlogPreviews,
+  blogPreviews,
   setShowDialog,
-  selectedTab,
 }: AddBlogModalProps) {
   const [blogContent, setBlogContent] = useState<any[]>([]);
   const [title, setTitle] = useState("This is a title");
   const router = useRouter();
-  const { username } = router.query;
+  const { username, tab } = router.query;
 
   const addBlog = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -47,7 +45,7 @@ export default function AddBlogModal({
       },
       type: "blog",
       username,
-      name: selectedTab.name,
+      name: tab?.[0] || "",
     };
 
     const res = await fetch(
@@ -77,11 +75,11 @@ export default function AddBlogModal({
       name,
       id,
     };
-    const sortedContent = [...tabContent, tabContentData] as TabContent[];
+    const sortedContent = [...blogPreviews, tabContentData] as Blog[];
     sortedContent.sort((a, b) => {
       return b.id.localeCompare(a.id);
     });
-    setTabContent(sortedContent);
+    setBlogPreviews(sortedContent);
 
     setShowDialog(false);
   };

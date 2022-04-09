@@ -9,8 +9,9 @@ import { getErrorMessage } from "../utils/utils";
 interface DeleteItemModalProps {
   setShowDeleteModal: (value: boolean) => void;
   id: string;
-  setTabContent: (tabContent: TabContent[]) => void;
-  tabContent: TabContent[];
+  setTabContent: (tabContent: any[]) => void;
+  tabContent: any[];
+  endpoint: string;
 }
 
 const MotionDialogOverlay = motion(DialogOverlay);
@@ -21,6 +22,7 @@ export default function DeleteItemModal({
   setTabContent,
   id,
   tabContent,
+  endpoint,
 }: DeleteItemModalProps) {
   const variant = {
     hidden: { opacity: 0 },
@@ -41,7 +43,7 @@ export default function DeleteItemModal({
     event.preventDefault();
     try {
       const res = await fetch(
-        `${process.env.NEXT_PUBLIC_BACKEND_URL}/delete-experience/${id}`,
+        `${process.env.NEXT_PUBLIC_BACKEND_URL}/${endpoint}/${id}`,
         {
           method: "DELETE",
           headers: {

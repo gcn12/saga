@@ -1,4 +1,4 @@
-import { useEffect, useState, useContext } from "react";
+import { useState } from "react";
 import { useRouter } from "next/router";
 import { Menu, MenuList, MenuButton, MenuItem } from "@reach/menu-button";
 import "@reach/menu-button/styles.css";
@@ -7,7 +7,6 @@ import { AnimatePresence } from "framer-motion";
 import moment from "moment";
 import DeleteExperienceModal from "../DeleteItemModal";
 import ArrowIcon from "../Icons/ArrowIcon";
-import { TabContent } from "../../types/types";
 import { Experience as ExperienceType } from "../../types/types";
 
 interface ExperienceProps {
@@ -32,16 +31,17 @@ export default function Experience({
 
   return (
     <Container className="dark">
-      {/* <AnimatePresence>
+      <AnimatePresence>
         {showDeleteModal && (
           <DeleteExperienceModal
             id={experience.id}
             setShowDeleteModal={setShowDeleteModal}
             setTabContent={setExperiences}
             tabContent={experiences}
+            endpoint="delete-experience"
           />
         )}
-      </AnimatePresence> */}
+      </AnimatePresence>
       <ContentContainer>
         <ExperienceExpand
           onClick={() => setShowExpandedExperience(!showExpandedExperience)}

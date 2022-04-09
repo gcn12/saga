@@ -69,6 +69,7 @@ export default function ProjectPreview({
       <AnimatePresence>
         {showDeleteModal && (
           <DeleteExperienceModal
+            endpoint="delete-project"
             id={project.id}
             setShowDeleteModal={setShowDeleteModal}
             setTabContent={setTabContent}

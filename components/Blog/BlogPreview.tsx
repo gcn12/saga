@@ -5,23 +5,23 @@ import DeleteExperienceModal from "../DeleteItemModal";
 import BlogPost from "./BlogPost";
 import { AnimatePresence } from "framer-motion";
 import { useRouter } from "next/router";
-import { TabContent } from "../../types/types";
 
 interface BlogPreviewProps {
-  setTabContent: (tabContent: TabContent[]) => void;
-  tabContent: TabContent[];
-  content: any;
+  setBlogPreviews: (tabContent: any[]) => void;
+  blogPreviews: any[];
+  blogPreview: any;
 }
 
 export default function BlogPreview({
-  content: blog,
-  tabContent,
-  setTabContent,
+  blogPreview,
+  blogPreviews,
+  setBlogPreviews,
 }: BlogPreviewProps) {
   const [showBlog, setShowBlog] = useState(false);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const router = useRouter();
   const { edit } = router.query;
+  const blog = JSON.parse(blogPreview.contentPreview);
 
   return (
     <>
@@ -50,9 +50,10 @@ export default function BlogPreview({
         {showDeleteModal && (
           <DeleteExperienceModal
             setShowDeleteModal={setShowDeleteModal}
-            tabContent={tabContent}
-            id={blog.id}
-            setTabContent={setTabContent}
+            tabContent={blogPreviews}
+            id={blogPreview.id}
+            setTabContent={setBlogPreviews}
+            endpoint="delete-blog"
           />
         )}
       </AnimatePresence>
