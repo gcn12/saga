@@ -19,9 +19,11 @@ interface UserProps {
 
 export default function Username(props: UserProps) {
   const { user: userProps } = props;
+  const [user, setUser] = useState<User>(userProps);
+  const [previousTab, setPreviousTab] = useState("");
+
   const router = useRouter();
   const { edit, tab } = router.query;
-  const [user, setUser] = useState<User>(userProps);
 
   const defaultTab = user.tabs.filter((tabItem) => {
     if (tab) {
@@ -30,7 +32,6 @@ export default function Username(props: UserProps) {
   })[0];
 
   const [selectedTab, setSelectedTab] = useState(defaultTab || user.tabs[0]);
-  const [previousTab, setPreviousTab] = useState("");
 
   useEffect(() => {
     const getData = async () => {
