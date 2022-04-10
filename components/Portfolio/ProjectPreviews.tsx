@@ -22,7 +22,7 @@ export default function Projects() {
   useEffect(() => {
     const getExperiences = async () => {
       const res = await fetch(
-        `${process.env.NEXT_PUBLIC_BACKEND_URL}/tab/portfolio/${user.id}`
+        `${process.env.NEXT_PUBLIC_BACKEND_URL}/project/project-previews/${user.id}`
       );
       if (!res.ok) {
         throw new Error(`Something went wrong. Response: ${res.status}`);

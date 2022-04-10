@@ -4,7 +4,12 @@ import { Reorder } from "framer-motion";
 import styled from "styled-components";
 import { useRouter } from "next/router";
 import AddProjectPreview from "./AddProjectPreview";
-import { TabContent, Project, ProjectElements } from "../../types/types";
+import {
+  TabContent,
+  Project,
+  ProjectElements,
+  ProjectPreview,
+} from "../../types/types";
 import { ColoredButton } from "../Shared/Buttons";
 import toastError from "../Shared/Toast";
 import { getErrorMessage } from "../../utils/utils";
@@ -35,12 +40,12 @@ export default function AddProjectModal({
   setShowAddProjectModal,
 }: AddProjectModalProps) {
   const [title, setTitle] = useState("");
-  const [link, setLink] = useState("");
+  const [projectLink, setProjectLink] = useState("");
   const [imageURL, setImageURL] = useState("");
   const [description, setDescription] = useState("");
   const [projectContent, setProjectContent] = useState<Project[]>([]);
   const router = useRouter();
-  const { username, tab } = router.query;
+  const { username } = router.query;
 
   const getRandomImage = () => {
     const index = Math.floor(Math.random() * 6);
@@ -49,31 +54,23 @@ export default function AddProjectModal({
 
   const addProject = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const project = {
-      contentPreview: {
-        title,
-        link: link.length > 0 ? link : "https://google.com",
-        imageURL: imageURL.length === 0 ? "" : 1 ? imageURL : getRandomImage(),
-        description,
-      },
-      type: "portfolio",
-      username,
-      name: tab?.[0] || "",
-    };
-
     try {
       const res = await fetch(
-        `${process.env.NEXT_PUBLIC_BACKEND_URL}/add-content`,
+        `${process.env.NEXT_PUBLIC_BACKEND_URL}/project/add-project`,
         {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
           },
           body: JSON.stringify({
-            ...project,
             title,
-            content: projectContent,
-            username,
+            project: projectContent,
+            projectLink:
+              projectLink.length > 0 ? projectLink : "https://google.com",
+            imageURL:
+              imageURL.length === 0 ? "" : 1 ? imageURL : getRandomImage(),
+            description,
+            userID: localStorage.getItem("userID"),
           }),
         }
       );
@@ -82,24 +79,10 @@ export default function AddProjectModal({
         throw new Error(`Something went wrong. Response: ${res.status}`);
       }
 
-      const data = await res.json();
+      const data = (await res.json()) as ProjectPreview;
 
-      const { contentPreview, type, name, id } = data;
+      const sortedContent = [...projectPreviews, data] as ProjectPreview[];
 
-      const tabContentData = {
-        contentPreview,
-        username,
-        type,
-        name,
-        id,
-      };
-      const sortedContent = [
-        ...projectPreviews,
-        tabContentData,
-      ] as TabContent[];
-      sortedContent.sort((a, b) => {
-        return b.id.localeCompare(a.id);
-      });
       setProjectPreviews(sortedContent);
 
       setShowAddProjectModal(false);
@@ -220,7 +203,7 @@ export default function AddProjectModal({
                 type="text"
                 name="link"
                 defaultValue={"https://google.com"}
-                onChange={(e) => setLink(e.target.value)}
+                onChange={(e) => setProjectLink(e.target.value)}
               />
             </Label>
             <div></div>

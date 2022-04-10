@@ -7,11 +7,16 @@ import toastError from "../Shared/Toast";
 import { getErrorMessage } from "../../utils/utils";
 
 interface ProjectProps {
+  projectID: string;
   title: string;
   setShowProject: (value: boolean) => void;
 }
 
-export default function Project({ title, setShowProject }: ProjectProps) {
+export default function Project({
+  projectID,
+  setShowProject,
+  title,
+}: ProjectProps) {
   const [project, setProject] = useState<ProjectType[]>([]);
   const [isVisible, setIsVisible] = useState(false);
 
@@ -19,13 +24,13 @@ export default function Project({ title, setShowProject }: ProjectProps) {
     const getContent = async () => {
       try {
         const res = await fetch(
-          `${process.env.NEXT_PUBLIC_BACKEND_URL}/content/${title}`
+          `${process.env.NEXT_PUBLIC_BACKEND_URL}/project/${projectID}`
         );
         if (!res.ok) {
           throw new Error(`Something went wrong. Response: ${res.status}`);
         }
         const project = await res.json();
-        const content = JSON.parse(project.content);
+        const content = JSON.parse(project.projectContent);
         setProject(content);
         setIsVisible(true);
       } catch (err) {
@@ -33,7 +38,7 @@ export default function Project({ title, setShowProject }: ProjectProps) {
       }
     };
     getContent();
-  }, [title]);
+  }, [projectID]);
 
   const variant = {
     hidden: { opacity: 0 },

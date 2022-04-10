@@ -23,24 +23,22 @@ export default function ProjectPreview({
   const router = useRouter();
   const { edit } = router.query;
 
-  const project = JSON.parse(projectPreview.contentPreview);
+  const { imageURL, title, description, id, projectLink } = projectPreview;
 
   return (
     <>
       <Container>
-        {project.imageURL?.length > 0 && (
-          <ProjectImage src={project.imageURL} alt="" />
-        )}
+        {imageURL?.length > 0 && <ProjectImage src={imageURL} alt="" />}
         <TextContainer>
           <div>
-            <Title>{project.title}</Title>
-            <p>{project.description}</p>
+            <Title>{title}</Title>
+            <p>{description}</p>
           </div>
           <Links>
             <ProjectButton onClick={() => setShowProject(true)}>
               CASE STUDY
             </ProjectButton>
-            <ProjectLink target="_blank" rel="noreferrer" href={project.link}>
+            <ProjectLink target="_blank" rel="noreferrer" href={projectLink}>
               DEMO
             </ProjectLink>
           </Links>
@@ -59,25 +57,21 @@ export default function ProjectPreview({
       <AnimatePresence>
         {showDeleteModal && (
           <DeleteExperienceModal
-            endpoint="delete-project"
-            id={project.id}
+            endpoint="project/delete-project"
+            id={id}
             setShowDeleteModal={setShowDeleteModal}
             setTabContent={setProjectPreviews}
             tabContent={projectPreviews}
           />
         )}
       </AnimatePresence>
-      {/* {showDialog && (
-        <AddProjectModal
-          selectedTab={selectedTab}
-          setShowDialog={setShowDialog}
-          tabContent={tabContent}
-          setTabContent={setTabContent}
-        />
-      )} */}
       <AnimatePresence>
         {showProject && (
-          <Project title={project.title} setShowProject={setShowProject} />
+          <Project
+            projectID={id}
+            title={title}
+            setShowProject={setShowProject}
+          />
         )}
       </AnimatePresence>
     </>
@@ -135,9 +129,6 @@ const Title = styled.p`
   font-size: 1.15rem;
   font-weight: 600;
   color: var(--color-title);
-  &::first-letter {
-    text-transform: capitalize;
-  }
 `;
 
 const Links = styled.div`
