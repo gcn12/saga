@@ -48,21 +48,18 @@ export default function AddBlogModal({
       name: tab?.[0] || "",
     };
 
-    const res = await fetch(
-      `${process.env.NEXT_PUBLIC_BACKEND_URL}/add-content`,
-      {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          ...tabPreview,
-          title,
-          content: blogContent,
-          username,
-        }),
-      }
-    );
+    const res = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/add-blog`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        ...tabPreview,
+        title,
+        content: blogContent,
+        username,
+      }),
+    });
 
     const data = await res.json();
 

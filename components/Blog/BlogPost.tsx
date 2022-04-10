@@ -11,11 +11,11 @@ interface BlogElement {
 }
 
 interface BlogProps {
-  blogTitle: string;
+  blogID: string;
   setShowBlog: (value: boolean) => void;
 }
 
-export default function BlogPost({ blogTitle, setShowBlog }: BlogProps) {
+export default function BlogPost({ blogID, setShowBlog }: BlogProps) {
   const [blog, setBlog] = useState<BlogElement[]>([]);
   const [title, setTitle] = useState("");
   const [isVisible, setIsVisible] = useState(false);
@@ -24,7 +24,7 @@ export default function BlogPost({ blogTitle, setShowBlog }: BlogProps) {
     const getContent = async () => {
       try {
         const res = await fetch(
-          `${process.env.NEXT_PUBLIC_BACKEND_URL}/content/${blogTitle}`
+          `${process.env.NEXT_PUBLIC_BACKEND_URL}/blog/${blogID}`
         );
         const blog = await res.json();
         const content = JSON.parse(blog.content);
@@ -36,7 +36,7 @@ export default function BlogPost({ blogTitle, setShowBlog }: BlogProps) {
       }
     };
     getContent();
-  }, [blogTitle]);
+  }, [blogID]);
 
   const MotionDialogOverlay = motion(DialogOverlay);
   const MotionDialogContent = motion(DialogContent);

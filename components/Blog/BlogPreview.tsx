@@ -43,7 +43,7 @@ export default function BlogPreview({
       </Container>
       <AnimatePresence>
         {showBlog && (
-          <BlogPost setShowBlog={setShowBlog} blogTitle={blog.title} />
+          <BlogPost setShowBlog={setShowBlog} blogID={blogPreview.id} />
         )}
       </AnimatePresence>
       <AnimatePresence>
