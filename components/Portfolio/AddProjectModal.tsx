@@ -4,7 +4,7 @@ import { Reorder } from "framer-motion";
 import styled from "styled-components";
 import { useRouter } from "next/router";
 import AddProjectPreview from "./AddProjectPreview";
-import { TabContent, Tab, Project, ProjectElements } from "../../types/types";
+import { TabContent, Project, ProjectElements } from "../../types/types";
 import { ColoredButton } from "../Shared/Buttons";
 import toastError from "../Shared/Toast";
 import { getErrorMessage } from "../../utils/utils";

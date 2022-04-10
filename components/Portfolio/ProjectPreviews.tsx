@@ -11,7 +11,6 @@ export default function Projects() {
   const [projectPreviews, setProjectPreviews] = useState<ProjectPreviewType[]>(
     []
   );
-  const [showProjectModal, setShowProjectModal] = useState(false);
   const { user } = useContext(AuthContext);
   const [showAddProjectModal, setShowAddProjectModal] = useState(false);
 
@@ -39,13 +38,15 @@ export default function Projects() {
           />
         );
       })}
-      {showAddProjectModal && (
-        <AddProjectModal
-          setShowAddProjectModal={setShowAddProjectModal}
-          projectPreviews={projectPreviews}
-          setProjectPreviews={setProjectPreviews}
-        />
-      )}
+      <AnimatePresence>
+        {showAddProjectModal && (
+          <AddProjectModal
+            setShowAddProjectModal={setShowAddProjectModal}
+            projectPreviews={projectPreviews}
+            setProjectPreviews={setProjectPreviews}
+          />
+        )}
+      </AnimatePresence>
       <motion.div
         layout
         layoutId="hello"

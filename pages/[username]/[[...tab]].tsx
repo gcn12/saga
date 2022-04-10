@@ -8,34 +8,23 @@ import { AuthContext } from "../../state/context";
 import { User, TabContent } from "../../types/types";
 import Header from "../../components/Header";
 import Tabs from "../../components/Tabs";
-import ProjectPreview from "../../components/Portfolio/ProjectPreview";
-import Introduction from "../../components/Introduction/Introduction";
-import AddProjectModal from "../../components/Portfolio/AddProjectModal";
-import AddIntroductionModal from "../../components/Introduction/AddIntroductionModal";
 
 import Education from "../../components/Education/Education";
 import Skills from "../../components/Skills";
 import Timeline from "../../components/Timeline/Timeline";
 import Settings from "../../components/Settings/Settings";
 import Contact from "../../components/Contact/Contact";
-import toastError from "../../components/Shared/Toast";
 import Spacer from "../../components/Shared/Spacer";
-import { getErrorMessage } from "../../utils/utils";
 import Experiences from "../../components/Experiences/Experiences";
 import BlogPosts from "../../components/Blog/BlogPreviews";
 import ProjectPreviews from "../../components/Portfolio/ProjectPreviews";
 
-const modals = [
-  { modal: AddIntroductionModal, type: "introduction" },
-  { modal: AddProjectModal, type: "education" },
-];
 interface UserProps {
   user: User;
-  tabContent: TabContent[];
 }
 
 export default function Username(props: UserProps) {
-  const { user: userProps, tabContent: tabContentProps } = props;
+  const { user: userProps } = props;
   const router = useRouter();
   const { edit, tab } = router.query;
   const [user, setUser] = useState<User>(userProps);
@@ -46,9 +35,7 @@ export default function Username(props: UserProps) {
     }
   })[0];
 
-  const [tabContent, setTabContent] = useState<TabContent[]>(tabContentProps);
   const [selectedTab, setSelectedTab] = useState(defaultTab || user.tabs[0]);
-  const [showDialog, setShowDialog] = useState(true);
   const [previousTab, setPreviousTab] = useState("");
 
   useEffect(() => {
@@ -61,18 +48,8 @@ export default function Username(props: UserProps) {
             }
           })[0] || user.tabs[0];
         setSelectedTab(newTab);
-        setTabContent([]);
-        try {
-          const res = await fetch(
-            `${process.env.NEXT_PUBLIC_BACKEND_URL}/tab/${newTab.type}/${user.id}`
-          );
-          const content = await res.json();
-          setTabContent(content);
-          if (tab) {
-            setPreviousTab(tab[0]);
-          }
-        } catch (err) {
-          toastError(getErrorMessage(err));
+        if (tab) {
+          setPreviousTab(tab[0]);
         }
       }
     };
@@ -86,13 +63,6 @@ export default function Username(props: UserProps) {
       user.backgroundColor
     );
   }, []);
-
-  const newProps = {
-    tabContent,
-    setTabContent,
-    setShowDialog,
-    selectedTab,
-  };
 
   return (
     <AuthContext.Provider value={{ user, setUser }}>
@@ -110,90 +80,16 @@ export default function Username(props: UserProps) {
               <Header user={user} />
               <Tabs tabs={user.tabs} selectedTab={selectedTab} />
               <div className="fade">
-                {tabContent && (
-                  <AnimatePresence>
-                    <Items isRow={selectedTab.type === "introduction"}>
-                      {tabContent.map((content: any, index: number) => {
-                        const tabContentProps: any = {
-                          content: {
-                            ...JSON.parse(
-                              content.experience
-                                ? content.experience
-                                : content.contentPreview
-                                ? content.contentPreview
-                                : ""
-                            ),
-                            id: content.id,
-                          },
-                          selectedTab,
-                          setTabContent,
-                          tabContent,
-                        };
-                        if (content.experience) {
-                          tabContentProps["startDate"] = content.startDate;
-                          tabContentProps["endDate"] = content.endDate;
-                          tabContentProps["isCurrent"] = content.isCurrent;
-                        }
-                        return (
-                          <motion.div
-                            key={content.id}
-                            initial={{ opacity: 0 }}
-                            animate={{
-                              opacity: 1,
-                              transition: { duration: 0.4 },
-                            }}
-                            exit={{ opacity: 0 }}
-                            layoutId={content.id}
-                          >
-                            {/* {selectedTab.type === "portfolio" && (
-                              <ProjectPreview {...tabContentProps} />
-                            )} */}
-                            {selectedTab.type === "introduction" && (
-                              <Introduction
-                                index={index}
-                                {...tabContentProps}
-                              />
-                            )}
-                          </motion.div>
-                        );
-                      })}
-                      {selectedTab.type === "contact" && <Contact />}
-                      {selectedTab.type === "timeline" && <Timeline />}
-                      {selectedTab.type === "education" && <Education />}
-                      {selectedTab.type === "skills" && <Skills />}
-                      {selectedTab.type === "experience" && <Experiences />}
-                      {selectedTab.type === "blog" && <BlogPosts />}
-                      {selectedTab.type === "portfolio" && <ProjectPreviews />}
-                    </Items>
-                  </AnimatePresence>
-                )}
+                <AnimatePresence>
+                  {selectedTab.type === "contact" && <Contact />}
+                  {selectedTab.type === "timeline" && <Timeline />}
+                  {selectedTab.type === "education" && <Education />}
+                  {selectedTab.type === "skills" && <Skills />}
+                  {selectedTab.type === "experience" && <Experiences />}
+                  {selectedTab.type === "blog" && <BlogPosts />}
+                  {selectedTab.type === "portfolio" && <ProjectPreviews />}
+                </AnimatePresence>
               </div>
-              <AnimatePresence>
-                {edit && tabContent !== null && (
-                  <>
-                    <motion.div
-                      layout
-                      initial={{ opacity: 0 }}
-                      animate={{ opacity: 1, transition: { delay: 0.3 } }}
-                      exit={{ opacity: 0 }}
-                    >
-                      {/* <ColoredButton onClick={() => setShowDialog(true)}>
-                        Add new {selectedTab.name}
-                      </ColoredButton> */}
-                    </motion.div>
-                    {/* {modals.map((modal) => {
-                      const Modal = modal.modal;
-                      return (
-                        <AnimatePresence key={modal.type}>
-                          {selectedTab.type === modal.type && showDialog && (
-                            <Modal {...newProps} />
-                          )}
-                        </AnimatePresence>
-                      );
-                    })} */}
-                  </>
-                )}
-              </AnimatePresence>
             </Card>
             <Spacer size={28} axis="x" />
             <AnimatePresence>
@@ -223,7 +119,7 @@ export const getServerSideProps = async ({
   const res = await fetch(
     `${process.env.NEXT_PUBLIC_BACKEND_URL}/user/${username}/${tab}`
   );
-  const { user, tabContent } = await res.json();
+  const { user } = await res.json();
   if (!user) {
     return { redirect: { destination: "/", permanent: false } };
   } else {
@@ -231,7 +127,6 @@ export const getServerSideProps = async ({
     return {
       props: {
         user: { ...user, tabs: parsedTabs },
-        tabContent,
       },
     };
   }

@@ -18,7 +18,6 @@ export default function ProjectPreview({
   projectPreviews,
   setProjectPreviews,
 }: ProjectPreviewProps) {
-  const [showDialog, setShowDialog] = useState(false);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [showProject, setShowProject] = useState(false);
   const router = useRouter();
@@ -50,7 +49,6 @@ export default function ProjectPreview({
           <Menu>
             <MenuButton>:</MenuButton>
             <MenuList style={{ borderRadius: "8px" }}>
-              <MenuItem onSelect={() => setShowDialog(true)}>Add</MenuItem>
               <MenuItem onSelect={() => setShowDeleteModal(true)}>
                 Remove
               </MenuItem>
