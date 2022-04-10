@@ -13,6 +13,12 @@ export interface Blog {
   id: string;
 }
 
+export interface ProjectPreview {
+  title: string;
+  content: string;
+  id: string;
+}
+
 export interface Experience {
   id: string;
   experience: string;

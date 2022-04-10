@@ -23,10 +23,10 @@ import Spacer from "../../components/Shared/Spacer";
 import { getErrorMessage } from "../../utils/utils";
 import Experiences from "../../components/Experiences/Experiences";
 import BlogPosts from "../../components/Blog/BlogPreviews";
+import ProjectPreviews from "../../components/Portfolio/ProjectPreviews";
 
 const modals = [
   { modal: AddIntroductionModal, type: "introduction" },
-  { modal: AddProjectModal, type: "portfolio" },
   { modal: AddProjectModal, type: "education" },
 ];
 interface UserProps {
@@ -48,7 +48,7 @@ export default function Username(props: UserProps) {
 
   const [tabContent, setTabContent] = useState<TabContent[]>(tabContentProps);
   const [selectedTab, setSelectedTab] = useState(defaultTab || user.tabs[0]);
-  const [showDialog, setShowDialog] = useState(false);
+  const [showDialog, setShowDialog] = useState(true);
   const [previousTab, setPreviousTab] = useState("");
 
   useEffect(() => {
@@ -106,7 +106,7 @@ export default function Username(props: UserProps) {
                 content="initial-scale=1.0, width=device-width"
               />
             </Head>
-            <Card layoutId="profile">
+            <Card layoutId="profile" layout="position">
               <Header user={user} />
               <Tabs tabs={user.tabs} selectedTab={selectedTab} />
               <div className="fade">
@@ -145,9 +145,9 @@ export default function Username(props: UserProps) {
                             exit={{ opacity: 0 }}
                             layoutId={content.id}
                           >
-                            {selectedTab.type === "portfolio" && (
+                            {/* {selectedTab.type === "portfolio" && (
                               <ProjectPreview {...tabContentProps} />
-                            )}
+                            )} */}
                             {selectedTab.type === "introduction" && (
                               <Introduction
                                 index={index}
@@ -163,6 +163,7 @@ export default function Username(props: UserProps) {
                       {selectedTab.type === "skills" && <Skills />}
                       {selectedTab.type === "experience" && <Experiences />}
                       {selectedTab.type === "blog" && <BlogPosts />}
+                      {selectedTab.type === "portfolio" && <ProjectPreviews />}
                     </Items>
                   </AnimatePresence>
                 )}
@@ -180,7 +181,7 @@ export default function Username(props: UserProps) {
                         Add new {selectedTab.name}
                       </ColoredButton> */}
                     </motion.div>
-                    {modals.map((modal) => {
+                    {/* {modals.map((modal) => {
                       const Modal = modal.modal;
                       return (
                         <AnimatePresence key={modal.type}>
@@ -189,7 +190,7 @@ export default function Username(props: UserProps) {
                           )}
                         </AnimatePresence>
                       );
-                    })}
+                    })} */}
                   </>
                 )}
               </AnimatePresence>

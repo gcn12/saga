@@ -61,11 +61,9 @@ export default function Project({ title, setShowProject }: ProjectProps) {
         exit="hidden"
         style={{
           borderRadius: "10px",
-          minHeight: "90vh",
           width: "60%",
           maxWidth: "1000px",
           padding: "20px 0",
-          margin: "30px auto",
         }}
         aria-label="blog post"
       >

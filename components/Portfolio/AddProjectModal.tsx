@@ -19,10 +19,9 @@ const PHOTOS = [
 ];
 
 interface AddProjectModalProps {
-  setTabContent: (tabContent: TabContent[]) => void;
-  tabContent: TabContent[];
-  selectedTab: Tab;
-  setShowDialog: (value: boolean) => void;
+  setProjectPreviews: (projectPreviews: any[]) => void;
+  projectPreviews: any[];
+  setShowAddProjectModal: (value: boolean) => void;
 }
 
 interface ElementButtons {
@@ -31,10 +30,9 @@ interface ElementButtons {
 }
 
 export default function AddProjectModal({
-  setTabContent,
-  tabContent,
-  selectedTab,
-  setShowDialog,
+  setProjectPreviews,
+  projectPreviews,
+  setShowAddProjectModal,
 }: AddProjectModalProps) {
   const [title, setTitle] = useState("");
   const [link, setLink] = useState("");
@@ -42,7 +40,7 @@ export default function AddProjectModal({
   const [description, setDescription] = useState("");
   const [projectContent, setProjectContent] = useState<Project[]>([]);
   const router = useRouter();
-  const { username } = router.query;
+  const { username, tab } = router.query;
 
   const getRandomImage = () => {
     const index = Math.floor(Math.random() * 6);
@@ -52,7 +50,7 @@ export default function AddProjectModal({
   const addProject = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const project = {
-      content: {
+      contentPreview: {
         title,
         link: link.length > 0 ? link : "https://google.com",
         imageURL: imageURL.length === 0 ? "" : 1 ? imageURL : getRandomImage(),
@@ -60,7 +58,7 @@ export default function AddProjectModal({
       },
       type: "portfolio",
       username,
-      name: selectedTab.name,
+      name: tab?.[0] || "",
     };
 
     try {
@@ -74,13 +72,15 @@ export default function AddProjectModal({
           body: JSON.stringify({
             ...project,
             title,
-            contentPreview: projectContent,
+            content: projectContent,
             username,
           }),
         }
       );
 
       const data = await res.json();
+
+      console.log(projectContent);
 
       const { contentPreview, type, name, id } = data;
 
@@ -91,13 +91,16 @@ export default function AddProjectModal({
         name,
         id,
       };
-      const sortedContent = [...tabContent, tabContentData] as TabContent[];
+      const sortedContent = [
+        ...projectPreviews,
+        tabContentData,
+      ] as TabContent[];
       sortedContent.sort((a, b) => {
         return b.id.localeCompare(a.id);
       });
-      setTabContent(sortedContent);
+      setProjectPreviews(sortedContent);
 
-      setShowDialog(false);
+      setShowAddProjectModal(false);
     } catch (err) {
       toastError(getErrorMessage(err));
     }
@@ -184,12 +187,12 @@ export default function AddProjectModal({
         backgroundColor: "rgba(0, 0, 0, .6)",
       }}
       aria-label="blog post"
-      onDismiss={() => setShowDialog(false)}
+      onDismiss={() => setShowAddProjectModal(false)}
       isOpen={true}
     >
       <StyledDialogContent aria-label={"blog post"}>
         <button
-          onClick={() => setShowDialog(false)}
+          onClick={() => setShowAddProjectModal(false)}
           style={{ padding: "0 5%" }}
         >
           X

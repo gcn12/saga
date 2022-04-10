@@ -2,37 +2,29 @@ import { useState } from "react";
 import styled from "styled-components";
 import { Menu, MenuList, MenuButton, MenuItem } from "@reach/menu-button";
 import "@reach/menu-button/styles.css";
-import AddProjectModal from "./AddProjectModal";
 import DeleteExperienceModal from "../DeleteItemModal";
 import Project from "./Project";
 import { AnimatePresence } from "framer-motion";
 import { useRouter } from "next/router";
-import { Tab, TabContent } from "../../types/types";
 
 interface ProjectPreviewProps {
-  content: {
-    imageURL: string;
-    title: string;
-    description: string;
-    link: string;
-    id: string;
-  };
-  tabContent: TabContent[];
-  setTabContent: (tabContent: TabContent[]) => void;
-  selectedTab: Tab;
+  projectPreview: any;
+  projectPreviews: any[];
+  setProjectPreviews: (projectPreview: any[]) => void;
 }
 
 export default function ProjectPreview({
-  content: project,
-  tabContent,
-  setTabContent,
-  selectedTab,
+  projectPreview,
+  projectPreviews,
+  setProjectPreviews,
 }: ProjectPreviewProps) {
   const [showDialog, setShowDialog] = useState(false);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [showProject, setShowProject] = useState(false);
   const router = useRouter();
   const { edit } = router.query;
+
+  const project = JSON.parse(projectPreview.contentPreview);
 
   return (
     <>
@@ -72,19 +64,19 @@ export default function ProjectPreview({
             endpoint="delete-project"
             id={project.id}
             setShowDeleteModal={setShowDeleteModal}
-            setTabContent={setTabContent}
-            tabContent={tabContent}
+            setTabContent={setProjectPreviews}
+            tabContent={projectPreviews}
           />
         )}
       </AnimatePresence>
-      {showDialog && (
+      {/* {showDialog && (
         <AddProjectModal
           selectedTab={selectedTab}
           setShowDialog={setShowDialog}
           tabContent={tabContent}
           setTabContent={setTabContent}
         />
-      )}
+      )} */}
       <AnimatePresence>
         {showProject && (
           <Project title={project.title} setShowProject={setShowProject} />

@@ -14,15 +14,20 @@ jest.mock("next/router", () => ({
   },
 }));
 
-const content = {
+const contentPreview = {
+  name: "Test",
+};
+
+const projectPreview = {
   imageURL: "hello",
   title: "",
   description: "",
   link: "",
   id: "",
+  contentPreview: JSON.stringify(contentPreview),
 };
 
-const tabContent: TabContent[] = [
+const projectPreviews: TabContent[] = [
   {
     username: "Gareth",
     type: "blog",
@@ -32,18 +37,15 @@ const tabContent: TabContent[] = [
   },
 ];
 
-const setTabContent = jest.fn();
-
-const selectedTab: Tab = { name: "My tab", type: "largePhoto", key: 9 };
+const setProjectPreviews = jest.fn();
 
 describe("Checks accessibility", () => {
   it("is accessible", async () => {
     const { container } = render(
       <ProjectPreview
-        content={content}
-        setTabContent={setTabContent}
-        tabContent={tabContent}
-        selectedTab={selectedTab}
+        projectPreview={projectPreview}
+        setProjectPreviews={setProjectPreviews}
+        projectPreviews={projectPreviews}
       />
     );
     const results = await axe(container);
