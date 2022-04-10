@@ -5,7 +5,7 @@ import styled from "styled-components";
 import { useEffect, useState } from "react";
 
 import { AuthContext } from "../../state/context";
-import { User, TabContent } from "../../types/types";
+import { User } from "../../types/types";
 import Header from "../../components/Header";
 import Tabs from "../../components/Tabs";
 
