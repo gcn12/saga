@@ -1,16 +1,19 @@
 import { DialogContent, DialogOverlay } from "@reach/dialog";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import styled from "styled-components";
 import { Reorder, motion } from "framer-motion";
-import moment from "moment";
-import { useRouter } from "next/router";
+
 import TipTap from "../TipTap";
-import { BlogElements, Blog } from "../../types/types";
+import {
+  BlogElements,
+  BlogPreview as BlogPreviewType,
+} from "../../types/types";
 import { ColoredButton } from "../Shared/Buttons";
+import { AuthContext } from "../../state/context";
 
 interface AddBlogModalProps {
-  setBlogPreviews: (tabContent: Blog[]) => void;
-  blogPreviews: Blog[];
+  setBlogPreviews: (tabContent: BlogPreviewType[]) => void;
+  blogPreviews: BlogPreviewType[];
   setShowDialog: (value: boolean) => void;
 }
 
@@ -33,49 +36,36 @@ export default function AddBlogModal({
 }: AddBlogModalProps) {
   const [blogContent, setBlogContent] = useState<any[]>([]);
   const [title, setTitle] = useState("This is a title");
-  const router = useRouter();
-  const { username, tab } = router.query;
+  const { user } = useContext(AuthContext);
 
   const addBlog = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const tabPreview = {
-      contentPreview: {
-        title,
-        date: moment().format("MMM D YYYY"),
-      },
-      type: "blog",
-      username,
-      name: tab?.[0] || "",
-    };
-
     const res = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/add-blog`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        ...tabPreview,
         title,
         content: blogContent,
-        username,
+        userID: user.id,
       }),
     });
 
-    const data = await res.json();
+    const data = (await res.json()) as BlogPreviewType;
 
-    const { contentPreview, type, name, id } = data;
+    const { date, id } = data;
 
     const tabContentData = {
-      contentPreview,
-      username,
-      type,
-      name,
+      title: data.title,
+      date,
       id,
     };
-    const sortedContent = [...blogPreviews, tabContentData] as Blog[];
-    sortedContent.sort((a, b) => {
-      return b.id.localeCompare(a.id);
-    });
+    const sortedContent = [
+      ...blogPreviews,
+      tabContentData,
+    ] as BlogPreviewType[];
+
     setBlogPreviews(sortedContent);
 
     setShowDialog(false);

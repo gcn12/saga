@@ -1,15 +1,18 @@
 import { useState } from "react";
 import styled from "styled-components";
 import { Menu, MenuList, MenuButton, MenuItem } from "@reach/menu-button";
-import DeleteExperienceModal from "../DeleteItemModal";
-import BlogPost from "./BlogPost";
 import { AnimatePresence } from "framer-motion";
 import { useRouter } from "next/router";
+import moment from "moment";
+
+import DeleteExperienceModal from "../DeleteItemModal";
+import BlogPost from "./BlogPost";
+import { BlogPreview as BlogPreviewType } from "../../types/types";
 
 interface BlogPreviewProps {
-  setBlogPreviews: (tabContent: any[]) => void;
-  blogPreviews: any[];
-  blogPreview: any;
+  setBlogPreviews: (tabContent: BlogPreviewType[]) => void;
+  blogPreviews: BlogPreviewType[];
+  blogPreview: BlogPreviewType;
 }
 
 export default function BlogPreview({
@@ -21,14 +24,16 @@ export default function BlogPreview({
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const router = useRouter();
   const { edit } = router.query;
-  const blog = JSON.parse(blogPreview.contentPreview);
+  const { date, title, id } = blogPreview;
 
   return (
     <>
       <Container className="dark">
         <OpenBlog onClick={() => setShowBlog(true)}>
-          <BlogDate className="dark-text light-text">{blog.date}</BlogDate>
-          <Title className="dark-text light-text">{blog.title}</Title>
+          <BlogDate className="dark-text light-text">
+            {moment(date).format("D MMMM YYYY")}
+          </BlogDate>
+          <Title className="dark-text light-text">{title}</Title>
         </OpenBlog>
         {edit && (
           <Menu>
@@ -42,16 +47,14 @@ export default function BlogPreview({
         )}
       </Container>
       <AnimatePresence>
-        {showBlog && (
-          <BlogPost setShowBlog={setShowBlog} blogID={blogPreview.id} />
-        )}
+        {showBlog && <BlogPost setShowBlog={setShowBlog} blogID={id} />}
       </AnimatePresence>
       <AnimatePresence>
         {showDeleteModal && (
           <DeleteExperienceModal
             setShowDeleteModal={setShowDeleteModal}
             tabContent={blogPreviews}
-            id={blogPreview.id}
+            id={id}
             setTabContent={setBlogPreviews}
             endpoint="delete-blog"
           />

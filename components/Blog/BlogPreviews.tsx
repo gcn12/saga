@@ -4,12 +4,12 @@ import { useRouter } from "next/router";
 
 import { AuthContext } from "../../state/context";
 import BlogPreview from "./BlogPreview";
-import { Blog } from "../../types/types";
+import { BlogPreview as BlogPreviewType } from "../../types/types";
 import { ColoredButton } from "../Shared/Buttons";
 import AddBlogModal from "./AddBlogModal";
 
 export default function BlogPosts() {
-  const [blogPreviews, setBlogPreviews] = useState<Blog[]>([]);
+  const [blogPreviews, setBlogPreviews] = useState<BlogPreviewType[]>([]);
   const [showBlogModal, setShowBlogModal] = useState(false);
 
   const { user } = useContext(AuthContext);
