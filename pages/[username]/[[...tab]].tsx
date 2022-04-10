@@ -174,14 +174,3 @@ const Card = styled(motion.div)`
     width: 95%;
   }
 `;
-
-interface ItemsProps {
-  isRow: boolean;
-}
-
-const Items = styled.div<ItemsProps>`
-  display: flex;
-  flex-wrap: wrap;
-  flex-direction: ${(props) => (props.isRow ? "row" : "column")};
-  margin-bottom: 30px;
-`;

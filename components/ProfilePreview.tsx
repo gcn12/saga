@@ -1,5 +1,4 @@
 import styled from "styled-components";
-import { Tab } from "../types/types";
 import useIsMounted from "../hooks/useIsMounted";
 import { useEffect, useState } from "react";
 interface ProfilePreviewProps {
@@ -7,7 +6,6 @@ interface ProfilePreviewProps {
   profilePictureURL: string;
   location: string;
   bio: string;
-  tabs: Tab[];
 }
 
 const PLACEHOLDER_DATA = {

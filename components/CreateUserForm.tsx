@@ -1,6 +1,5 @@
 import { Fragment } from "react";
 import TipTap from "../components/TipTap";
-import { Tab } from "../types/types";
 import styled from "styled-components";
 import { Label, Input } from "./Shared/Forms";
 import { ColoredButton } from "./Shared/Buttons";
@@ -12,11 +11,6 @@ interface CreateUserFormProps {
   setProfilePictureURL: (value: string) => void;
   setLocation: (value: string) => void;
   setBio: (value: string) => void;
-  addTab: () => void;
-  tabs: Tab[];
-  updateTabName: (name: string, index: number) => void;
-  updateTabType: (type: string, index: number) => void;
-  setTabs: (tabs: Tab[]) => void;
   profilePictureURL: string;
   location: string;
 }
