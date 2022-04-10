@@ -17,8 +17,7 @@ interface UserProps {
   user: User;
 }
 
-export default function Username(props: UserProps) {
-  const { user: userProps } = props;
+export default function Username({ user: userProps }: UserProps) {
   const [user, setUser] = useState<User>(userProps);
 
   const router = useRouter();
@@ -39,16 +38,13 @@ export default function Username(props: UserProps) {
 
   return (
     <AuthContext.Provider value={{ user, setUser }}>
+      <Head>
+        <title>{user.name}</title>
+        <meta name="viewport" content="initial-scale=1.0, width=device-width" />
+      </Head>
       <CenterItems>
         <Container>
           <LayoutGroup>
-            <Head>
-              <title>{user.name}</title>
-              <meta
-                name="viewport"
-                content="initial-scale=1.0, width=device-width"
-              />
-            </Head>
             <Card layoutId="profile" layout="position">
               <Header user={user} />
               <Tabs tabs={user.tabs} selectedTab={selectedTab} />

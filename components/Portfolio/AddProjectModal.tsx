@@ -2,13 +2,12 @@ import { DialogContent, DialogOverlay } from "@reach/dialog";
 import { useState } from "react";
 import { Reorder } from "framer-motion";
 import styled from "styled-components";
-import { useRouter } from "next/router";
+
 import AddProjectPreview from "./AddProjectPreview";
 import {
-  TabContent,
   Project,
   ProjectElements,
-  ProjectPreview,
+  ProjectPreview as ProjectPreviewTypes,
 } from "../../types/types";
 import { ColoredButton } from "../Shared/Buttons";
 import toastError from "../Shared/Toast";
@@ -24,8 +23,8 @@ const PHOTOS = [
 ];
 
 interface AddProjectModalProps {
-  setProjectPreviews: (projectPreviews: any[]) => void;
-  projectPreviews: any[];
+  setProjectPreviews: (projectPreviews: ProjectPreviewTypes[]) => void;
+  projectPreviews: ProjectPreviewTypes[];
   setShowAddProjectModal: (value: boolean) => void;
 }
 
@@ -44,8 +43,6 @@ export default function AddProjectModal({
   const [imageURL, setImageURL] = useState("");
   const [description, setDescription] = useState("");
   const [projectContent, setProjectContent] = useState<Project[]>([]);
-  const router = useRouter();
-  const { username } = router.query;
 
   const getRandomImage = () => {
     const index = Math.floor(Math.random() * 6);
@@ -79,9 +76,9 @@ export default function AddProjectModal({
         throw new Error(`Something went wrong. Response: ${res.status}`);
       }
 
-      const data = (await res.json()) as ProjectPreview;
+      const data = (await res.json()) as ProjectPreviewTypes;
 
-      const sortedContent = [...projectPreviews, data] as ProjectPreview[];
+      const sortedContent = [...projectPreviews, data] as ProjectPreviewTypes[];
 
       setProjectPreviews(sortedContent);
 

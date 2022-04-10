@@ -3,7 +3,6 @@ import AddBlogModal from "./AddBlogModal";
 import { axe } from "jest-axe";
 import { BlogPreview } from "../../types/types";
 import { AuthContext } from "../../state/context";
-import { useContext } from "react";
 const blogPreviews: BlogPreview[] = [
   {
     title: "e",

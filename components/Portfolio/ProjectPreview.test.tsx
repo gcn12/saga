@@ -1,7 +1,7 @@
 import { render } from "@testing-library/react";
 import ProjectPreview from "./ProjectPreview";
 import { axe } from "jest-axe";
-import { TabContent } from "../../types/types";
+import { ProjectPreview as ProjectPreviewTypes } from "../../types/types";
 
 jest.mock("next/router", () => ({
   useRouter() {
@@ -14,28 +14,15 @@ jest.mock("next/router", () => ({
   },
 }));
 
-const contentPreview = {
-  name: "Test",
-};
-
 const projectPreview = {
-  imageURL: "hello",
-  title: "",
   description: "",
-  link: "",
   id: "",
-  contentPreview: JSON.stringify(contentPreview),
+  imageURL: "",
+  projectLink: "",
+  title: "",
 };
 
-const projectPreviews: TabContent[] = [
-  {
-    username: "Gareth",
-    type: "blog",
-    contentPreview: "",
-    id: "",
-    name: "Name",
-  },
-];
+const projectPreviews: ProjectPreviewTypes[] = [projectPreview];
 
 const setProjectPreviews = jest.fn();
 

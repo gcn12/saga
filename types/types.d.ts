@@ -21,8 +21,10 @@ export interface BlogPreview {
 
 export interface ProjectPreview {
   title: string;
-  content: string;
   id: string;
+  imageURL: string;
+  description: string;
+  projectLink: string;
 }
 
 export interface Experience {

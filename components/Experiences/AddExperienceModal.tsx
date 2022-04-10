@@ -9,11 +9,12 @@ import { ColoredButton } from "../Shared/Buttons";
 import toastError from "../Shared/Toast";
 import Spacer from "../Shared/Spacer";
 import { getErrorMessage } from "../../utils/utils";
+import { Experience } from "../../types/types";
 
 interface AddExperienceModalProps {
-  experiences: any[];
+  experiences: Experience[];
   setShowAddExperience: (value: boolean) => void;
-  setExperiences: (value: any[]) => void;
+  setExperiences: (value: Experience[]) => void;
 }
 
 const months = [

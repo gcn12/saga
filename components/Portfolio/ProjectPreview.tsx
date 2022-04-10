@@ -6,11 +6,12 @@ import DeleteExperienceModal from "../DeleteItemModal";
 import Project from "./Project";
 import { AnimatePresence } from "framer-motion";
 import { useRouter } from "next/router";
+import { ProjectPreview as ProjectPreviewTypes } from "../../types/types";
 
 interface ProjectPreviewProps {
-  projectPreview: any;
-  projectPreviews: any[];
-  setProjectPreviews: (projectPreview: any[]) => void;
+  projectPreview: ProjectPreviewTypes;
+  projectPreviews: ProjectPreviewTypes[];
+  setProjectPreviews: (projectPreview: ProjectPreviewTypes[]) => void;
 }
 
 export default function ProjectPreview({
