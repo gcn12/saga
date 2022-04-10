@@ -18,8 +18,8 @@ const projectPreview = {
   description: "",
   id: "",
   imageURL: "",
-  projectLink: "",
   title: "",
+  projectLink: "",
 };
 
 const projectPreviews: ProjectPreviewTypes[] = [projectPreview];
