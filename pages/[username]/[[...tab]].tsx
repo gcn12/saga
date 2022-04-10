@@ -66,12 +66,12 @@ export default function Username(props: UserProps) {
 export const getServerSideProps = async ({
   params,
 }: {
-  params: { username: string; tab: string };
+  params: { username: string };
 }) => {
-  const { username, tab } = params;
+  const { username } = params;
 
   const res = await fetch(
-    `${process.env.NEXT_PUBLIC_BACKEND_URL}/user/${username}/${tab}`
+    `${process.env.NEXT_PUBLIC_BACKEND_URL}/user/${username}`
   );
 
   const { user } = await res.json();
