@@ -44,7 +44,7 @@ export default function Experience({
             setShowDeleteModal={setShowDeleteModal}
             setTabContent={setExperiences}
             tabContent={experiences}
-            endpoint="delete-experience"
+            endpoint="experience/delete-experience"
           />
         )}
       </AnimatePresence>

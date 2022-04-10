@@ -21,7 +21,7 @@ export default function Experiences() {
   useEffect(() => {
     const getExperiences = async () => {
       const res = await fetch(
-        `${process.env.NEXT_PUBLIC_BACKEND_URL}/experiences/${user.id}`
+        `${process.env.NEXT_PUBLIC_BACKEND_URL}/experience/experiences/${user.id}`
       );
       setExperiences((await res.json()) as ExperienceType[]);
     };

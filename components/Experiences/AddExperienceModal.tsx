@@ -72,7 +72,7 @@ export default function AddExperienceModal({
     setIsSubmitting(true);
     try {
       const res = await fetch(
-        `${process.env.NEXT_PUBLIC_BACKEND_URL}/add-experience`,
+        `${process.env.NEXT_PUBLIC_BACKEND_URL}/experience/add-experience`,
         {
           method: "POST",
           headers: {
