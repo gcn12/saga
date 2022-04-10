@@ -1,6 +1,6 @@
 import { useRouter } from "next/router";
 import Head from "next/head";
-import { AnimatePresence, LayoutGroup, motion } from "framer-motion";
+import { LayoutGroup, motion } from "framer-motion";
 import styled from "styled-components";
 import { useEffect, useState } from "react";
 
@@ -23,7 +23,7 @@ export default function Username(props: UserProps) {
   const [previousTab, setPreviousTab] = useState("");
 
   const router = useRouter();
-  const { edit, tab } = router.query;
+  const { tab } = router.query;
 
   const defaultTab = user.tabs.filter((tabItem) => {
     if (tab) {
@@ -77,17 +77,7 @@ export default function Username(props: UserProps) {
               <Tab selectedTab={selectedTab} />
             </Card>
             <Spacer size={28} axis="x" />
-            <AnimatePresence>
-              {edit && (
-                <SettingsContainer
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1, transition: { delay: 0.3 } }}
-                  exit={{ opacity: 0, transition: { duration: 0.15 } }}
-                >
-                  <Settings />
-                </SettingsContainer>
-              )}
-            </AnimatePresence>
+            <Settings />
           </LayoutGroup>
         </Container>
       </CenterItems>
@@ -129,10 +119,6 @@ const CenterItems = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-`;
-
-const SettingsContainer = styled(motion.div)`
-  min-height: 90vh;
 `;
 
 const Card = styled(motion.div)`
