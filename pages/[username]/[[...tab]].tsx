@@ -20,36 +20,14 @@ interface UserProps {
 export default function Username(props: UserProps) {
   const { user: userProps } = props;
   const [user, setUser] = useState<User>(userProps);
-  const [previousTab, setPreviousTab] = useState("");
 
   const router = useRouter();
   const { tab } = router.query;
 
-  const defaultTab = user.tabs.filter((tabItem) => {
-    if (tab) {
-      return tabItem.name === tab[0];
-    }
-  })[0];
-
-  const [selectedTab, setSelectedTab] = useState(defaultTab || user.tabs[0]);
-
-  useEffect(() => {
-    const getData = async () => {
-      if (previousTab !== (tab !== undefined ? tab[0] : tab)) {
-        const newTab =
-          user.tabs.filter((tabItem) => {
-            if (tab) {
-              return tabItem.name === tab[0];
-            }
-          })[0] || user.tabs[0];
-        setSelectedTab(newTab);
-        if (tab) {
-          setPreviousTab(tab[0]);
-        }
-      }
-    };
-    getData();
-  }, [tab]);
+  const selectedTab =
+    user.tabs.filter((tabItem) => {
+      return tabItem.name === tab?.[0];
+    })[0] || user.tabs[0];
 
   useEffect(() => {
     document.documentElement.style.setProperty("--accent", user.accentColor);
