@@ -47,6 +47,11 @@ export default function Profile() {
           }),
         }
       );
+
+      if (!res.ok) {
+        throw new Error(`Something went wrong. Response: ${res.status}`);
+      }
+
       const userData = await res.json();
 
       const newData = { ...user, ...userData, tabs: JSON.parse(userData.tabs) };

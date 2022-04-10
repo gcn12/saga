@@ -23,6 +23,9 @@ export default function Experiences() {
       const res = await fetch(
         `${process.env.NEXT_PUBLIC_BACKEND_URL}/experience/experiences/${user.id}`
       );
+      if (!res.ok) {
+        throw new Error(`Something went wrong. Response: ${res.status}`);
+      }
       setExperiences((await res.json()) as ExperienceType[]);
     };
     getExperiences();

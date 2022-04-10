@@ -22,6 +22,9 @@ export default function BlogPosts() {
       const res = await fetch(
         `${process.env.NEXT_PUBLIC_BACKEND_URL}/blog/blog-previews/${user.id}`
       );
+      if (!res.ok) {
+        throw new Error(`Something went wrong. Response: ${res.status}`);
+      }
       const data = await res.json();
       setBlogPreviews(data);
     };

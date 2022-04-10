@@ -41,13 +41,15 @@ export default function Signup() {
           }),
         }
       );
-      if (res.ok) {
-        const user = (await res.json()) as UserRes;
-        localStorage.setItem("userID", user.id);
-        localStorage.setItem("name", user.name);
-        localStorage.setItem("username", user.username);
-        router.push("/create-user");
+      if (!res.ok) {
+        throw new Error(`Something went wrong. Response: ${res.status}`);
       }
+
+      const user = (await res.json()) as UserRes;
+      localStorage.setItem("userID", user.id);
+      localStorage.setItem("name", user.name);
+      localStorage.setItem("username", user.username);
+      router.push("/create-user");
     } catch (err) {
       toastError(getErrorMessage(err));
     }

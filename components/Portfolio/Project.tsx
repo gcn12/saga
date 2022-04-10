@@ -21,6 +21,9 @@ export default function Project({ title, setShowProject }: ProjectProps) {
         const res = await fetch(
           `${process.env.NEXT_PUBLIC_BACKEND_URL}/content/${title}`
         );
+        if (!res.ok) {
+          throw new Error(`Something went wrong. Response: ${res.status}`);
+        }
         const project = await res.json();
         const content = JSON.parse(project.content);
         setProject(content);

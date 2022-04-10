@@ -8,7 +8,7 @@ export default function DeleteUser() {
   const deleteUser = async (e: React.FormEvent<HTMLButtonElement>) => {
     e.preventDefault();
     try {
-      await fetch(
+      const res = await fetch(
         `${process.env.NEXT_PUBLIC_BACKEND_URL}/account/delete-user/${username}`,
         {
           method: "DELETE",
@@ -18,6 +18,9 @@ export default function DeleteUser() {
           body: JSON.stringify({}),
         }
       );
+      if (!res.ok) {
+        throw new Error(`Something went wrong. Response: ${res.status}`);
+      }
       setIsDeleted(true);
     } catch (err) {
       console.log(err);
@@ -27,7 +30,7 @@ export default function DeleteUser() {
   const deleteAllUsers = async (e: React.FormEvent<HTMLButtonElement>) => {
     e.preventDefault();
     try {
-      await fetch(
+      const res = await fetch(
         `${process.env.NEXT_PUBLIC_BACKEND_URL}/account/delete-all-users`,
         {
           method: "DELETE",
@@ -37,6 +40,9 @@ export default function DeleteUser() {
           body: JSON.stringify({}),
         }
       );
+      if (!res.ok) {
+        throw new Error(`Something went wrong. Response: ${res.status}`);
+      }
     } catch (err) {
       toastError(getErrorMessage(err));
     }

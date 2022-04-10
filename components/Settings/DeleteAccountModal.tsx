@@ -21,7 +21,7 @@ export default function DeleteAccountModal({
     e.preventDefault();
     if (!user) return;
     try {
-      await fetch(
+      const res = await fetch(
         `${process.env.NEXT_PUBLIC_BACKEND_URL}/account/delete-user/${user.username}`,
         {
           method: "DELETE",
@@ -31,6 +31,9 @@ export default function DeleteAccountModal({
           body: JSON.stringify({}),
         }
       );
+      if (!res.ok) {
+        throw new Error(`Something went wrong. Response: ${res.status}`);
+      }
       setShowDeleteAccountModal(false);
       router.push("/");
     } catch (err) {

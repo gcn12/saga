@@ -78,6 +78,10 @@ export default function AddProjectModal({
         }
       );
 
+      if (!res.ok) {
+        throw new Error(`Something went wrong. Response: ${res.status}`);
+      }
+
       const data = await res.json();
 
       const { contentPreview, type, name, id } = data;

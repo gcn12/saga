@@ -55,6 +55,10 @@ export default function AddBlogModal({
       }
     );
 
+    if (!res.ok) {
+      throw new Error(`Something went wrong. Response: ${res.status}`);
+    }
+
     const data = (await res.json()) as BlogPreviewType;
 
     const { date, id } = data;

@@ -48,6 +48,10 @@ export default function Account() {
         }
       );
 
+      if (!res.ok) {
+        throw new Error(`Something went wrong. Response: ${res.status}`);
+      }
+
       const userData = (await res.json()) as AccountType;
 
       const newData = {

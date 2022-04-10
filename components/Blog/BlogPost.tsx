@@ -26,6 +26,9 @@ export default function BlogPost({ blogID, setShowBlog }: BlogProps) {
         const res = await fetch(
           `${process.env.NEXT_PUBLIC_BACKEND_URL}/blog/${blogID}`
         );
+        if (!res.ok) {
+          throw new Error(`Something went wrong. Response: ${res.status}`);
+        }
         const blog = await res.json();
         const content = JSON.parse(blog.content);
         setBlog(content);

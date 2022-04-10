@@ -52,6 +52,9 @@ export default function DeleteItemModal({
           body: JSON.stringify({}),
         }
       );
+      if (!res.ok) {
+        throw new Error(`Something went wrong. Response: ${res.status}`);
+      }
       await res.json();
       removeExperienceFromState();
       setShowDeleteModal(false);

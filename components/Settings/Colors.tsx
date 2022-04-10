@@ -48,7 +48,7 @@ export default function Colors() {
     setStatus("submitting");
     await delay(250);
     try {
-      await fetch(
+      const res = await fetch(
         `${process.env.NEXT_PUBLIC_BACKEND_URL}/account/save-colors`,
         {
           method: "POST",
@@ -62,6 +62,10 @@ export default function Colors() {
           }),
         }
       );
+
+      if (!res.ok) {
+        throw new Error(`Something went wrong. Response: ${res.status}`);
+      }
     } catch (err) {
       toastError(getErrorMessage(err));
     }

@@ -24,6 +24,9 @@ export default function Projects() {
       const res = await fetch(
         `${process.env.NEXT_PUBLIC_BACKEND_URL}/tab/portfolio/${user.id}`
       );
+      if (!res.ok) {
+        throw new Error(`Something went wrong. Response: ${res.status}`);
+      }
       const data = await res.json();
       setProjectPreviews(data);
     };

@@ -46,6 +46,10 @@ export default function CreateUser() {
         }
       );
 
+      if (!res.ok) {
+        throw new Error(`Something went wrong. Response: ${res.status}`);
+      }
+
       const user = (await res.json()) as User;
 
       document.documentElement.style.setProperty(

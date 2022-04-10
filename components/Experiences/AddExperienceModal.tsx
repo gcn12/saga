@@ -90,6 +90,10 @@ export default function AddExperienceModal({
         }
       );
 
+      if (!res.ok) {
+        throw new Error(`Something went wrong. Response: ${res.status}`);
+      }
+
       const data = await res.json();
 
       const sorted = sortExperiences([...experiences, data]);
