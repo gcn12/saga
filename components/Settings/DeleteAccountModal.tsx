@@ -22,7 +22,7 @@ export default function DeleteAccountModal({
     if (!user) return;
     try {
       await fetch(
-        `${process.env.NEXT_PUBLIC_BACKEND_URL}/delete-user/${user.username}`,
+        `${process.env.NEXT_PUBLIC_BACKEND_URL}/account/delete-user/${user.username}`,
         {
           method: "DELETE",
           headers: {

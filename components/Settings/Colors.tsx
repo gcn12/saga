@@ -48,17 +48,20 @@ export default function Colors() {
     setStatus("submitting");
     await delay(250);
     try {
-      await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/save-colors`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          accentColor,
-          backgroundColor,
-          userID: localStorage.getItem("userID"),
-        }),
-      });
+      await fetch(
+        `${process.env.NEXT_PUBLIC_BACKEND_URL}/account/save-colors`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            accentColor,
+            backgroundColor,
+            userID: localStorage.getItem("userID"),
+          }),
+        }
+      );
     } catch (err) {
       toastError(getErrorMessage(err));
     }

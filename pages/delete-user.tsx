@@ -9,7 +9,7 @@ export default function DeleteUser() {
     e.preventDefault();
     try {
       await fetch(
-        `${process.env.NEXT_PUBLIC_BACKEND_URL}/delete-user/${username}`,
+        `${process.env.NEXT_PUBLIC_BACKEND_URL}/account/delete-user/${username}`,
         {
           method: "DELETE",
           headers: {
@@ -27,13 +27,16 @@ export default function DeleteUser() {
   const deleteAllUsers = async (e: React.FormEvent<HTMLButtonElement>) => {
     e.preventDefault();
     try {
-      await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/delete-all-users`, {
-        method: "DELETE",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({}),
-      });
+      await fetch(
+        `${process.env.NEXT_PUBLIC_BACKEND_URL}/account/delete-all-users`,
+        {
+          method: "DELETE",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({}),
+        }
+      );
     } catch (err) {
       toastError(getErrorMessage(err));
     }

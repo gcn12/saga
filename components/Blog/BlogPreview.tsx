@@ -56,7 +56,7 @@ export default function BlogPreview({
             tabContent={blogPreviews}
             id={id}
             setTabContent={setBlogPreviews}
-            endpoint="delete-blog"
+            endpoint="blog/delete-blog"
           />
         )}
       </AnimatePresence>

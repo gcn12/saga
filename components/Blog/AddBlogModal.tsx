@@ -40,17 +40,20 @@ export default function AddBlogModal({
 
   const addBlog = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const res = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/add-blog`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        title,
-        content: blogContent,
-        userID: user.id,
-      }),
-    });
+    const res = await fetch(
+      `${process.env.NEXT_PUBLIC_BACKEND_URL}/blog/add-blog`,
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          title,
+          content: blogContent,
+          userID: user.id,
+        }),
+      }
+    );
 
     const data = (await res.json()) as BlogPreviewType;
 

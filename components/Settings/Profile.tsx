@@ -33,7 +33,7 @@ export default function Profile() {
     await delay(250);
     try {
       const res = await fetch(
-        `${process.env.NEXT_PUBLIC_BACKEND_URL}/save-profile`,
+        `${process.env.NEXT_PUBLIC_BACKEND_URL}/account/save-profile`,
         {
           method: "POST",
           headers: {

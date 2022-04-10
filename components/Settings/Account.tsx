@@ -34,7 +34,7 @@ export default function Account() {
     await delay(250);
     try {
       const res = await fetch(
-        `${process.env.NEXT_PUBLIC_BACKEND_URL}/save-account-settings`,
+        `${process.env.NEXT_PUBLIC_BACKEND_URL}/account/save-account-settings`,
         {
           method: "POST",
           headers: {
