@@ -1,5 +1,6 @@
 import { useEffect, useState, useContext } from "react";
 import { AnimatePresence, motion } from "framer-motion";
+import { useRouter } from "next/router";
 
 import { AuthContext } from "../../state/context";
 import BlogPreview from "./BlogPreview";
@@ -10,7 +11,11 @@ import AddBlogModal from "./AddBlogModal";
 export default function BlogPosts() {
   const [blogPreviews, setBlogPreviews] = useState<Blog[]>([]);
   const [showBlogModal, setShowBlogModal] = useState(false);
+
   const { user } = useContext(AuthContext);
+
+  const router = useRouter();
+  const { edit } = router.query;
 
   useEffect(() => {
     const getExperiences = async () => {
@@ -27,12 +32,18 @@ export default function BlogPosts() {
     <>
       {blogPreviews.map((blogPreview) => {
         return (
-          <BlogPreview
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
             key={blogPreview.id}
-            setBlogPreviews={setBlogPreviews}
-            blogPreviews={blogPreviews}
-            blogPreview={blogPreview}
-          />
+          >
+            <BlogPreview
+              setBlogPreviews={setBlogPreviews}
+              blogPreviews={blogPreviews}
+              blogPreview={blogPreview}
+            />
+          </motion.div>
         );
       })}
       <AnimatePresence>
@@ -44,17 +55,21 @@ export default function BlogPosts() {
           />
         )}
       </AnimatePresence>
-      <motion.div
-        layout
-        layoutId="hello"
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1, transition: { delay: 0.3 } }}
-        exit={{ opacity: 0 }}
-      >
-        <ColoredButton onClick={() => setShowBlogModal(true)}>
-          Create new blog
-        </ColoredButton>
-      </motion.div>
+      <AnimatePresence>
+        {edit && (
+          <motion.div
+            layout
+            layoutId="edit-button"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1, transition: { delay: 0.3 } }}
+            exit={{ opacity: 0 }}
+          >
+            <ColoredButton onClick={() => setShowBlogModal(true)}>
+              Create new blog
+            </ColoredButton>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </>
   );
 }

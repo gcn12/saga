@@ -1,9 +1,10 @@
 import { useEffect, useState, useContext } from "react";
 import { AnimatePresence, motion } from "framer-motion";
+import { useRouter } from "next/router";
+
 import { ProjectPreview as ProjectPreviewType } from "../../types/types";
 import AddProjectModal from "./AddProjectModal";
 import { ColoredButton } from "../Shared/Buttons";
-
 import { AuthContext } from "../../state/context";
 import ProjectPreview from "./ProjectPreview";
 
@@ -11,8 +12,12 @@ export default function Projects() {
   const [projectPreviews, setProjectPreviews] = useState<ProjectPreviewType[]>(
     []
   );
-  const { user } = useContext(AuthContext);
   const [showAddProjectModal, setShowAddProjectModal] = useState(false);
+
+  const { user } = useContext(AuthContext);
+
+  const router = useRouter();
+  const { edit } = router.query;
 
   useEffect(() => {
     const getExperiences = async () => {
@@ -29,12 +34,18 @@ export default function Projects() {
     <>
       {projectPreviews.map((projectPreview) => {
         return (
-          <ProjectPreview
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
             key={projectPreview.id}
-            projectPreviews={projectPreviews}
-            setProjectPreviews={setProjectPreviews}
-            projectPreview={projectPreview}
-          />
+          >
+            <ProjectPreview
+              projectPreviews={projectPreviews}
+              setProjectPreviews={setProjectPreviews}
+              projectPreview={projectPreview}
+            />
+          </motion.div>
         );
       })}
       <AnimatePresence>
@@ -46,17 +57,21 @@ export default function Projects() {
           />
         )}
       </AnimatePresence>
-      <motion.div
-        layout
-        layoutId="hello"
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1, transition: { delay: 0.3 } }}
-        exit={{ opacity: 0 }}
-      >
-        <ColoredButton onClick={() => setShowAddProjectModal(true)}>
-          Create new blog
-        </ColoredButton>
-      </motion.div>
+      <AnimatePresence>
+        {edit && (
+          <motion.div
+            layout
+            layoutId="edit-button"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1, transition: { delay: 0.3 } }}
+            exit={{ opacity: 0 }}
+          >
+            <ColoredButton onClick={() => setShowAddProjectModal(true)}>
+              Create new blog
+            </ColoredButton>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </>
   );
 }
