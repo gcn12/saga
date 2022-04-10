@@ -9,15 +9,9 @@ import { User } from "../../types/types";
 import Header from "../../components/Header";
 import Tabs from "../../components/Tabs";
 
-import Education from "../../components/Education/Education";
-import Skills from "../../components/Skills";
-import Timeline from "../../components/Timeline/Timeline";
 import Settings from "../../components/Settings/Settings";
-import Contact from "../../components/Contact/Contact";
 import Spacer from "../../components/Shared/Spacer";
-import Experiences from "../../components/Experiences/Experiences";
-import BlogPosts from "../../components/Blog/BlogPreviews";
-import ProjectPreviews from "../../components/Portfolio/ProjectPreviews";
+import Tab from "../../components/Tab/Tab";
 
 interface UserProps {
   user: User;
@@ -79,17 +73,7 @@ export default function Username(props: UserProps) {
             <Card layoutId="profile" layout="position">
               <Header user={user} />
               <Tabs tabs={user.tabs} selectedTab={selectedTab} />
-              <div className="fade">
-                <AnimatePresence>
-                  {selectedTab.type === "contact" && <Contact />}
-                  {selectedTab.type === "timeline" && <Timeline />}
-                  {selectedTab.type === "education" && <Education />}
-                  {selectedTab.type === "skills" && <Skills />}
-                  {selectedTab.type === "experience" && <Experiences />}
-                  {selectedTab.type === "blog" && <BlogPosts />}
-                  {selectedTab.type === "portfolio" && <ProjectPreviews />}
-                </AnimatePresence>
-              </div>
+              <Tab selectedTab={selectedTab} />
             </Card>
             <Spacer size={28} axis="x" />
             <AnimatePresence>
