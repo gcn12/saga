@@ -80,8 +80,6 @@ export default function AddProjectModal({
 
       const data = await res.json();
 
-      console.log(projectContent);
-
       const { contentPreview, type, name, id } = data;
 
       const tabContentData = {

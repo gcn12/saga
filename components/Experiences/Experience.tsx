@@ -27,8 +27,6 @@ export default function Experience({
   const router = useRouter();
   const { edit } = router.query;
 
-  console.log(experience);
-
   return (
     <Container className="dark">
       <AnimatePresence>

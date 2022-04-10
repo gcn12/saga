@@ -20,7 +20,6 @@ export default function Projects() {
         `${process.env.NEXT_PUBLIC_BACKEND_URL}/tab/portfolio/${user.id}`
       );
       const data = await res.json();
-      console.log(data);
       setProjectPreviews(data);
     };
     getExperiences();
