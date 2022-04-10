@@ -22,10 +22,18 @@ export default function Experience({
 }: ExperienceProps) {
   const [showExpandedExperience, setShowExpandedExperience] = useState(false);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
-  const content = JSON.parse(experience.experience);
 
   const router = useRouter();
   const { edit } = router.query;
+
+  const {
+    company,
+    description,
+    endDate,
+    isCurrentExperience,
+    role,
+    startDate,
+  } = experience;
 
   return (
     <Container className="dark">
@@ -50,15 +58,15 @@ export default function Experience({
                 <ArrowIcon isOpen={showExpandedExperience} />
               </Arrow>
               <InnerContainer>
-                <Company>{content.company}</Company>
-                <p>{content.role}</p>
+                <Company>{company}</Company>
+                <p>{role}</p>
               </InnerContainer>
             </Header>
             <Timespan>
-              {moment(experience.startDate).format("MMM YYYY")} -{" "}
-              {experience.isCurrent
+              {moment(startDate).format("MMM YYYY")} -{" "}
+              {isCurrentExperience
                 ? "Present"
-                : moment(experience.endDate).format("MMM YYYY")}
+                : moment(endDate).format("MMM YYYY")}
             </Timespan>
           </SecondContainer>
         </ExperienceExpand>
@@ -80,7 +88,7 @@ export default function Experience({
         <Description
           className="light-text"
           dangerouslySetInnerHTML={{
-            __html: content.description || "",
+            __html: description || "",
           }}
         />
       </DescriptionContainer>

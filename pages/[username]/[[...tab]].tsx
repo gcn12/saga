@@ -1,8 +1,8 @@
+import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import Head from "next/head";
 import { LayoutGroup, motion } from "framer-motion";
 import styled from "styled-components";
-import { useEffect, useState } from "react";
 
 import { AuthContext } from "../../state/context";
 import { User } from "../../types/types";
@@ -24,11 +24,6 @@ export default function Username(props: UserProps) {
   const router = useRouter();
   const { tab } = router.query;
 
-  const selectedTab =
-    user.tabs.filter((tabItem) => {
-      return tabItem.name === tab?.[0];
-    })[0] || user.tabs[0];
-
   useEffect(() => {
     document.documentElement.style.setProperty("--accent", user.accentColor);
     document.documentElement.style.setProperty(
@@ -36,6 +31,11 @@ export default function Username(props: UserProps) {
       user.backgroundColor
     );
   }, []);
+
+  const selectedTab =
+    user.tabs.filter((tabItem) => {
+      return tabItem.name === tab?.[0];
+    })[0] || user.tabs[0];
 
   return (
     <AuthContext.Provider value={{ user, setUser }}>
@@ -69,19 +69,21 @@ export const getServerSideProps = async ({
   params: { username: string; tab: string };
 }) => {
   const { username, tab } = params;
+
   const res = await fetch(
     `${process.env.NEXT_PUBLIC_BACKEND_URL}/user/${username}/${tab}`
   );
+
   const { user } = await res.json();
-  if (!user) {
-    return { redirect: { destination: "/", permanent: false } };
-  } else {
-    const parsedTabs = JSON.parse(user.tabs);
+
+  if (user) {
     return {
       props: {
-        user: { ...user, tabs: parsedTabs },
+        user: { ...user, tabs: JSON.parse(user.tabs) },
       },
     };
+  } else {
+    return { redirect: { destination: "/", permanent: false } };
   }
 };
 

@@ -48,7 +48,7 @@ export default function AddExperienceModal({
   const [endMonth, setEndMonth] = useState(months[0]);
   const [endYear, setEndYear] = useState(years[0]);
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [isCurrentCompany, setIsCurrentCompany] = useState(true);
+  const [isCurrentExperience, setIsCurrentExperience] = useState(true);
 
   const formItems = [
     { label: "Company", setState: setCompany, value: company },
@@ -70,12 +70,6 @@ export default function AddExperienceModal({
   const addExperience = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setIsSubmitting(true);
-    const experience = {
-      company,
-      role,
-      description,
-    };
-
     try {
       const res = await fetch(
         `${process.env.NEXT_PUBLIC_BACKEND_URL}/add-experience`,
@@ -85,11 +79,13 @@ export default function AddExperienceModal({
             "Content-Type": "application/json",
           },
           body: JSON.stringify({
-            experience,
+            company,
+            role,
+            description,
             userID: localStorage.getItem("userID"),
             startDate: formatDate(startMonth, startYear),
             endDate: formatDate(endMonth, endYear),
-            isCurrent: isCurrentCompany,
+            isCurrentExperience: isCurrentExperience,
           }),
         }
       );
@@ -120,6 +116,7 @@ export default function AddExperienceModal({
     pastExperiences.sort((a, b) => {
       return new Date(b.endDate).getTime() - new Date(a.endDate).getTime();
     });
+
     return [...currentExperiences, ...pastExperiences];
   };
 
@@ -192,7 +189,7 @@ export default function AddExperienceModal({
                   </DateSelect>
                 </SelectContainer>
               </div>
-              {!isCurrentCompany && (
+              {!isCurrentExperience && (
                 <div style={{ width: "100%" }}>
                   End date
                   <SelectContainer>
@@ -215,8 +212,8 @@ export default function AddExperienceModal({
                 <input
                   id="current-company"
                   type="checkbox"
-                  checked={isCurrentCompany}
-                  onChange={() => setIsCurrentCompany(!isCurrentCompany)}
+                  checked={isCurrentExperience}
+                  onChange={() => setIsCurrentExperience(!isCurrentExperience)}
                 />
                 <Spacer size={8} axis="x" />
                 <label htmlFor="current-company">I currently work here</label>

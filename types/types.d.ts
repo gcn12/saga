@@ -21,8 +21,10 @@ export interface ProjectPreview {
 
 export interface Experience {
   id: string;
-  experience: string;
-  isCurrent: boolean;
+  company: string;
+  role: string;
+  description: string;
+  isCurrentExperience: boolean;
   startDate: Date;
   endDate: Date;
 }
