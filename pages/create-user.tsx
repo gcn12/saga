@@ -21,7 +21,7 @@ export default function CreateUser() {
     try {
       const username = localStorage.getItem("username");
       const res = await fetch(
-        `${process.env.NEXT_PUBLIC_BACKEND_URL}/create-profile`,
+        `${process.env.NEXT_PUBLIC_BACKEND_URL}/account/create-profile`,
         {
           method: "POST",
           headers: {
