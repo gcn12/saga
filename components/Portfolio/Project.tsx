@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { DialogContent, DialogOverlay } from "@reach/dialog";
 import { motion } from "framer-motion";
 import styled from "styled-components";
+
 import { Project as ProjectType } from "../../types/types";
 import toastError from "../Shared/Toast";
 import { getErrorMessage } from "../../utils/utils";
@@ -45,9 +46,6 @@ export default function Project({
     initial: { opacity: 1 },
     transition: { duration: 0 },
   };
-
-  const MotionDialogOverlay = motion(DialogOverlay);
-  const MotionDialogContent = motion(DialogContent);
 
   return (
     <MotionDialogOverlay
@@ -222,3 +220,6 @@ const RightPhoto = styled.img`
 const CloseModal = styled.button`
   padding: 0 5%;
 `;
+
+const MotionDialogOverlay = motion(DialogOverlay);
+const MotionDialogContent = motion(DialogContent);
