@@ -21,13 +21,8 @@ export default function Home() {
         `}</style>
         <TextContainer>
           <Title>
-            <div style={{ display: "flex", alignItems: "center" }}>
-              The
-              <span>
-                <InnerTitle>last profile</InnerTitle>
-              </span>
-            </div>
-            you&apos;ll ever need
+            The
+            <InnerTitle>last profile</InnerTitle> you&apos;ll ever need
           </Title>
         </TextContainer>
         <SectionContainer>
@@ -94,13 +89,13 @@ const TextContainer = styled.div`
 const Title = styled.h1`
   color: #000000;
   font-size: 8rem;
-  font-weight: 400;
+  font-weight: 500;
   line-height: 1.2;
   margin-top: 140px;
   padding: 0 50px;
 `;
 
-const InnerTitle = styled.p`
+const InnerTitle = styled.span`
   font-weight: 700;
   font-size: 8rem;
   margin-left: 30px;
