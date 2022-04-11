@@ -9,14 +9,14 @@ export default function Home() {
           <Logo>Saga</Logo>
           <li>
             <Link href="/signup" passHref>
-              <Login>Get started</Login>
+              <Signup>Get started</Signup>
             </Link>
           </li>
         </Header>
         <style jsx global>{`
           body,
           html {
-            background: rgb(25, 24, 26);
+            background: rgb(244, 240, 247);
           }
         `}</style>
         <TextContainer>
@@ -46,28 +46,6 @@ export default function Home() {
             <SubheaderInner>portfolios</SubheaderInner> come together
           </Subheader>
         </SectionContainer>
-        <div>
-          <MiddleHeader>
-            One <MiddleEmphasis>click. </MiddleEmphasis>
-            Hundreds of
-            <MiddleEmphasis> applications.</MiddleEmphasis>
-          </MiddleHeader>
-        </div>
-        <SectionContainer>
-          <Subheader>
-            Your new <SubheaderInner>best hire</SubheaderInner> lives here
-          </Subheader>
-          <DisplayVideo src="/recruiter-video.mp4" autoPlay muted loop />
-        </SectionContainer>
-        <div style={{ marginBottom: "100px" }}></div>
-        <VerticalContainer>
-          <VerticalImage alt="Portfolio example" src="/inner-circle.png" />
-          <div style={{ marginRight: "50px" }}></div>
-          <VerticalText>
-            Find your <SubheaderInner>inner circle</SubheaderInner>
-          </VerticalText>
-        </VerticalContainer>
-        <div style={{ paddingBottom: "100px" }}></div>
       </Container>
     </Background>
   );
@@ -81,7 +59,7 @@ const Container = styled.div`
 const Background = styled.div`
   width: 100vw;
   min-height: 100vh;
-  background-color: rgb(25, 24, 26);
+  background-color: rgb(244, 240, 247);
 `;
 
 const Header = styled.ul`
@@ -93,12 +71,12 @@ const Header = styled.ul`
 `;
 
 const Logo = styled.li`
-  color: white;
+  color: #000000;
   font-size: 2rem;
   font-weight: 700;
 `;
 
-const Login = styled.a`
+const Signup = styled.a`
   background-color: rgb(72, 71, 71);
   padding: 12px 20px;
   color: white;
@@ -114,7 +92,7 @@ const TextContainer = styled.div`
 `;
 
 const Title = styled.h1`
-  color: white;
+  color: #000000;
   font-size: 8rem;
   font-weight: 400;
   line-height: 1.2;
@@ -126,7 +104,7 @@ const InnerTitle = styled.p`
   font-weight: 700;
   font-size: 8rem;
   margin-left: 30px;
-  color: rgb(225, 209, 158);
+  color: rgb(179, 166, 124);
 `;
 
 const SectionContainer = styled.div`
@@ -138,7 +116,7 @@ const SectionContainer = styled.div`
 `;
 
 const Subheader = styled.p`
-  color: white;
+  color: #000000;
   font-size: 5rem;
   font-weight: 500;
   line-height: 1.2;
@@ -152,46 +130,5 @@ const SubheaderInner = styled.span`
 const DisplayPhoto = styled.img`
   max-width: 45%;
   object-fit: cover;
-  border-radius: 10px;
-`;
-
-const DisplayVideo = styled.video`
-  max-width: 45%;
-  object-fit: cover;
-  border-radius: 10px;
-`;
-
-const MiddleHeader = styled.p`
-  padding: 0 90px;
-  color: white;
-  font-size: 6rem;
-  text-align: center;
-  margin: 22vh 0;
-`;
-
-const MiddleEmphasis = styled.span`
-  color: rgb(189, 216, 158);
-  font-weight: 800;
-`;
-
-const VerticalContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-`;
-
-const VerticalText = styled.p`
-  padding: 0 90px;
-  color: white;
-  font-size: 6rem;
-  text-align: center;
-  line-height: 1;
-`;
-
-const VerticalImage = styled.img`
-  transform: scale(1.1);
-  max-width: 45%;
-  object-fit: cover;
-  margin-bottom: 50px;
   border-radius: 10px;
 `;
