@@ -14,9 +14,6 @@ interface DeleteItemModalProps {
   endpoint: string;
 }
 
-const MotionDialogOverlay = motion(DialogOverlay);
-const MotionDialogContent = motion(DialogContent);
-
 export default function DeleteItemModal({
   setShowDeleteModal,
   setTabContent,
@@ -65,9 +62,6 @@ export default function DeleteItemModal({
 
   return (
     <MotionDialogOverlay
-      style={{
-        backgroundColor: "rgba(0, 0, 0, .4)",
-      }}
       aria-label="blog post"
       onDismiss={() => setShowDeleteModal(false)}
       isOpen={true}
@@ -77,19 +71,7 @@ export default function DeleteItemModal({
       animate="visible"
       exit="exit"
     >
-      <MotionDialogContent
-        aria-label={"blog post"}
-        style={{
-          borderRadius: "16px",
-          width: "500px",
-          height: "300px",
-          padding: "20px 0",
-          margin: "30px auto",
-          display: "flex",
-          flexDirection: "column",
-          justifyContent: "space-between",
-        }}
-      >
+      <MotionDialogContent aria-label={"blog post"}>
         <CloseModel onClick={() => setShowDeleteModal(false)}>X</CloseModel>
         <Message>Delete?</Message>
         <Form onSubmit={deleteExperience}>
@@ -132,3 +114,21 @@ const DeleteButton = styled.button`
   padding: 10px 20px;
   border-radius: 6px;
 `;
+
+const StyledDialogOverlay = styled(DialogOverlay)`
+  background-color: rgba(0, 0, 0, 0.4);
+`;
+
+const StyledDialogContent = styled(DialogContent)`
+  border-radius: 16px;
+  width: 500px;
+  height: 300px;
+  padding: 20px 0;
+  margin: 30px auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+`;
+
+const MotionDialogOverlay = motion(StyledDialogOverlay);
+const MotionDialogContent = motion(StyledDialogContent);

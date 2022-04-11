@@ -138,7 +138,3 @@ const Bio = styled.div`
   margin-bottom: 30px;
   color: #6e6e6e;
 `;
-
-export const Icon = styled.svg`
-  transition: all 0.25s ease-in-out;
-`;

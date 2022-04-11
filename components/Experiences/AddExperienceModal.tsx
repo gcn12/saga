@@ -105,13 +105,13 @@ export default function AddExperienceModal({
     }
   };
 
-  const sortExperiences = (experiences: any[]) => {
+  const sortExperiences = (experiences: Experience[]) => {
     const currentExperiences = experiences.filter((experience) => {
-      return experience.isCurrent;
+      return experience.isCurrentExperience;
     });
 
     const pastExperiences = experiences.filter((experience) => {
-      return !experience.isCurrent;
+      return !experience.isCurrentExperience;
     });
 
     currentExperiences.sort((a, b) => {

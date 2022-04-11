@@ -13,7 +13,8 @@
     "test:coverage": "jest --coverage",
     "test:no-watch": "jest",
     "prepare": "husky install",
-    "type-check": "tsc --noEmit"
+    "type-check": "tsc --noEmit",
+    "prune": "ts-prune"
   },
   "dependencies": {
     "@reach/dialog": "^0.16.2",
@@ -21,7 +22,6 @@
     "@tiptap/react": "^2.0.0-beta.108",
     "@tiptap/starter-kit": "^2.0.0-beta.183",
     "babel-jest": "^27.5.1",
-    "faker": "^6.6.6",
     "framer-motion": "^6.2.8",
     "jest": "^27.5.1",
     "jotai": "^1.6.1",
@@ -32,8 +32,7 @@
     "react-hook-form": "^7.29.0",
     "react-hot-toast": "^2.2.0",
     "react-test-renderer": "^18.0.0",
-    "styled-components": "^5.3.5",
-    "styled-jsx": "^5.0.2"
+    "styled-components": "^5.3.5"
   },
   "devDependencies": {
     "@testing-library/cypress": "^8.0.2",
@@ -53,6 +52,7 @@
     "eslint-plugin-import": "^2.25.4",
     "husky": "^7.0.0",
     "jest-axe": "^6.0.0",
+    "ts-prune": "^0.10.3",
     "typescript": "4.6.3"
   }
 }

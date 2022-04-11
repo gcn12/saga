@@ -7,7 +7,7 @@ export interface TabContent {
   id: string;
 }
 
-export interface Blog {
+interface Blog {
   title: string;
   content: string;
   id: string;
@@ -54,7 +54,7 @@ export interface Settings {
   backgroundColor: string;
 }
 
-export interface Profile {
+interface Profile {
   profilePictureURL: string;
   career: string;
   location: string;
@@ -93,7 +93,7 @@ export interface TimelineItem {
   link?: string;
 }
 
-export type ContactTypes = "instagram" | "email" | "twitter" | "facebook";
+type ContactTypes = "instagram" | "email" | "twitter" | "facebook";
 
 export interface Contacts {
   type: ContactTypes;

@@ -23,7 +23,7 @@ type ColoredButtonProps = {
   submitting: boolean;
 };
 
-export const ColoredSubmitButton = styled(ColoredButton)<ColoredButtonProps>`
+const ColoredSubmitButton = styled(ColoredButton)<ColoredButtonProps>`
   border: ${(props) => (props.submitting ? "1px solid var(--accent)" : "none")};
   color: ${(props) => (props.submitting ? "var(--accent)" : "white")};
   background-color: ${(props) =>
@@ -40,12 +40,11 @@ type SubmitButtonTypes = SubmitButtonText & {
   status: SubmitButtonStatus;
 };
 
-export function ButtonWithStates({
+function ButtonWithStates({
   idleText,
   submittingText,
   successText,
   status,
-
   ...props
 }: SubmitButtonTypes) {
   return (
