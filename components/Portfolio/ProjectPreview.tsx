@@ -37,7 +37,7 @@ export default function ProjectPreview({
           </div>
           <Links>
             <ProjectButton onClick={() => setShowProject(true)}>
-              CASE STUDY
+              VIEW
             </ProjectButton>
             <ProjectLink target="_blank" rel="noreferrer" href={projectLink}>
               DEMO
