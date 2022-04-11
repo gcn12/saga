@@ -12,7 +12,7 @@ export const ColoredButton = styled.button`
 
   &:hover {
     &:enabled {
-      filter: brightness(88%);
+      filter: brightness(118%);
     }
   }
 `;

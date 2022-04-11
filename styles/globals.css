@@ -9,6 +9,10 @@ body {
   font-family: "Poppins", sans-serif;
 }
 
+/* *:focus {
+  outline: 4px solid rgb(5, 143, 106);
+} */
+
 [data-reach-dialog-overlay] {
   /* display: flex;
   justify-content: center;
