@@ -1,7 +1,6 @@
 import { Tab as TabType } from "../../types/types";
 import Education from "../../components/Education/Education";
 import Skills from "../../components/Skills";
-import Timeline from "../../components/Timeline/Timeline";
 import Contact from "../../components/Contact/Contact";
 import Experiences from "../../components/Experiences/Experiences";
 import BlogPosts from "../../components/Blog/BlogPreviews";
@@ -15,7 +14,6 @@ export default function Tab({ selectedTab }: TabProps) {
   return (
     <div className="fade">
       {selectedTab.type === "contact" && <Contact />}
-      {selectedTab.type === "timeline" && <Timeline />}
       {selectedTab.type === "education" && <Education />}
       {selectedTab.type === "skills" && <Skills />}
       {selectedTab.type === "experience" && <Experiences />}

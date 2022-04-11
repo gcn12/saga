@@ -1,6 +1,5 @@
 import { DialogContent, DialogOverlay } from "@reach/dialog";
 import { motion } from "framer-motion";
-import { TabContent } from "../types/types";
 import React from "react";
 import styled from "styled-components";
 import toastError from "./Shared/Toast";
@@ -29,7 +28,7 @@ export default function DeleteItemModal({
   };
 
   const removeExperienceFromState = () => {
-    const filteredContent = tabContent.filter((item: TabContent) => {
+    const filteredContent = tabContent.filter((item: any) => {
       return item.id !== id;
     });
 

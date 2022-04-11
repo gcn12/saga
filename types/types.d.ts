@@ -1,48 +1,3 @@
-export interface TabContent {
-  contentPreview?: string;
-  experience?: string;
-  username: string;
-  type: string;
-  name: string;
-  id: string;
-}
-
-interface Blog {
-  title: string;
-  content: string;
-  id: string;
-}
-
-export interface BlogPreview {
-  title: string;
-  id: string;
-  date: string;
-}
-
-export interface ProjectPreview {
-  title: string;
-  id: string;
-  imageURL: string;
-  description: string;
-  projectLink: string;
-}
-
-export interface Experience {
-  id: string;
-  company: string;
-  role: string;
-  description: string;
-  isCurrentExperience: boolean;
-  startDate: Date;
-  endDate: Date;
-}
-
-export interface Tab {
-  type: string;
-  name: string;
-  key: number;
-}
-
 export interface Account {
   id: string;
   name: string;
@@ -65,11 +20,9 @@ interface Profile {
 
 export type User = Profile & Settings & Account;
 
-export type BlogElements = "smallPhoto" | "paragraph" | "header" | "largePhoto";
-
-export interface BlogElement {
-  type: BlogElements;
-  content: string;
+export interface Tab {
+  type: string;
+  name: string;
   key: number;
 }
 
@@ -87,10 +40,22 @@ export interface Project {
   key: number;
 }
 
-export interface TimelineItem {
+export interface ProjectPreview {
   title: string;
-  date: string;
-  link?: string;
+  id: string;
+  imageURL: string;
+  description: string;
+  projectLink: string;
+}
+
+export interface Experience {
+  id: string;
+  company: string;
+  role: string;
+  description: string;
+  isCurrentExperience: boolean;
+  startDate: Date;
+  endDate: Date;
 }
 
 type ContactTypes = "instagram" | "email" | "twitter" | "facebook";
@@ -98,4 +63,24 @@ type ContactTypes = "instagram" | "email" | "twitter" | "facebook";
 export interface Contacts {
   type: ContactTypes;
   value: string;
+}
+
+interface Blog {
+  title: string;
+  content: string;
+  id: string;
+}
+
+export interface BlogPreview {
+  title: string;
+  id: string;
+  date: string;
+}
+
+export type BlogElements = "smallPhoto" | "paragraph" | "header" | "largePhoto";
+
+export interface BlogElement {
+  type: BlogElements;
+  content: string;
+  key: number;
 }
