@@ -7,6 +7,7 @@ import TipTap from "../TipTap";
 import {
   BlogElements,
   BlogPreview as BlogPreviewType,
+  BlogElement,
 } from "../../types/types";
 import { ColoredButton } from "../Shared/Buttons";
 import { AuthContext } from "../../state/context";
@@ -34,9 +35,11 @@ export default function AddBlogModal({
   blogPreviews,
   setShowDialog,
 }: AddBlogModalProps) {
-  const [blogContent, setBlogContent] = useState<any[]>([]);
+  const [blogContent, setBlogContent] = useState<BlogElement[]>([]);
   const [title, setTitle] = useState("This is a title");
   const { user } = useContext(AuthContext);
+
+  console.log(blogContent);
 
   const addBlog = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -202,7 +205,7 @@ const PhotoComponent = ({
   index,
   imageSize,
 }: {
-  addContent: any;
+  addContent: (index: number, text: string) => void;
   index: number;
   imageSize: "large" | "small";
 }) => {

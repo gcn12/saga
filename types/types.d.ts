@@ -67,7 +67,7 @@ export type User = Profile & Settings & Account;
 
 export type BlogElements = "smallPhoto" | "paragraph" | "header" | "largePhoto";
 
-export interface Blog {
+export interface BlogElement {
   type: BlogElements;
   content: string;
   key: number;
