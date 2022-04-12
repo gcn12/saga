@@ -17,6 +17,7 @@
     "prune": "ts-prune"
   },
   "dependencies": {
+    "@fontsource/poppins": "^4.5.5",
     "@reach/dialog": "^0.16.2",
     "@reach/menu-button": "^0.16.2",
     "@tiptap/react": "^2.0.0-beta.108",
