@@ -1,5 +1,7 @@
 import { AnimatePresence } from "framer-motion";
 import { useState } from "react";
+import { useSession } from "next-auth/react";
+
 import { User } from "../types/types";
 import styled from "styled-components";
 import VideoModal from "./VideoModal";
@@ -13,6 +15,7 @@ interface HeaderProps {
 }
 
 export default function Header({ user }: HeaderProps) {
+  const { data: session } = useSession();
   const { location, name, career, bio, profilePictureURL, videoIntroduction } =
     user;
   const [showIntroVideo, setShowIntroVideo] = useState(false);
@@ -49,21 +52,25 @@ export default function Header({ user }: HeaderProps) {
             </LocationContainer>
           </TextContainer>
         </InnerContainer>
-        <Link
-          href={`/${username}/${tab ? tab[0] : ""}${edit ? "" : "?edit=true"}`}
-          scroll={false}
-          passHref
-        >
-          {edit ? (
-            <SecondaryButton as="a" style={{ alignSelf: "flex-start" }}>
-              Done
-            </SecondaryButton>
-          ) : (
-            <ColoredButton as="a" style={{ alignSelf: "flex-start" }}>
-              Edit
-            </ColoredButton>
-          )}
-        </Link>
+        {session && (
+          <Link
+            href={`/${username}/${tab ? tab[0] : ""}${
+              edit ? "" : "?edit=true"
+            }`}
+            scroll={false}
+            passHref
+          >
+            {edit ? (
+              <SecondaryButton as="a" style={{ alignSelf: "flex-start" }}>
+                Done
+              </SecondaryButton>
+            ) : (
+              <ColoredButton as="a" style={{ alignSelf: "flex-start" }}>
+                Edit
+              </ColoredButton>
+            )}
+          </Link>
+        )}
       </div>
       <Bio dangerouslySetInnerHTML={{ __html: bio || "" }} />
       <AnimatePresence>

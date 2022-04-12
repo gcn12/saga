@@ -3,8 +3,12 @@ import type { AppProps } from "next/app";
 import { GlobalStyles } from "../styles/GlobalStyles";
 import { Toaster } from "react-hot-toast";
 import "@reach/dialog/styles.css";
+import { SessionProvider } from "next-auth/react";
 
-export default function App({ Component, pageProps }: AppProps) {
+export default function App({
+  Component,
+  pageProps: { session, ...pageProps },
+}: AppProps) {
   const toastOptions = {
     backgroundColor: "red",
     color: "white",
@@ -24,8 +28,9 @@ export default function App({ Component, pageProps }: AppProps) {
             style: toastOptions,
           }}
         />
-
-        <Component {...pageProps} />
+        <SessionProvider session={session}>
+          <Component {...pageProps} />
+        </SessionProvider>
       </main>
     </>
   );

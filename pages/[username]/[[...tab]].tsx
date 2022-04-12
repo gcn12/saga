@@ -3,6 +3,7 @@ import { useRouter } from "next/router";
 import Head from "next/head";
 import { LayoutGroup, motion } from "framer-motion";
 import styled from "styled-components";
+import { getSession } from "next-auth/react";
 
 import { AuthContext } from "../../state/context";
 import { User } from "../../types/types";
@@ -59,12 +60,11 @@ export default function Username({ user: userProps }: UserProps) {
   );
 }
 
-export const getServerSideProps = async ({
-  params,
-}: {
-  params: { username: string };
-}) => {
-  const { username } = params;
+export const getServerSideProps = async (ctx: any) => {
+  // const { data: session } = useSession();
+  // console.log(session);
+
+  const { username } = ctx.params;
 
   const res = await fetch(
     `${process.env.NEXT_PUBLIC_BACKEND_URL}/user/${username}`
@@ -76,6 +76,7 @@ export const getServerSideProps = async ({
     return {
       props: {
         user: { ...user, tabs: JSON.parse(user.tabs) },
+        session: await getSession(ctx),
       },
     };
   } else {
