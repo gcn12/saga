@@ -2,6 +2,7 @@ import { DialogContent, DialogOverlay } from "@reach/dialog";
 import { motion } from "framer-motion";
 import styled from "styled-components";
 import { useState } from "react";
+import { useQueryClient, useMutation } from "react-query";
 
 import TipTap from "../TipTap";
 import { Label, Input } from "../Shared/Forms";
@@ -100,6 +101,7 @@ export default function AddExperienceModal({
       const sorted = sortExperiences([...experiences, data]);
       setExperiences(sorted);
       setShowAddExperience(false);
+      return data;
     } catch (err) {
       toastError(getErrorMessage(err));
     }
@@ -124,6 +126,15 @@ export default function AddExperienceModal({
 
     return [...currentExperiences, ...pastExperiences];
   };
+
+  const queryClient = useQueryClient();
+
+  const mutation = useMutation(addExperience, {
+    onSuccess: (data) => {
+      console.log(data);
+      queryClient.setQueryData(["hello", { id: data.id }], data);
+    },
+  });
 
   return (
     <div>

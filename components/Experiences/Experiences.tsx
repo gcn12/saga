@@ -1,6 +1,7 @@
 import { useEffect, useState, useContext } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { useRouter } from "next/router";
+import { useQuery } from "react-query";
 
 import Experience from "./Experience";
 import { AuthContext } from "../../state/context";
@@ -11,6 +12,16 @@ import { ColoredButton } from "../Shared/Buttons";
 export default function Experiences() {
   const [experiences, setExperiences] = useState<ExperienceType[]>([]);
   const [showAddExperience, setShowAddExperience] = useState(false);
+
+  const { data: experiences2 } = useQuery<ExperienceType[]>(
+    "hello",
+    async () => {
+      const res = await fetch(
+        `${process.env.NEXT_PUBLIC_BACKEND_URL}/experience/experiences/${user.id}`
+      );
+      return await res.json();
+    }
+  );
 
   const { user } = useContext(AuthContext);
 
@@ -33,7 +44,7 @@ export default function Experiences() {
 
   return (
     <>
-      {experiences.map((experience) => {
+      {experiences2?.map((experience) => {
         return (
           <motion.div
             initial={{ opacity: 0 }}

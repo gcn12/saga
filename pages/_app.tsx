@@ -3,7 +3,10 @@ import type { AppProps } from "next/app";
 import { GlobalStyles } from "../styles/GlobalStyles";
 import { Toaster } from "react-hot-toast";
 import "@reach/dialog/styles.css";
-import { SessionProvider } from "next-auth/react";
+import { QueryClient, QueryClientProvider } from "react-query";
+// import { SessionProvider } from "next-auth/react";
+
+const queryClient = new QueryClient();
 
 export default function App({
   Component,
@@ -28,9 +31,11 @@ export default function App({
             style: toastOptions,
           }}
         />
-        <SessionProvider session={session}>
+        {/* <SessionProvider session={session}> */}
+        <QueryClientProvider client={queryClient}>
           <Component {...pageProps} />
-        </SessionProvider>
+          {/* </SessionProvider> */}
+        </QueryClientProvider>
       </main>
     </>
   );

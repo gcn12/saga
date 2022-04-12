@@ -7,7 +7,7 @@ import { ColoredButton } from "../components/Shared/Buttons";
 import toastError from "../components/Shared/Toast";
 import { getErrorMessage } from "../utils/utils";
 import { useForm, SubmitHandler } from "react-hook-form";
-import { signIn, signOut } from "next-auth/react";
+// import { signIn, signOut } from "next-auth/react";
 
 type UserRes = Pick<User, "id" | "name" | "username">;
 
@@ -80,8 +80,8 @@ export default function Signup() {
         <ColoredButton style={{ width: "100%" }} type="submit">
           CREATE
         </ColoredButton>
-        <button onClick={() => signIn()}>Sign up</button>
-        <button onClick={() => signOut()}>Sign out</button>
+        {/* <button onClick={() => signIn()}>Sign up</button>
+        <button onClick={() => signOut()}>Sign out</button> */}
       </Form>
     </Container>
   );

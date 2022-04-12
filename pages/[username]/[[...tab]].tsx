@@ -3,7 +3,7 @@ import { useRouter } from "next/router";
 import Head from "next/head";
 import { LayoutGroup, motion } from "framer-motion";
 import styled from "styled-components";
-import { getSession } from "next-auth/react";
+// import { getSession } from "next-auth/react";
 
 import { AuthContext } from "../../state/context";
 import { User } from "../../types/types";
@@ -76,7 +76,7 @@ export const getServerSideProps = async (ctx: any) => {
     return {
       props: {
         user: { ...user, tabs: JSON.parse(user.tabs) },
-        session: await getSession(ctx),
+        // session: await getSession(ctx),
       },
     };
   } else {
