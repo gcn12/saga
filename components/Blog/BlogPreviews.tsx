@@ -12,6 +12,11 @@ import AddBlogModal from "./AddBlogModal";
 export default function BlogPosts() {
   const [showBlogModal, setShowBlogModal] = useState(false);
 
+  const { user } = useContext(AuthContext);
+
+  const router = useRouter();
+  const { edit } = router.query;
+
   const { data: blogPreviews2 } = useQuery<BlogPreviewType[]>(
     "blogs",
     async () => {
@@ -21,11 +26,6 @@ export default function BlogPosts() {
       return await res.json();
     }
   );
-
-  const { user } = useContext(AuthContext);
-
-  const router = useRouter();
-  const { edit } = router.query;
 
   return (
     <>

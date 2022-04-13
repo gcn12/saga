@@ -15,25 +15,6 @@ interface AddExperienceModalProps {
   setShowAddExperience: (value: boolean) => void;
 }
 
-const months = [
-  "January",
-  "February",
-  "March",
-  "April",
-  "May",
-  "June",
-  "July",
-  "August",
-  "September",
-  "October",
-  "November",
-  "December",
-];
-
-const years = new Array(20).fill("").map((_year, index) => {
-  return new Date().getFullYear() - index;
-});
-
 export default function AddExperienceModal({
   setShowAddExperience,
 }: AddExperienceModalProps) {
@@ -53,18 +34,6 @@ export default function AddExperienceModal({
     { label: "Company", setState: setCompany, value: company },
     { label: "Role", setState: setRole, value: role },
   ];
-
-  const formatDate = (month: string, year: number) => {
-    const date = new Date();
-    date.setMonth(months.indexOf(month));
-    date.setFullYear(Number(year));
-    date.setDate(1);
-    date.setHours(0);
-    date.setMinutes(0);
-    date.setSeconds(0);
-    date.setMilliseconds(0);
-    return date;
-  };
 
   const mutation = useMutation(
     () => {
@@ -220,6 +189,37 @@ export default function AddExperienceModal({
     </MotionDialogOverlay>
   );
 }
+
+const months = [
+  "January",
+  "February",
+  "March",
+  "April",
+  "May",
+  "June",
+  "July",
+  "August",
+  "September",
+  "October",
+  "November",
+  "December",
+];
+
+const years = new Array(20).fill("").map((_year, index) => {
+  return new Date().getFullYear() - index;
+});
+
+const formatDate = (month: string, year: number) => {
+  const date = new Date();
+  date.setMonth(months.indexOf(month));
+  date.setFullYear(Number(year));
+  date.setDate(1);
+  date.setHours(0);
+  date.setMinutes(0);
+  date.setSeconds(0);
+  date.setMilliseconds(0);
+  return date;
+};
 
 const SelectContainer = styled.div`
   display: flex;

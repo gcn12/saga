@@ -12,6 +12,12 @@ import { ColoredButton } from "../Shared/Buttons";
 export default function Experiences() {
   const [showAddExperience, setShowAddExperience] = useState(false);
 
+  const { user } = useContext(AuthContext);
+
+  const router = useRouter();
+
+  const { edit } = router.query;
+
   const { data: experiences } = useQuery<ExperienceType[]>(
     "experiences",
     async () => {
@@ -21,12 +27,6 @@ export default function Experiences() {
       return await res.json();
     }
   );
-
-  const { user } = useContext(AuthContext);
-
-  const router = useRouter();
-
-  const { edit } = router.query;
 
   return (
     <>

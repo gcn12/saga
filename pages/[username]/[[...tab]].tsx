@@ -62,7 +62,6 @@ export default function Username({ user: userProps }: UserProps) {
 
 export const getServerSideProps = async (ctx: any) => {
   // const { data: session } = useSession();
-  // console.log(session);
 
   const { username } = ctx.params;
 
