@@ -5,6 +5,7 @@ import Contact from "../../components/Contact/Contact";
 import Experiences from "../../components/Experiences/Experiences";
 import BlogPosts from "../../components/Blog/BlogPreviews";
 import ProjectPreviews from "../../components/Portfolio/ProjectPreviews";
+import Bio from "../../components/Bio/Bio";
 
 interface TabProps {
   selectedTab: TabType;
@@ -15,6 +16,7 @@ export default function Tab({ selectedTab }: TabProps) {
     <div className="fade">
       {selectedTab.type === "contact" && <Contact />}
       {selectedTab.type === "education" && <Education />}
+      {selectedTab.type === "bio" && <Bio />}
       {selectedTab.type === "skills" && <Skills />}
       {selectedTab.type === "experience" && <Experiences />}
       {selectedTab.type === "blog" && <BlogPosts />}

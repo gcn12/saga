@@ -10,7 +10,7 @@ import React, { useState } from "react";
 const contacts: Contacts[] = [
   { type: "instagram", value: "gareth.ng" },
   { type: "email", value: "garethcng@gmail.com" },
-  { type: "facebook", value: "garethcng@gmail.com" },
+  { type: "facebook", value: "garethcng@hello.com" },
   { type: "twitter", value: "garethcng" },
 ];
 
