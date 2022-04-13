@@ -5,21 +5,16 @@ import "@reach/menu-button/styles.css";
 import styled from "styled-components";
 import { AnimatePresence } from "framer-motion";
 import moment from "moment";
+
 import DeleteExperienceModal from "../DeleteItemModal";
 import ArrowIcon from "../Icons/ArrowIcon";
 import { Experience as ExperienceType } from "../../types/types";
 
 interface ExperienceProps {
-  setExperiences: (experience: ExperienceType[]) => void;
-  experiences: ExperienceType[];
   experience: ExperienceType;
 }
 
-export default function Experience({
-  experience,
-  setExperiences,
-  experiences,
-}: ExperienceProps) {
+export default function Experience({ experience }: ExperienceProps) {
   const [showExpandedExperience, setShowExpandedExperience] = useState(false);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
 
@@ -41,9 +36,8 @@ export default function Experience({
         {showDeleteModal && (
           <DeleteExperienceModal
             id={experience.id}
+            queryName="experiences"
             setShowDeleteModal={setShowDeleteModal}
-            setTabContent={setExperiences}
-            tabContent={experiences}
             endpoint="experience/delete-experience"
           />
         )}
@@ -153,7 +147,6 @@ const Timespan = styled.p`
 const Company = styled.p`
   font-weight: 600;
   font-size: 1.05rem;
-  // color: var(--color-title);
 `;
 
 const InnerContainer = styled.div`

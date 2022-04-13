@@ -10,7 +10,8 @@ const queryClient = new QueryClient();
 
 export default function App({
   Component,
-  pageProps: { session, ...pageProps },
+  // pageProps: { session, ...pageProps },
+  pageProps: { ...pageProps },
 }: AppProps) {
   const toastOptions = {
     backgroundColor: "red",
@@ -32,7 +33,7 @@ export default function App({
           }}
         />
         {/* <SessionProvider session={session}> */}
-        <QueryClientProvider client={queryClient}>
+        <QueryClientProvider client={queryClient} contextSharing={true}>
           <Component {...pageProps} />
           {/* </SessionProvider> */}
         </QueryClientProvider>

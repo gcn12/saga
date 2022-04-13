@@ -1,19 +1,12 @@
 import { render } from "@testing-library/react";
 import AddBlogModal from "./AddBlogModal";
 import { axe } from "jest-axe";
-import { BlogPreview } from "../../types/types";
 import { AuthContext } from "../../state/context";
-const blogPreviews: BlogPreview[] = [
-  {
-    title: "e",
-    id: "e",
-    date: "",
-  },
-];
+import { QueryClient, QueryClientProvider } from "react-query";
+
+const queryClient = new QueryClient();
 
 const user = {};
-
-const setBlogPreviews = jest.fn();
 
 const setShowDialog = jest.fn();
 
@@ -21,11 +14,9 @@ describe("Checks accessibility", () => {
   it("is accessible", async () => {
     const { container } = render(
       <AuthContext.Provider value={{ user }}>
-        <AddBlogModal
-          blogPreviews={blogPreviews}
-          setBlogPreviews={setBlogPreviews}
-          setShowDialog={setShowDialog}
-        />
+        <QueryClientProvider client={queryClient}>
+          <AddBlogModal setShowDialog={setShowDialog} />
+        </QueryClientProvider>
       </AuthContext.Provider>
     );
     const results = await axe(container);

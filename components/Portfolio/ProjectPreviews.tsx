@@ -1,6 +1,7 @@
-import { useEffect, useState, useContext } from "react";
+import { useState, useContext } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { useRouter } from "next/router";
+import { useQuery } from "react-query";
 
 import { ProjectPreview as ProjectPreviewType } from "../../types/types";
 import AddProjectModal from "./AddProjectModal";
@@ -9,8 +10,14 @@ import { AuthContext } from "../../state/context";
 import ProjectPreview from "./ProjectPreview";
 
 export default function Projects() {
-  const [projectPreviews, setProjectPreviews] = useState<ProjectPreviewType[]>(
-    []
+  const { data: projectPreviews2 } = useQuery<ProjectPreviewType[]>(
+    "projects",
+    async () => {
+      const res = await fetch(
+        `${process.env.NEXT_PUBLIC_BACKEND_URL}/project/project-previews/${user.id}`
+      );
+      return await res.json();
+    }
   );
   const [showAddProjectModal, setShowAddProjectModal] = useState(false);
 
@@ -19,23 +26,9 @@ export default function Projects() {
   const router = useRouter();
   const { edit } = router.query;
 
-  useEffect(() => {
-    const getExperiences = async () => {
-      const res = await fetch(
-        `${process.env.NEXT_PUBLIC_BACKEND_URL}/project/project-previews/${user.id}`
-      );
-      if (!res.ok) {
-        throw new Error(`Something went wrong. Response: ${res.status}`);
-      }
-      const data = await res.json();
-      setProjectPreviews(data);
-    };
-    getExperiences();
-  }, []);
-
   return (
     <>
-      {projectPreviews.map((projectPreview) => {
+      {projectPreviews2?.map((projectPreview) => {
         return (
           <motion.div
             initial={{ opacity: 0 }}
@@ -43,21 +36,13 @@ export default function Projects() {
             exit={{ opacity: 0 }}
             key={projectPreview.id}
           >
-            <ProjectPreview
-              projectPreviews={projectPreviews}
-              setProjectPreviews={setProjectPreviews}
-              projectPreview={projectPreview}
-            />
+            <ProjectPreview projectPreview={projectPreview} />
           </motion.div>
         );
       })}
       <AnimatePresence>
         {showAddProjectModal && (
-          <AddProjectModal
-            setShowAddProjectModal={setShowAddProjectModal}
-            projectPreviews={projectPreviews}
-            setProjectPreviews={setProjectPreviews}
-          />
+          <AddProjectModal setShowAddProjectModal={setShowAddProjectModal} />
         )}
       </AnimatePresence>
       <AnimatePresence>

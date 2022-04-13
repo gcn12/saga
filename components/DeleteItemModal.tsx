@@ -2,23 +2,23 @@ import { DialogContent, DialogOverlay } from "@reach/dialog";
 import { motion } from "framer-motion";
 import React from "react";
 import styled from "styled-components";
+import { useMutation, useQueryClient } from "react-query";
+
 import toastError from "./Shared/Toast";
 import { getErrorMessage } from "../utils/utils";
 
 interface DeleteItemModalProps {
   setShowDeleteModal: (value: boolean) => void;
   id: string;
-  setTabContent: (tabContent: any[]) => void;
-  tabContent: any[];
   endpoint: string;
+  queryName: string;
 }
 
 export default function DeleteItemModal({
   setShowDeleteModal,
-  setTabContent,
   id,
-  tabContent,
   endpoint,
+  queryName,
 }: DeleteItemModalProps) {
   const variant = {
     hidden: { opacity: 0 },
@@ -27,32 +27,30 @@ export default function DeleteItemModal({
     transition: { duration: 0 },
   };
 
-  const removeExperienceFromState = () => {
-    const filteredContent = tabContent.filter((item: any) => {
-      return item.id !== id;
-    });
+  const queryClient = useQueryClient();
 
-    setTabContent(filteredContent);
-  };
+  const mutation = useMutation(
+    () => {
+      return fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/${endpoint}/${id}`, {
+        method: "DELETE",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({}),
+      });
+    },
+    {
+      onSuccess: () => queryClient.invalidateQueries(queryName),
+    }
+  );
 
-  const deleteExperience = async (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
+  const deleteItem = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
     try {
-      const res = await fetch(
-        `${process.env.NEXT_PUBLIC_BACKEND_URL}/${endpoint}/${id}`,
-        {
-          method: "DELETE",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({}),
-        }
-      );
+      const res = await mutation.mutateAsync();
       if (!res.ok) {
         throw new Error(`Something went wrong. Response: ${res.status}`);
       }
-      await res.json();
-      removeExperienceFromState();
       setShowDeleteModal(false);
     } catch (err) {
       toastError(getErrorMessage(err));
@@ -73,7 +71,7 @@ export default function DeleteItemModal({
       <MotionDialogContent aria-label={"blog post"}>
         <CloseModel onClick={() => setShowDeleteModal(false)}>X</CloseModel>
         <Message>Delete?</Message>
-        <Form onSubmit={deleteExperience}>
+        <Form onSubmit={deleteItem}>
           <CancelButton onClick={() => setShowDeleteModal(false)} type="button">
             Cancel
           </CancelButton>

@@ -2,19 +2,16 @@ import { DialogContent, DialogOverlay } from "@reach/dialog";
 import React, { useEffect, useState, useContext } from "react";
 import styled from "styled-components";
 import { Reorder, motion } from "framer-motion";
+import { useQueryClient, useMutation } from "react-query";
 
 import TipTap from "../TipTap";
-import {
-  BlogElements,
-  BlogPreview as BlogPreviewType,
-  BlogElement,
-} from "../../types/types";
+import { BlogElements, BlogElement } from "../../types/types";
 import { ColoredButton } from "../Shared/Buttons";
 import { AuthContext } from "../../state/context";
+import toastError from "../Shared/Toast";
+import { getErrorMessage } from "../../utils/utils";
 
 interface AddBlogModalProps {
-  setBlogPreviews: (tabContent: BlogPreviewType[]) => void;
-  blogPreviews: BlogPreviewType[];
   setShowDialog: (value: boolean) => void;
 }
 
@@ -30,22 +27,16 @@ const buttons: ButtonsType[] = [
   { name: "Add large image", type: "largePhoto" },
 ];
 
-export default function AddBlogModal({
-  setBlogPreviews,
-  blogPreviews,
-  setShowDialog,
-}: AddBlogModalProps) {
+export default function AddBlogModal({ setShowDialog }: AddBlogModalProps) {
   const [blogContent, setBlogContent] = useState<BlogElement[]>([]);
   const [title, setTitle] = useState("This is a title");
   const { user } = useContext(AuthContext);
 
-  console.log(blogContent);
+  const queryClient = useQueryClient();
 
-  const addBlog = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    const res = await fetch(
-      `${process.env.NEXT_PUBLIC_BACKEND_URL}/blog/add-blog`,
-      {
+  const mutation = useMutation(
+    () => {
+      return fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/blog/add-blog`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -55,30 +46,24 @@ export default function AddBlogModal({
           content: blogContent,
           userID: user.id,
         }),
-      }
-    );
-
-    if (!res.ok) {
-      throw new Error(`Something went wrong. Response: ${res.status}`);
+      });
+    },
+    {
+      onSuccess: () => queryClient.invalidateQueries("blogs"),
     }
+  );
 
-    const data = (await res.json()) as BlogPreviewType;
-
-    const { date, id } = data;
-
-    const tabContentData = {
-      title: data.title,
-      date,
-      id,
-    };
-    const sortedContent = [
-      ...blogPreviews,
-      tabContentData,
-    ] as BlogPreviewType[];
-
-    setBlogPreviews(sortedContent);
-
-    setShowDialog(false);
+  const addBlog = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    try {
+      const res = await mutation.mutateAsync();
+      if (!res.ok) {
+        throw new Error(`Something went wrong. Response: ${res.status}`);
+      }
+      setShowDialog(false);
+    } catch (err) {
+      toastError(getErrorMessage(err));
+    }
   };
 
   const addElement = (type: BlogElements) => {

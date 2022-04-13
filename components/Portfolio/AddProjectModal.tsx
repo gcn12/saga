@@ -1,14 +1,11 @@
 import { DialogContent, DialogOverlay } from "@reach/dialog";
-import { useState } from "react";
+import React, { useState } from "react";
 import { Reorder } from "framer-motion";
 import styled from "styled-components";
+import { useQueryClient, useMutation } from "react-query";
 
 import AddProjectPreview from "./AddProjectPreview";
-import {
-  Project,
-  ProjectElements,
-  ProjectPreview as ProjectPreviewTypes,
-} from "../../types/types";
+import { Project, ProjectElements } from "../../types/types";
 import { ColoredButton } from "../Shared/Buttons";
 import toastError from "../Shared/Toast";
 import { getErrorMessage } from "../../utils/utils";
@@ -23,8 +20,6 @@ const PHOTOS = [
 ];
 
 interface AddProjectModalProps {
-  setProjectPreviews: (projectPreviews: ProjectPreviewTypes[]) => void;
-  projectPreviews: ProjectPreviewTypes[];
   setShowAddProjectModal: (value: boolean) => void;
 }
 
@@ -34,8 +29,6 @@ interface ElementButtons {
 }
 
 export default function AddProjectModal({
-  setProjectPreviews,
-  projectPreviews,
   setShowAddProjectModal,
 }: AddProjectModalProps) {
   const [title, setTitle] = useState("");
@@ -44,15 +37,11 @@ export default function AddProjectModal({
   const [description, setDescription] = useState("");
   const [projectContent, setProjectContent] = useState<Project[]>([]);
 
-  const getRandomImage = () => {
-    const index = Math.floor(Math.random() * 6);
-    return PHOTOS[index];
-  };
+  const queryClient = useQueryClient();
 
-  const addProject = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    try {
-      const res = await fetch(
+  const mutation = useMutation(
+    () => {
+      return fetch(
         `${process.env.NEXT_PUBLIC_BACKEND_URL}/project/add-project`,
         {
           method: "POST",
@@ -71,17 +60,22 @@ export default function AddProjectModal({
           }),
         }
       );
+    },
+    { onSuccess: () => queryClient.invalidateQueries("projects") }
+  );
 
+  const getRandomImage = () => {
+    const index = Math.floor(Math.random() * 6);
+    return PHOTOS[index];
+  };
+
+  const addProject = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    try {
+      const res = await mutation.mutateAsync();
       if (!res.ok) {
         throw new Error(`Something went wrong. Response: ${res.status}`);
       }
-
-      const data = (await res.json()) as ProjectPreviewTypes;
-
-      const sortedContent = [...projectPreviews, data] as ProjectPreviewTypes[];
-
-      setProjectPreviews(sortedContent);
-
       setShowAddProjectModal(false);
     } catch (err) {
       toastError(getErrorMessage(err));

@@ -1,7 +1,6 @@
 import { render } from "@testing-library/react";
 import ProjectPreview from "./ProjectPreview";
 import { axe } from "jest-axe";
-import { ProjectPreview as ProjectPreviewTypes } from "../../types/types";
 
 jest.mock("next/router", () => ({
   useRouter() {
@@ -22,18 +21,10 @@ const projectPreview = {
   projectLink: "",
 };
 
-const projectPreviews: ProjectPreviewTypes[] = [projectPreview];
-
-const setProjectPreviews = jest.fn();
-
 describe("Checks accessibility", () => {
   it("is accessible", async () => {
     const { container } = render(
-      <ProjectPreview
-        projectPreview={projectPreview}
-        setProjectPreviews={setProjectPreviews}
-        projectPreviews={projectPreviews}
-      />
+      <ProjectPreview projectPreview={projectPreview} />
     );
     const results = await axe(container);
     expect(results).toHaveNoViolations();

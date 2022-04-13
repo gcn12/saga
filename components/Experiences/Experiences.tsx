@@ -1,4 +1,4 @@
-import { useEffect, useState, useContext } from "react";
+import { useState, useContext } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { useRouter } from "next/router";
 import { useQuery } from "react-query";
@@ -10,11 +10,10 @@ import AddExperienceModal from "./AddExperienceModal";
 import { ColoredButton } from "../Shared/Buttons";
 
 export default function Experiences() {
-  const [experiences, setExperiences] = useState<ExperienceType[]>([]);
   const [showAddExperience, setShowAddExperience] = useState(false);
 
-  const { data: experiences2 } = useQuery<ExperienceType[]>(
-    "hello",
+  const { data: experiences } = useQuery<ExperienceType[]>(
+    "experiences",
     async () => {
       const res = await fetch(
         `${process.env.NEXT_PUBLIC_BACKEND_URL}/experience/experiences/${user.id}`
@@ -29,22 +28,9 @@ export default function Experiences() {
 
   const { edit } = router.query;
 
-  useEffect(() => {
-    const getExperiences = async () => {
-      const res = await fetch(
-        `${process.env.NEXT_PUBLIC_BACKEND_URL}/experience/experiences/${user.id}`
-      );
-      if (!res.ok) {
-        throw new Error(`Something went wrong. Response: ${res.status}`);
-      }
-      setExperiences((await res.json()) as ExperienceType[]);
-    };
-    getExperiences();
-  }, []);
-
   return (
     <>
-      {experiences2?.map((experience) => {
+      {experiences?.map((experience) => {
         return (
           <motion.div
             initial={{ opacity: 0 }}
@@ -52,11 +38,7 @@ export default function Experiences() {
             exit={{ opacity: 0 }}
             key={experience.id}
           >
-            <Experience
-              experience={experience}
-              experiences={experiences}
-              setExperiences={setExperiences}
-            />
+            <Experience experience={experience} />
           </motion.div>
         );
       })}
@@ -77,11 +59,7 @@ export default function Experiences() {
       </AnimatePresence>
       <AnimatePresence>
         {showAddExperience && (
-          <AddExperienceModal
-            setShowAddExperience={setShowAddExperience}
-            experiences={experiences}
-            setExperiences={setExperiences}
-          />
+          <AddExperienceModal setShowAddExperience={setShowAddExperience} />
         )}
       </AnimatePresence>
     </>

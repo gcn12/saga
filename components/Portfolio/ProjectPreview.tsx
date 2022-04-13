@@ -10,14 +10,10 @@ import { ProjectPreview as ProjectPreviewTypes } from "../../types/types";
 
 interface ProjectPreviewProps {
   projectPreview: ProjectPreviewTypes;
-  projectPreviews: ProjectPreviewTypes[];
-  setProjectPreviews: (projectPreview: ProjectPreviewTypes[]) => void;
 }
 
 export default function ProjectPreview({
   projectPreview,
-  projectPreviews,
-  setProjectPreviews,
 }: ProjectPreviewProps) {
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [showProject, setShowProject] = useState(false);
@@ -61,8 +57,7 @@ export default function ProjectPreview({
             endpoint="project/delete-project"
             id={id}
             setShowDeleteModal={setShowDeleteModal}
-            setTabContent={setProjectPreviews}
-            tabContent={projectPreviews}
+            queryName="projects"
           />
         )}
       </AnimatePresence>

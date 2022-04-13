@@ -10,16 +10,10 @@ import BlogPost from "./BlogPost";
 import { BlogPreview as BlogPreviewType } from "../../types/types";
 
 interface BlogPreviewProps {
-  setBlogPreviews: (tabContent: BlogPreviewType[]) => void;
-  blogPreviews: BlogPreviewType[];
   blogPreview: BlogPreviewType;
 }
 
-export default function BlogPreview({
-  blogPreview,
-  blogPreviews,
-  setBlogPreviews,
-}: BlogPreviewProps) {
+export default function BlogPreview({ blogPreview }: BlogPreviewProps) {
   const [showBlog, setShowBlog] = useState(false);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const router = useRouter();
@@ -52,10 +46,9 @@ export default function BlogPreview({
       <AnimatePresence>
         {showDeleteModal && (
           <DeleteExperienceModal
+            queryName="blogs"
             setShowDeleteModal={setShowDeleteModal}
-            tabContent={blogPreviews}
             id={id}
-            setTabContent={setBlogPreviews}
             endpoint="blog/delete-blog"
           />
         )}
