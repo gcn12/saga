@@ -18,6 +18,7 @@ export default function Colors() {
   const [backgroundColor, setBackgroundColor] = useState<BackgroundColorsType>(
     backgroundColors[0]
   );
+
   useEffect(() => {
     setBackgroundColor(
       getComputedStyle(document.documentElement).getPropertyValue(
@@ -31,6 +32,7 @@ export default function Colors() {
       ) as AccentColorsType
     );
   }, []);
+
   const changeBackgroundColor = (color: BackgroundColorsType) => {
     document.documentElement.style.setProperty("--background", color);
     setBackgroundColor(color);
