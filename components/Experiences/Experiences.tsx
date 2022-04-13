@@ -1,13 +1,12 @@
 import { useState, useContext } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { useRouter } from "next/router";
-import { useQuery } from "react-query";
 
 import Experience from "./Experience";
 import { AuthContext } from "../../state/context";
-import { Experience as ExperienceType } from "../../types/types";
 import AddExperienceModal from "./AddExperienceModal";
 import { ColoredButton } from "../Shared/Buttons";
+import useExperiences from "./hooks/useExperiences";
 
 export default function Experiences() {
   const [showAddExperience, setShowAddExperience] = useState(false);
@@ -18,15 +17,7 @@ export default function Experiences() {
 
   const { edit } = router.query;
 
-  const { data: experiences } = useQuery<ExperienceType[]>(
-    "experiences",
-    async () => {
-      const res = await fetch(
-        `${process.env.NEXT_PUBLIC_BACKEND_URL}/experience/experiences/${user.id}`
-      );
-      return await res.json();
-    }
-  );
+  const { data: experiences } = useExperiences(user.id);
 
   return (
     <>

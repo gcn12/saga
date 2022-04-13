@@ -31,8 +31,8 @@ export default function AddExperienceModal({
   const queryClient = useQueryClient();
 
   const formItems = [
-    { label: "Company", setState: setCompany, value: company },
-    { label: "Role", setState: setRole, value: role },
+    { label: "Company", name: "company", setState: setCompany, value: company },
+    { label: "Role", name: "role", setState: setRole, value: role },
   ];
 
   const mutation = useMutation(
@@ -110,7 +110,7 @@ export default function AddExperienceModal({
         <div style={{ width: "80%", margin: "0 auto" }}>
           <Container method="post" onSubmit={addExperience}>
             {formItems.map((formItem) => {
-              const { label, setState, value } = formItem;
+              const { label, setState, value, name } = formItem;
               return (
                 <InputLabelContainer key={label}>
                   <Label htmlFor={label}>{label}</Label>
@@ -120,6 +120,7 @@ export default function AddExperienceModal({
                     type="text"
                     onChange={(e) => setState(e.target.value)}
                     value={value}
+                    name={name}
                   />
                 </InputLabelContainer>
               );
