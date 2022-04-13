@@ -2,7 +2,7 @@ import { DialogContent, DialogOverlay } from "@reach/dialog";
 import { motion } from "framer-motion";
 import styled from "styled-components";
 import { useState } from "react";
-import { useQueryClient, useMutation } from "react-query";
+import { useQueryClient } from "react-query";
 
 import TipTap from "../TipTap";
 import { Label, Input } from "../Shared/Forms";
@@ -10,6 +10,7 @@ import { ColoredButton } from "../Shared/Buttons";
 import toastError from "../Shared/Toast";
 import Spacer from "../Shared/Spacer";
 import { getErrorMessage } from "../../utils/utils";
+import useAddExperience from "./hooks/useAddExperience";
 
 interface AddExperienceModalProps {
   setShowAddExperience: (value: boolean) => void;
@@ -35,32 +36,15 @@ export default function AddExperienceModal({
     { label: "Role", name: "role", setState: setRole, value: role },
   ];
 
-  const mutation = useMutation(
-    () => {
-      return fetch(
-        `${process.env.NEXT_PUBLIC_BACKEND_URL}/experience/add-experience`,
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            company,
-            role,
-            description,
-            userID: localStorage.getItem("userID"),
-            startDate: formatDate(startMonth, startYear),
-            endDate: formatDate(endMonth, endYear),
-            isCurrentExperience: isCurrentExperience,
-          }),
-        }
-      );
-    },
-    {
-      onSuccess: () => {
-        queryClient.invalidateQueries("experiences");
-      },
-    }
+  const mutation = useAddExperience(
+    company,
+    role,
+    description,
+    localStorage.getItem("userID"),
+    formatDate(startMonth, startYear),
+    formatDate(endMonth, endYear),
+    isCurrentExperience,
+    queryClient
   );
 
   const addExperience = async (e: React.FormEvent<HTMLFormElement>) => {

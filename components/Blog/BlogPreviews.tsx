@@ -1,11 +1,10 @@
 import { useState, useContext } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { useRouter } from "next/router";
-import { useQuery } from "react-query";
 
 import { AuthContext } from "../../state/context";
 import BlogPreview from "./BlogPreview";
-import { BlogPreview as BlogPreviewType } from "../../types/types";
+import useBlogPreviews from "./hooks/useBlogPreviews";
 import { ColoredButton } from "../Shared/Buttons";
 import AddBlogModal from "./AddBlogModal";
 
@@ -15,21 +14,14 @@ export default function BlogPosts() {
   const { user } = useContext(AuthContext);
 
   const router = useRouter();
+
   const { edit } = router.query;
 
-  const { data: blogPreviews2 } = useQuery<BlogPreviewType[]>(
-    "blogs",
-    async () => {
-      const res = await fetch(
-        `${process.env.NEXT_PUBLIC_BACKEND_URL}/blog/blog-previews/${user.id}`
-      );
-      return await res.json();
-    }
-  );
+  const { data: blogPreviews } = useBlogPreviews(user.id);
 
   return (
     <>
-      {blogPreviews2?.map((blogPreview) => {
+      {blogPreviews?.map((blogPreview) => {
         return (
           <motion.div
             initial={{ opacity: 0 }}
