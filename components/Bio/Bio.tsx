@@ -1,16 +1,17 @@
+import React from "react";
 import styled from "styled-components";
 import Spacer from "../Shared/Spacer";
 
 export default function Bio() {
   return (
     <Container>
-      {data.map((item) => {
+      {data.map((item, index) => {
         return (
-          <>
+          <React.Fragment key={index}>
             {item.type === "photo" && <Image src={item.src} alt="" />}
             {item.type === "paragraph" && <Paragraph>{item.content}</Paragraph>}
             <Spacer size={32} axis="y" />
-          </>
+          </React.Fragment>
         );
       })}
     </Container>
