@@ -6,6 +6,7 @@ import Experiences from "../../components/Experiences/Experiences";
 import BlogPosts from "../../components/Blog/BlogPreviews";
 import ProjectPreviews from "../../components/Portfolio/ProjectPreviews";
 import Bio from "../../components/Bio/Bio";
+import Interests from "../../components/Interests/Interests";
 
 interface TabProps {
   selectedTab: TabType;
@@ -18,6 +19,7 @@ export default function Tab({ selectedTab }: TabProps) {
       {selectedTab.type === "education" && <Education />}
       {selectedTab.type === "bio" && <Bio />}
       {selectedTab.type === "skills" && <Skills />}
+      {selectedTab.type === "interests" && <Interests />}
       {selectedTab.type === "experience" && <Experiences />}
       {selectedTab.type === "blog" && <BlogPosts />}
       {selectedTab.type === "portfolio" && <ProjectPreviews />}
