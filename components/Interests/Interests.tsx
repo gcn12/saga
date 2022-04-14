@@ -30,13 +30,13 @@ const Container = styled.div`
 `;
 
 const Category = styled.p`
-  font-size: 1rem;
+  font-size: 0.95rem;
   font-weight: 700;
   color: var(--accent);
 `;
 
 const Interest = styled.p`
-  font-size: 1.3rem;
+  font-size: 1.2rem;
 `;
 
 const InterestLink = styled(Interest)`

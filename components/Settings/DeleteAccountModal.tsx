@@ -7,6 +7,7 @@ import { useContext } from "react";
 import { motion } from "framer-motion";
 import toastError from "../Shared/Toast";
 import { getErrorMessage } from "../../utils/utils";
+import useDeleteAccount from "./hooks/useDeleteAccount";
 
 interface DeleteAccountModalProps {
   setShowDeleteAccountModal: (value: boolean) => void;
@@ -17,20 +18,13 @@ export default function DeleteAccountModal({
 }: DeleteAccountModalProps) {
   const { user } = useContext(AuthContext);
   const router = useRouter();
+  const mutation = useDeleteAccount(user.username);
+
   const deleteUser = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (!user) return;
     try {
-      const res = await fetch(
-        `${process.env.NEXT_PUBLIC_BACKEND_URL}/account/delete-user/${user.username}`,
-        {
-          method: "DELETE",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({}),
-        }
-      );
+      const res = await mutation.mutateAsync();
       if (!res.ok) {
         throw new Error(`Something went wrong. Response: ${res.status}`);
       }
@@ -66,7 +60,9 @@ export default function DeleteAccountModal({
             <DeleteText>Delete account</DeleteText>
             <MessageText>There&apos;s no turning back</MessageText>
           </div>
-          <ColoredButton type="submit">Delete account</ColoredButton>
+          <ColoredButton type="submit">
+            {mutation.isLoading ? "Deleting..." : "Delete account"}
+          </ColoredButton>
         </Container>
       </MotionStyledDialogContent>
     </MotionDialogOverlay>
