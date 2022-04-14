@@ -20,13 +20,6 @@ export default function DeleteItemModal({
   endpoint,
   queryName,
 }: DeleteItemModalProps) {
-  const variant = {
-    hidden: { opacity: 0 },
-    visible: { opacity: 1 },
-    exit: { opacity: 0 },
-    transition: { duration: 0 },
-  };
-
   const queryClient = useQueryClient();
 
   const mutation = useMutation(
@@ -62,7 +55,6 @@ export default function DeleteItemModal({
       aria-label="blog post"
       onDismiss={() => setShowDeleteModal(false)}
       isOpen={true}
-      // @ts-ignore
       variants={variant}
       initial="hidden"
       animate="visible"
@@ -126,6 +118,12 @@ const StyledDialogContent = styled(DialogContent)`
   flex-direction: column;
   justify-content: space-between;
 `;
+
+const variant = {
+  hidden: { opacity: 0 },
+  visible: { opacity: 1 },
+  exit: { opacity: 0 },
+};
 
 const MotionDialogOverlay = motion(StyledDialogOverlay);
 const MotionDialogContent = motion(StyledDialogContent);

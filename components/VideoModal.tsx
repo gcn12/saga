@@ -10,15 +10,6 @@ export default function VideoModal({
   setShowIntroVideo,
   videoLink,
 }: VideoModalProps) {
-  const MotionDialogOverlay = motion(DialogOverlay);
-  const MotionDialogContent = motion(DialogContent);
-
-  const variant = {
-    hidden: { opacity: 0 },
-    visible: { opacity: 1 },
-    transition: { duration: 0 },
-  };
-
   return (
     <MotionDialogOverlay
       style={{
@@ -27,7 +18,6 @@ export default function VideoModal({
       aria-label="blog post"
       onDismiss={() => setShowIntroVideo(false)}
       isOpen={true}
-      // @ts-ignore
       variants={variant}
       initial="hidden"
       animate="visible"
@@ -56,3 +46,11 @@ export default function VideoModal({
     </MotionDialogOverlay>
   );
 }
+
+const variant = {
+  hidden: { opacity: 0 },
+  visible: { opacity: 1 },
+};
+
+const MotionDialogOverlay = motion(DialogOverlay);
+const MotionDialogContent = motion(DialogContent);
