@@ -9,11 +9,11 @@ export default function Interests() {
             <Category>{item.category}</Category>
             {item.interests.map((interest) => {
               return interest.url ? (
-                <InterestLink as="a" href={interest.url}>
+                <InterestLink as="a" href={interest.url} key={interest.url}>
                   {interest.name}
                 </InterestLink>
               ) : (
-                <Interest>{interest.name}</Interest>
+                <Interest key={interest.name}>{interest.name}</Interest>
               );
             })}
           </div>
