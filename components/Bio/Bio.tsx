@@ -10,7 +10,8 @@ export default function Bio() {
           <React.Fragment key={index}>
             {item.type === "photo" && <Image src={item.src} alt="" />}
             {item.type === "paragraph" && <Paragraph>{item.content}</Paragraph>}
-            <Spacer size={32} axis="y" />
+            {item.type === "title" && <Title>{item.content}</Title>}
+            <Spacer size={item.type === "title" ? 8 : 24} axis="y" />
           </React.Fragment>
         );
       })}
@@ -25,21 +26,37 @@ const Container = styled.div`
 `;
 
 const Image = styled.img`
-  width: 75%;
   height: auto;
   border-radius: 12px;
 `;
 
 const Paragraph = styled.p`
-  /* width: 75%; */
   font-size: 0.9rem;
+  font-weight: 500;
+  line-height: 1.6;
+  color: #6e6e6e;
+`;
+
+const Title = styled.p`
+  font-weight: 600;
+  font-size: 1.3rem;
+  align-self: flex-start;
 `;
 
 const data = [
   {
+    type: "title",
+    content: "My life",
+  },
+  {
     type: "paragraph",
     content:
-      "Leo urna molestie at elementum eu facilisis sed. Dictum at tempor commodo ullamcorper a lacus. Adipiscing commodo elit at imperdiet dui accumsan. Mauris pellentesque pulvinar pellentesque habitant morbi. Aliquam malesuada bibendum arcu vitae. Rhoncus aenean vel elit scelerisque mauris pellentesque pulvinar. Libero id faucibus nisl tincidunt. Eu tincidunt tortor aliquam nulla facilisi.",
+      "Guy is a non-player character (NPC) in Free City, a massively multiplayer online role-playing video game (MMORPG) developed by Soonami Studio. Free City’s players are distinguished from NPCs by the sunglasses they wear, and spend their time robbing banks, murdering NPCs or each other, and overall causing mass mayhem. Unaware that the world they live in is a video game, Guy and the other NPCs are mostly oblivious to the chaos caused by players while living out their scripted lives.",
+  },
+  {
+    type: "paragraph",
+    content:
+      "In the real world, game developers Millie Rusk and Walter 'Keys' McKey previously created a concept game called Life Itself using a novel artificial intelligence technique for its NPCs. Now unemployed, Millie spends her time playing Free City in hopes of finding hard evidence that Soonami founder/CEO Antwan Hovachelik stole Life Itself's source code after buying the game’s rights from her. Keys (who is now employed by Soonami) is sympathetic, but declines to help because of his NDA.",
   },
   {
     type: "photo",
