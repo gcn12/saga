@@ -5,7 +5,7 @@ export default function Interests() {
     <Container>
       {data.map((item) => {
         return (
-          <div>
+          <div key={item.category}>
             <Category>{item.category}</Category>
             {item.interests.map((interest) => {
               return interest.url ? (
