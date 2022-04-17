@@ -7,13 +7,6 @@ export default {
   component: Button,
 } as ComponentMeta<typeof Button>;
 
-const Template: ComponentStory<typeof Button> = (args) => <Button {...args} />;
-
-// export const Default = Template.bind({})
-// Default.args = {
-//     onClick =
-// }
-
 export const Primary = () => {
   // Sets the hooks for both the label and primary props
   const [value, setValue] = useState("Secondary");

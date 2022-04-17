@@ -5,7 +5,11 @@ import styled from "styled-components";
 import { useMutation, useQueryClient } from "react-query";
 
 import toastError from "./Shared/Toast";
-import { getErrorMessage } from "../utils/utils";
+import {
+  getErrorMessage,
+  motionContentSettings,
+  motionOverlaySettings,
+} from "../utils/utils";
 
 interface DeleteItemModalProps {
   setShowDeleteModal: (value: boolean) => void;
@@ -55,12 +59,9 @@ export default function DeleteItemModal({
       aria-label="blog post"
       onDismiss={() => setShowDeleteModal(false)}
       isOpen={true}
-      variants={variant}
-      initial="hidden"
-      animate="visible"
-      exit="exit"
+      {...motionOverlaySettings}
     >
-      <MotionDialogContent aria-label={"blog post"}>
+      <MotionDialogContent aria-label={"blog post"} {...motionContentSettings}>
         <CloseModel onClick={() => setShowDeleteModal(false)}>X</CloseModel>
         <Message>Delete?</Message>
         <Form onSubmit={deleteItem}>
@@ -118,12 +119,6 @@ const StyledDialogContent = styled(DialogContent)`
   flex-direction: column;
   justify-content: space-between;
 `;
-
-const variant = {
-  hidden: { opacity: 0 },
-  visible: { opacity: 1 },
-  exit: { opacity: 0 },
-};
 
 const MotionDialogOverlay = motion(StyledDialogOverlay);
 const MotionDialogContent = motion(StyledDialogContent);

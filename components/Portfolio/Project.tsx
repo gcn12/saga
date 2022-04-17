@@ -5,7 +5,11 @@ import styled from "styled-components";
 
 import { Project as ProjectType } from "../../types/types";
 import toastError from "../Shared/Toast";
-import { getErrorMessage } from "../../utils/utils";
+import {
+  getErrorMessage,
+  motionContentSettings,
+  motionOverlaySettings,
+} from "../../utils/utils";
 
 interface ProjectProps {
   projectID: string;
@@ -51,20 +55,9 @@ export default function Project({
     <MotionDialogOverlay
       onDismiss={() => setShowProject(false)}
       isOpen={isVisible}
-      // @ts-ignore
-      variants={variant}
-      initial="hidden"
-      animate="initial"
-      exit="hidden"
-      transition={{ duration: 0.1 }}
+      {...motionOverlaySettings}
     >
       <MotionDialogContent
-        transition={{ duration: 0.5 }}
-        // @ts-ignore
-        variants={variant}
-        initial="hidden"
-        animate="initial"
-        exit="hidden"
         style={{
           borderRadius: "10px",
           width: "60%",
@@ -72,6 +65,7 @@ export default function Project({
           padding: "20px 0",
         }}
         aria-label="blog post"
+        {...motionContentSettings}
       >
         <CloseModal onClick={() => setShowProject(false)}>X</CloseModal>
         <Container>

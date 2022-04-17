@@ -6,7 +6,11 @@ import { useRouter } from "next/router";
 import { useContext } from "react";
 import { motion } from "framer-motion";
 import toastError from "../Shared/Toast";
-import { getErrorMessage } from "../../utils/utils";
+import {
+  getErrorMessage,
+  motionContentSettings,
+  motionOverlaySettings,
+} from "../../utils/utils";
 import useDeleteAccount from "./hooks/useDeleteAccount";
 
 interface DeleteAccountModalProps {
@@ -39,20 +43,12 @@ export default function DeleteAccountModal({
     <MotionDialogOverlay
       onDismiss={() => setShowDeleteAccountModal(false)}
       key="delete=account-overlay"
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1, transition: { duration: 0.35 } }}
-      exit={{ opacity: 0, transition: { delay: 0.2, duration: 0.2 } }}
+      {...motionOverlaySettings}
     >
       <MotionStyledDialogContent
         key="delete-account"
         aria-label="delete account"
-        initial={{ opacity: 0, scale: 0.8 }}
-        animate={{
-          opacity: 1,
-          transition: { delay: 0.25 },
-          scale: 1,
-        }}
-        exit={{ opacity: 0, scale: 0.9, transition: { duration: 0.2 } }}
+        {...motionContentSettings}
       >
         <button onClick={() => setShowDeleteAccountModal(false)}>X</button>
         <Container onSubmit={(e) => deleteUser(e)}>

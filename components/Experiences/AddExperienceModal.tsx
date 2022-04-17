@@ -9,7 +9,11 @@ import { Label, Input } from "../Shared/Forms";
 import { ColoredButton } from "../Shared/Buttons";
 import toastError from "../Shared/Toast";
 import Spacer from "../Shared/Spacer";
-import { getErrorMessage } from "../../utils/utils";
+import {
+  getErrorMessage,
+  motionFormContentSettings,
+  motionOverlaySettings,
+} from "../../utils/utils";
 import useAddExperience from "./hooks/useAddExperience";
 
 interface AddExperienceModalProps {
@@ -67,23 +71,11 @@ export default function AddExperienceModal({
       aria-label="blog post"
       onDismiss={() => setShowAddExperience(false)}
       isOpen={true}
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      exit={{ opacity: 0, transition: { delay: 0.2 } }}
+      {...motionOverlaySettings}
     >
       <MotionDialogContent
         aria-label="blog post"
-        initial={{ opacity: 0, scale: 0.95 }}
-        animate={{
-          opacity: 1,
-          scale: 1,
-          transition: { delay: 0.1, duration: 0.5 },
-        }}
-        exit={{
-          opacity: 0,
-          scale: isSubmitting ? 1.1 : 0.95,
-          transition: { duration: 0.25 },
-        }}
+        {...motionFormContentSettings(isSubmitting)}
       >
         <button
           onClick={() => setShowAddExperience(false)}

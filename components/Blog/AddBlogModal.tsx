@@ -9,7 +9,11 @@ import { BlogElements, BlogElement } from "../../types/types";
 import { ColoredButton } from "../Shared/Buttons";
 import { AuthContext } from "../../state/context";
 import toastError from "../Shared/Toast";
-import { getErrorMessage } from "../../utils/utils";
+import {
+  getErrorMessage,
+  motionContentSettings,
+  motionOverlaySettings,
+} from "../../utils/utils";
 
 interface AddBlogModalProps {
   setShowDialog: (value: boolean) => void;
@@ -90,18 +94,9 @@ export default function AddBlogModal({ setShowDialog }: AddBlogModalProps) {
       aria-label="blog post"
       onDismiss={() => setShowDialog(false)}
       isOpen={true}
-      variants={variants}
-      initial="initial"
-      animate="animate"
-      exit="exit"
+      {...motionOverlaySettings}
     >
-      <MotionDialogContent
-        aria-label={"blog post"}
-        variants={variants}
-        initial="initial"
-        animate="animate"
-        exit="exit"
-      >
+      <MotionDialogContent aria-label={"blog post"} {...motionContentSettings}>
         <button onClick={() => setShowDialog(false)}>X</button>
         <div></div>
         <Title type="text" onChange={(e) => setTitle(e.target.value)} />
@@ -266,12 +261,6 @@ const StyledDialogContent = styled(DialogContent)`
   padding: 20px 40px;
   margin: 30px auto;
 `;
-
-const variants = {
-  initial: { opacity: 0 },
-  animate: { opacity: 1 },
-  exit: { opacity: 0 },
-};
 
 const MotionDialogContent = motion(StyledDialogContent);
 const MotionDialogOverlay = motion(StyledDialogOverlay);

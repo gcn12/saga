@@ -3,7 +3,11 @@ import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
 import styled from "styled-components";
 import toastError from "../Shared/Toast";
-import { getErrorMessage } from "../../utils/utils";
+import {
+  getErrorMessage,
+  motionContentSettings,
+  motionOverlaySettings,
+} from "../../utils/utils";
 
 interface BlogElement {
   type: string;
@@ -41,22 +45,14 @@ export default function BlogPost({ blogID, setShowBlog }: BlogProps) {
     getContent();
   }, [blogID]);
 
-  const MotionDialogOverlay = motion(DialogOverlay);
-  const MotionDialogContent = motion(DialogContent);
-
   return (
     <MotionDialogOverlay
       onDismiss={() => setShowBlog(false)}
       isOpen={isVisible}
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      exit={{ opacity: 0, transition: { delay: 0.1 } }}
+      {...motionOverlaySettings}
       style={{ backgroundColor: "rgba(0, 0, 0, .82)" }}
     >
       <MotionDialogContent
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1, transition: { delay: 0.2 } }}
-        exit={{ opacity: 0 }}
         style={{
           borderRadius: "10px",
           width: "60%",
@@ -64,6 +60,7 @@ export default function BlogPost({ blogID, setShowBlog }: BlogProps) {
           padding: "20px 0",
         }}
         aria-label="blog post"
+        {...motionContentSettings}
       >
         <button onClick={() => setShowBlog(false)} style={{ padding: "0 5%" }}>
           X
@@ -143,3 +140,6 @@ const Paragraph = styled.div`
   white-space: pre-wrap;
   font-weight: 300;
 `;
+
+const MotionDialogOverlay = motion(DialogOverlay);
+const MotionDialogContent = motion(DialogContent);

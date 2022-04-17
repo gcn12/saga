@@ -1,5 +1,6 @@
 import { DialogContent, DialogOverlay } from "@reach/dialog";
 import { motion } from "framer-motion";
+import { motionContentSettings, motionOverlaySettings } from "../utils/utils";
 
 interface VideoModalProps {
   setShowIntroVideo: (value: boolean) => void;
@@ -18,10 +19,7 @@ export default function VideoModal({
       aria-label="blog post"
       onDismiss={() => setShowIntroVideo(false)}
       isOpen={true}
-      variants={variant}
-      initial="hidden"
-      animate="visible"
-      exit="hidden"
+      {...motionOverlaySettings}
     >
       <MotionDialogContent
         aria-label={"blog post"}
@@ -32,6 +30,7 @@ export default function VideoModal({
           top: "35%",
           left: "50%",
         }}
+        {...motionContentSettings}
       >
         <iframe
           src={videoLink}
@@ -46,11 +45,6 @@ export default function VideoModal({
     </MotionDialogOverlay>
   );
 }
-
-const variant = {
-  hidden: { opacity: 0 },
-  visible: { opacity: 1 },
-};
 
 const MotionDialogOverlay = motion(DialogOverlay);
 const MotionDialogContent = motion(DialogContent);
