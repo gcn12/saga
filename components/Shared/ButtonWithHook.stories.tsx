@@ -1,6 +1,6 @@
 import Button from "./StoryButton";
 import { useState } from "react";
-import { ComponentMeta, ComponentStory } from "@storybook/react";
+import { ComponentMeta } from "@storybook/react";
 
 export default {
   title: "Button With Hooks",

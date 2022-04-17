@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-const education = {
+const educationProps = {
   school: "University of Southern California",
   date: "Aug 2018 - Dec 2021",
   description: `<div>
@@ -9,7 +9,17 @@ const education = {
     </div>`,
 };
 
-export default function Education() {
+type educationType = {
+  school: string;
+  date: string;
+  description: string;
+};
+
+export default function Education({
+  education = educationProps,
+}: {
+  education?: educationType;
+}) {
   return (
     <Container>
       <Header>
