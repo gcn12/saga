@@ -9,11 +9,13 @@ import { getErrorMessage } from "../utils/utils";
 import { useForm, SubmitHandler } from "react-hook-form";
 // import { signIn, signOut } from "next-auth/react";
 
-type UserRes = Pick<User, "id" | "name" | "username">;
+type UserRes = Pick<User, "id" | "name" | "username" | "email">;
 
 type FormValues = {
   name: string;
   username: string;
+  email: string;
+  password: string;
 };
 
 export default function Signup() {
@@ -27,18 +29,21 @@ export default function Signup() {
 
   const signup: SubmitHandler<FormValues> = async (data, e) => {
     e?.preventDefault();
-    const { name, username } = data;
+    const { name, username, email, password } = data;
     try {
       const res = await fetch(
-        `${process.env.NEXT_PUBLIC_BACKEND_URL}/account/signup`,
+        `${process.env.NEXT_PUBLIC_BACKEND_URL}/auth/signup`,
         {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
           },
+          credentials: "include",
           body: JSON.stringify({
             name,
             username,
+            email,
+            password,
           }),
         }
       );
@@ -47,6 +52,7 @@ export default function Signup() {
       }
 
       const user = (await res.json()) as UserRes;
+      console.log(user);
       localStorage.setItem("userID", user.id);
       localStorage.setItem("name", user.name);
       localStorage.setItem("username", user.username);
@@ -72,6 +78,22 @@ export default function Signup() {
           Username
           <Input
             {...register("username", { required: true, minLength: 3 })}
+            type="text"
+            autoComplete="off"
+          />
+        </Label>
+        <Label>
+          Email
+          <Input
+            {...register("email", { required: true, minLength: 3 })}
+            type="text"
+            autoComplete="off"
+          />
+        </Label>
+        <Label>
+          Password
+          <Input
+            {...register("password", { required: true, minLength: 3 })}
             type="text"
             autoComplete="off"
           />

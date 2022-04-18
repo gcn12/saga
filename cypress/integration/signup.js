@@ -4,6 +4,8 @@ describe("User can sign up", () => {
     cy.findByText(/get started/i).click();
     cy.findByLabelText("Name").type("Daniel Smith");
     cy.findByLabelText("Username").type("danny");
+    cy.findByLabelText("Email").type("danny@gmail.com");
+    cy.findByLabelText("Password").type("dannypw");
     cy.findByText(/create/i).click();
   });
 
