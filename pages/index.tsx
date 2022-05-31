@@ -1,5 +1,6 @@
 import Link from "next/link";
 import styled from "styled-components";
+import Spacer from "../components/Shared/Spacer";
 
 export default function Home() {
   return (
@@ -7,16 +8,20 @@ export default function Home() {
       <Container>
         <Header>
           <Logo>Saga</Logo>
-          <li>
-            <Link href="/signup" passHref>
-              <Signup>Get started</Signup>
+          <ButtonsContainer>
+            <Link href="/login" passHref>
+              <Signup>Log in</Signup>
             </Link>
-          </li>
+            <Spacer size={16} axis="x" />
+            <Link href="/signup" passHref>
+              <LogIn>Get started</LogIn>
+            </Link>
+          </ButtonsContainer>
         </Header>
         <style jsx global>{`
           body,
           html {
-            background: rgb(244, 240, 247);
+            background: #fefcff;
           }
         `}</style>
         <TextContainer>
@@ -32,7 +37,6 @@ export default function Home() {
           </Subheader>
           <DisplayPhoto alt="Profile example" src="/profile-example.png" />
         </SectionContainer>
-
         <SectionContainer>
           <DisplayPhoto alt="Portfolio example" src="/portfolio-example.png" />
           <div style={{ marginRight: "50px" }}></div>
@@ -54,10 +58,10 @@ const Container = styled.div`
 const Background = styled.div`
   width: 100vw;
   min-height: 100vh;
-  background-color: rgb(244, 240, 247);
+  background-color: #fefcff;
 `;
 
-const Header = styled.ul`
+const Header = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -65,19 +69,33 @@ const Header = styled.ul`
   list-style-type: none;
 `;
 
-const Logo = styled.li`
+const Logo = styled.p`
   color: #000000;
   font-size: 2rem;
   font-weight: 700;
 `;
 
 const Signup = styled.a`
+  background-color: transparent;
+  padding: 12px 20px;
+  color: rgb(72, 71, 71);
+  border-radius: 4px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background-color 100ms ease-in-out;
+`;
+
+const LogIn = styled.a`
   background-color: rgb(72, 71, 71);
   padding: 12px 20px;
   color: white;
   border-radius: 4px;
   font-weight: 700;
   cursor: pointer;
+  transition: background-color 100ms ease-in-out;
+  &:hover {
+    background-color: rgb(90, 90, 90);
+  }
 `;
 
 const TextContainer = styled.div`
@@ -88,16 +106,18 @@ const TextContainer = styled.div`
 
 const Title = styled.h1`
   color: #000000;
-  font-size: 8rem;
+  font-size: 7rem;
   font-weight: 500;
   line-height: 1.2;
   margin-top: 140px;
   padding: 0 50px;
+  text-align: center;
+  max-width: 800px;
 `;
 
 const InnerTitle = styled.span`
   font-weight: 700;
-  font-size: 8rem;
+  font-size: 7rem;
   margin-left: 30px;
   color: rgb(179, 166, 124);
 `;
@@ -126,4 +146,8 @@ const DisplayPhoto = styled.img`
   max-width: 45%;
   object-fit: cover;
   border-radius: 10px;
+`;
+
+const ButtonsContainer = styled.div`
+  display: flex;
 `;

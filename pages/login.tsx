@@ -11,8 +11,6 @@ import { useForm, SubmitHandler } from "react-hook-form";
 type UserRes = Pick<User, "id" | "name" | "username" | "email">;
 
 type FormValues = {
-  name: string;
-  username: string;
   email: string;
   password: string;
 };
@@ -28,7 +26,7 @@ export default function Signup() {
 
   const signup: SubmitHandler<FormValues> = async (data, e) => {
     e?.preventDefault();
-    const { name, username, email, password } = data;
+    const { email, password } = data;
     try {
       const res = await fetch(
         `${process.env.NEXT_PUBLIC_BACKEND_URL}/auth/signup`,
@@ -39,8 +37,6 @@ export default function Signup() {
           },
           credentials: "include",
           body: JSON.stringify({
-            name,
-            username,
             email,
             password,
           }),
@@ -64,23 +60,7 @@ export default function Signup() {
   return (
     <Container>
       <Form onSubmit={handleSubmit(signup)}>
-        <Title>Sign up</Title>
-        <Label>
-          Name
-          <Input
-            {...register("name", { required: true, minLength: 3 })}
-            type="text"
-            autoComplete="off"
-          />
-        </Label>
-        <Label>
-          Username
-          <Input
-            {...register("username", { required: true, minLength: 3 })}
-            type="text"
-            autoComplete="off"
-          />
-        </Label>
+        <Title>Log in</Title>
         <Label>
           Email
           <Input
@@ -97,7 +77,7 @@ export default function Signup() {
             autoComplete="off"
           />
         </Label>
-        {errors.name && <p>Error</p>}
+        {errors.email && <p>Error</p>}
         <ColoredButton style={{ width: "100%" }} type="submit">
           CREATE
         </ColoredButton>
@@ -117,7 +97,7 @@ const Form = styled.form`
   border: 1px solid rgb(218, 218, 218);
   border-radius: 8px;
   width: 350px;
-  min-height: 500px;
+  height: 400px;
   padding: 8px 36px;
   display: grid;
   place-items: center;

@@ -1,6 +1,8 @@
 import { AnimatePresence } from "framer-motion";
 import React, { useState } from "react";
-// import { getStorage, ref } from "firebase/storage";
+import { getStorage, ref } from "firebase/storage";
+import { storage } from "../firebase";
+import { collection, getDocs } from "firebase/firestore/lite";
 
 import { User } from "../types/types";
 import styled from "styled-components";
@@ -25,13 +27,13 @@ export default function Header({ user }: HeaderProps) {
 
   // const storage = getStorage();
 
-  const uploadImage = (e: React.FormEvent<HTMLInputElement>) => {
+  const uploadImage = async (e: React.FormEvent<HTMLInputElement>) => {
     e.preventDefault();
 
     const image = e.currentTarget?.files?.[0];
     if (!image) return;
-    // const imageRef = ref(storage, image.name);
-    // console.log(imageRef);
+    const imageRef = ref(storage, image.name);
+    console.log(imageRef);
   };
 
   return (
