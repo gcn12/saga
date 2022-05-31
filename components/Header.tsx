@@ -1,6 +1,6 @@
 import { AnimatePresence } from "framer-motion";
-import { useState } from "react";
-// import { useSession } from "next-auth/react";
+import React, { useState } from "react";
+// import { getStorage, ref } from "firebase/storage";
 
 import { User } from "../types/types";
 import styled from "styled-components";
@@ -15,7 +15,6 @@ interface HeaderProps {
 }
 
 export default function Header({ user }: HeaderProps) {
-  // const { data: session } = useSession();
   const { location, name, career, bio, profilePictureURL, videoIntroduction } =
     user;
   const [showIntroVideo, setShowIntroVideo] = useState(false);
@@ -24,12 +23,37 @@ export default function Header({ user }: HeaderProps) {
 
   const { username, tab, edit = false } = router.query;
 
+  // const storage = getStorage();
+
+  const uploadImage = (e: React.FormEvent<HTMLInputElement>) => {
+    e.preventDefault();
+
+    const image = e.currentTarget?.files?.[0];
+    if (!image) return;
+    // const imageRef = ref(storage, image.name);
+    // console.log(imageRef);
+  };
+
   return (
     <Container>
       <div style={{ display: "flex", justifyContent: "space-between" }}>
         <InnerContainer>
           <div>
-            <ProfileImage src={profilePictureURL} alt="Profile pic" />
+            <ProfileImageContainer>
+              <ProfileImage src={profilePictureURL} alt="Profile pic" />
+              {edit ? (
+                <>
+                  <UploadProfileImageLabel htmlFor="photo-upload">
+                    +
+                  </UploadProfileImageLabel>
+                  <UploadProfileImage
+                    onChange={uploadImage}
+                    type="file"
+                    id="photo-upload"
+                  />
+                </>
+              ) : null}
+            </ProfileImageContainer>
             {videoIntroduction && (
               <VideoButton onClick={() => setShowIntroVideo(true)}>
                 <VideoIcon />
@@ -52,7 +76,6 @@ export default function Header({ user }: HeaderProps) {
             </LocationContainer>
           </TextContainer>
         </InnerContainer>
-        {/* {session && ( */}
         <Link
           href={`/${username}/${tab ? tab[0] : ""}${edit ? "" : "?edit=true"}`}
           scroll={false}
@@ -129,6 +152,39 @@ const InnerContainer = styled.div`
   align-items: flex-start;
   margin-bottom: 60px;
   height: 125px;
+`;
+
+const ProfileImageContainer = styled.div`
+  position: relative;
+`;
+
+const UploadProfileImageLabel = styled.label`
+  height: 36px;
+  width: 36px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  background-color: white;
+  position: absolute;
+  bottom: 24px;
+  right: 24px;
+  font-weight: 600;
+  font-size: 1.2rem;
+  cursor: pointer;
+  &:active {
+    outline: 2px solid red;
+  }
+  &:focus-within {
+    outline: 2px solid red;
+  }
+`;
+
+const UploadProfileImage = styled.input`
+  height: 0px;
+  width: 0px;
+  z-index: -10;
 `;
 
 const ProfileImage = styled.img`

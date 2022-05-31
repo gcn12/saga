@@ -5,6 +5,7 @@ import { AuthContext } from "../../state/context";
 import toastError from "../Shared/Toast";
 import Spacer from "../Shared/Spacer";
 import { getErrorMessage } from "../../utils/utils";
+import TipTap from "../TipTap";
 
 export default function Profile() {
   const [status, setStatus] = useState<SubmitButtonStatus>("idle");
@@ -16,7 +17,6 @@ export default function Profile() {
   );
 
   const formItems = [
-    { label: "Career", setState: setCareer, value: career },
     { label: "Location", setState: setLocation, value: location },
     {
       label: "Introduction video",
@@ -66,6 +66,15 @@ export default function Profile() {
 
   return (
     <form onSubmit={(e) => saveSettings(e)}>
+      <Label>
+        Career
+        <TipTap
+          defaultValue={career}
+          allowBulletList={false}
+          setText={setCareer}
+        />
+      </Label>
+      <Spacer size={16} axis="y" />
       {formItems.map((formItem) => {
         return (
           <Fragment key={formItem.label}>

@@ -47,7 +47,7 @@ describe("Can save profile settings", () => {
       </AuthContext.Provider>
     );
 
-    const submitButton = screen.getByRole("button");
+    const submitButton = screen.getByRole("button", { name: /save/i });
     expect(submitButton).toHaveTextContent(/save/i);
     fireEvent.click(submitButton);
   });

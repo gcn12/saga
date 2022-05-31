@@ -6,6 +6,7 @@ interface TipTapProps {
   setText: (content: string) => void;
   allowBold?: boolean;
   allowBulletList?: boolean;
+  defaultValue?: string;
 }
 
 type EditorContentPropsExtended = EditorContentProps & {
@@ -57,10 +58,11 @@ export default function TipTap({
   setText,
   allowBold = true,
   allowBulletList = true,
+  defaultValue,
 }: TipTapProps) {
   const editor = useEditor({
     extensions: [StarterKit],
-    content: ``,
+    content: defaultValue,
     onUpdate({ editor }) {
       setText(editor.getHTML());
     },

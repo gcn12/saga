@@ -7,7 +7,6 @@ import { ColoredButton } from "../components/Shared/Buttons";
 import toastError from "../components/Shared/Toast";
 import { getErrorMessage } from "../utils/utils";
 import { useForm, SubmitHandler } from "react-hook-form";
-// import { signIn, signOut } from "next-auth/react";
 
 type UserRes = Pick<User, "id" | "name" | "username" | "email">;
 
@@ -86,7 +85,7 @@ export default function Signup() {
           Email
           <Input
             {...register("email", { required: true, minLength: 3 })}
-            type="text"
+            type="email"
             autoComplete="off"
           />
         </Label>
@@ -94,7 +93,7 @@ export default function Signup() {
           Password
           <Input
             {...register("password", { required: true, minLength: 3 })}
-            type="text"
+            type="password"
             autoComplete="off"
           />
         </Label>
@@ -102,8 +101,6 @@ export default function Signup() {
         <ColoredButton style={{ width: "100%" }} type="submit">
           CREATE
         </ColoredButton>
-        {/* <button onClick={() => signIn()}>Sign up</button>
-        <button onClick={() => signOut()}>Sign out</button> */}
       </Form>
     </Container>
   );
